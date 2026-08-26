@@ -49,14 +49,14 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
         </Reveal>
       </div>
 
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col lg:flex-row">
         <div
-          className="w-full md:w-(--img-w) md:mr-40 md:shrink-0 mb-6 md:mb-0"
+          className="w-full lg:w-(--img-w) lg:mr-40 lg:shrink-0 mb-6 lg:mb-0"
           style={{ '--img-w': `${imageWidth}%` } as React.CSSProperties}
         >
           {data.videoUrl ? (
             <div
-              className="relative h-64 md:h-(--img-h) rounded-2xl overflow-hidden"
+              className="relative h-64 lg:h-(--img-h) rounded-2xl overflow-hidden"
               style={{ '--img-h': `${imageHeight}px` } as React.CSSProperties}
             >
               <video
@@ -71,14 +71,14 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
           ) : (
             data.image?.asset && (
               <div
-              className="relative h-64 md:h-(--img-h) rounded-2xl overflow-hidden"
+              className="relative h-64 lg:h-(--img-h) rounded-2xl overflow-hidden"
               style={{ '--img-h': `${imageHeight}px` } as React.CSSProperties}
             >
                 <Image
                   src={urlFor(data.image).width(1200).url()}
                   alt={data.image.alt || ''}
                   fill
-                  sizes={`(max-width: 768px) 100vw, ${imageWidth}vw`}
+                  sizes={`(max-width: 1024px) 100vw, ${imageWidth}vw`}
                   className={fitClass}
                   priority={priority}
                   loading={priority ? undefined : 'lazy'}

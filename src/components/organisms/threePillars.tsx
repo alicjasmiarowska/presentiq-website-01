@@ -27,7 +27,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
 
   return (
     <Section className="bg-primary-dark">
-    <div className="pt-20 pb-20">
+    <div className="pt-10 pb-10 md:pt-20 md:pb-20">
       <Reveal>
         <Heading
           level="h2"

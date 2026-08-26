@@ -92,7 +92,7 @@ export default async function AboutPage({
         }}
       />
         <FourPillarsSection data={fourPillarsData} locale={locale as 'en' | 'de'} />
-        <Section className="pt-20 md:pt-20">
+        <Section className="pt-6 md:pt-20">
           <TextAndPictureSection data={data?.textAndPicture} locale={locale as 'en' | 'de'} textColor="light" />
         </Section>
       </div>

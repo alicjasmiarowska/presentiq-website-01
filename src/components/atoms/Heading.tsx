@@ -16,9 +16,16 @@ export default function Heading({ text, level = 'h1', className = '', children }
   }
 
   const Tag = level
+  // text-balance/hyphens-auto assume a plain text node to re-flow and
+  // hyphenate. When children override `text` (e.g. CharReveal splitting the
+  // heading into per-character spans for animation), the browser has no text
+  // run left to balance or hyphenate, and text-balance actively suppresses
+  // the visual hyphen at any manual break point we add ourselves — so skip
+  // both here and let it wrap normally instead.
+  const wrapClasses = children ? '' : 'text-balance hyphens-auto'
 
   return (
-    <Tag className={`font-display leading-[1.2] ${sizes[level]} text-primary-dark text-balance hyphens-auto ${className}`}>
+    <Tag className={`font-display leading-[1.2] ${sizes[level]} text-primary-dark ${wrapClasses} ${className}`}>
       {children ?? text}
     </Tag>
   )

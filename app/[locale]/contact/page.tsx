@@ -40,7 +40,7 @@ export default async function ContactPage({
   const t = (field: any) => field?.[locale] || field?.en || ''
 
   return (
-    <main className="relative overflow-hidden bg-primary-dark px-6 md:px-20 lg:px-40 pt-28 pb-16 md:pt-20 md:pb-30">
+    <main className="relative overflow-hidden bg-primary-dark px-6 md:px-20 lg:px-40 pt-16 pb-16 md:pt-20 md:pb-30">
       <div
         className="absolute pointer-events-none"
         style={{
@@ -61,7 +61,7 @@ export default async function ContactPage({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           <Reveal delay={500}>
             <Heading level="h3" text={t(data?.formHeadline)} className="text-white mb-6" />
-            <Text text={t(data?.formBody)} size="lg" color="primary" className="mr-10" />
+            <Text text={t(data?.formBody)} size="base" color="primary" className="mr-10" />
           </Reveal>
 
           <Reveal delay={650}>

@@ -38,14 +38,14 @@ export default function TextAndImageSliderSection({
   const buttonHref = resolveButtonHref(locale, data.buttonPage, data.buttonHref)
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="w-full md:w-1/2 md:mr-40 mb-6 md:mb-0">
+    <div className="flex flex-col lg:flex-row">
+      <div className="w-full lg:w-1/2 lg:mr-40 mb-6 lg:mb-0">
         <Reveal>
           <ImageSlider images={data.images} />
         </Reveal>
       </div>
 
-      <div className="w-full md:w-1/2 flex flex-col justify-center">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center">
         <Reveal delay={150}>
           <Heading
             level="h3"

@@ -28,12 +28,12 @@ export default function ProcessSection({ data, locale, textColor = 'dark' }: Pro
 
   return (
     <Section>
-      <div className="pt-20 pb-20">
+      <div className="pt-10 pb-10 md:pt-20 md:pb-20">
         <Reveal>
           <Heading
             level="h3"
             text={t(data.headline)}
-            className={`mb-24 ${isLight ? 'text-white' : ''}`}
+            className={`mb-10 md:mb-24 ${isLight ? 'text-white' : ''}`}
           />
         </Reveal>
 

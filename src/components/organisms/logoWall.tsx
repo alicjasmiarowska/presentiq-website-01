@@ -46,8 +46,8 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
   const row2 = logos.slice(half)
 
   return (
-    <section className="bg-white py-8 md:py-12">
-      <div className="pt-12 md:pt-20">
+    <section className="bg-white py-6 md:py-12">
+      <div className="pt-6 md:pt-20">
         <div className="max-w-[1680px] mx-auto px-6 md:px-20 lg:px-40 flex flex-col md:flex-row items-start justify-between gap-6 md:gap-12 mb-12">
           <Heading level="h4" text={t(data.headline)} />
           <div className="w-full md:w-[40%]">

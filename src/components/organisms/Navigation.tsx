@@ -74,12 +74,12 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
         <Link href={`/${locale}`} className="shrink-0">
           {data.logo?.asset ? (
             <Image
-              src={urlFor(data.logo).width(200).url()}
+              src={urlFor(data.logo).width(300).url()}
               alt={data.logo.alt || 'Presentiq'}
               width={175}
               height={40}
               priority
-              className="h-8 md:h-10 w-auto"
+              className="h-12 md:h-10 w-auto"
             />
           ) : (
             <span className="font-display text-xl md:text-2xl font-bold text-primary-dark">

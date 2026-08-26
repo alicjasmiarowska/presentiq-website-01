@@ -22,20 +22,42 @@ interface FeaturesSectionProps {
   textColor?: 'dark' | 'light'
 }
 
-export default function FeaturesSection({ data, locale, textColor = 'dark' }: FeaturesSectionProps) {
+// CSS mask-image (used to tint an arbitrary icon to our brand color) is
+// inconsistently supported for cross-origin SVGs on mobile browsers, so we
+// fetch the SVG server-side and inline it with fill="currentColor" instead —
+// that renders identically everywhere and just inherits the wrapper's color.
+async function fetchInlineIcon(url: string): Promise<string | null> {
+  try {
+    const res = await fetch(url, { next: { revalidate: 3600 } })
+    if (!res.ok) return null
+    const text = await res.text()
+    if (!text.includes('<svg')) return null
+    return text.replace(/fill="(?!none")[^"]*"/g, 'fill="currentColor"')
+  } catch {
+    return null
+  }
+}
+
+export default async function FeaturesSection({ data, locale, textColor = 'dark' }: FeaturesSectionProps) {
   if (!data || !data.items?.length) return null
 
   const t = (field: any) => field?.[locale] || field?.en || ''
   const isLight = textColor === 'light'
 
+  const icons = await Promise.all(
+    data.items.map((item) =>
+      item.icon?.asset ? fetchInlineIcon(urlFor(item.icon).width(200).url()) : Promise.resolve(null)
+    )
+  )
+
   return (
     <Section>
-      <div className="pt-10 pb-20">
+      <div className="pt-10 pb-10 md:pt-10 md:pb-20">
         <Reveal>
           <Heading
             level="h3"
             text={t(data.headline)}
-            className={`mb-24 ${isLight ? 'text-white' : ''}`}
+            className={`mb-10 md:mb-24 ${isLight ? 'text-white' : ''}`}
           />
         </Reveal>
 
@@ -43,19 +65,10 @@ export default function FeaturesSection({ data, locale, textColor = 'dark' }: Fe
           {data.items.map((item, index) => (
             <Reveal key={item._key} delay={index * 150}>
               <div>
-                {item.icon?.asset && (
-                  <div
-                    className="w-20 h-20 mb-4 bg-primary-blue"
-                    style={{
-                      WebkitMaskImage: `url(${urlFor(item.icon).width(200).url()})`,
-                      maskImage: `url(${urlFor(item.icon).width(200).url()})`,
-                      WebkitMaskSize: 'contain',
-                      maskSize: 'contain',
-                      WebkitMaskRepeat: 'no-repeat',
-                      maskRepeat: 'no-repeat',
-                      WebkitMaskPosition: 'center',
-                      maskPosition: 'center',
-                    }}
+                {icons[index] && (
+                  <span
+                    className="block w-20 h-20 mb-4 text-primary-blue [&>svg]:w-full [&>svg]:h-full"
+                    dangerouslySetInnerHTML={{ __html: icons[index]! }}
                   />
                 )}
                 <div className="pt-6 border-t-2 border-primary-blue">

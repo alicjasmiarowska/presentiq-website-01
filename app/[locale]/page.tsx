@@ -89,7 +89,7 @@ export default async function Home({
           </div>
           <HeroSection data={heroData} locale={locale as 'en' | 'de'} />
           <section className="relative">
-            <div className="mx-4 md:mx-20 bg-white rounded-t-[48px] pt-10 pb-10 px-6 md:pt-20 md:pb-20 md:px-20">
+            <div className="mx-4 md:mx-20 bg-white rounded-t-[20px] md:rounded-t-[48px] pt-10 pb-10 px-6 md:pt-20 md:pb-20 md:px-20">
               <TextAndPictureSection data={textAndPictureData} locale={locale as 'en' | 'de'} textColor="dark" priority />
             </div>
           </section>
