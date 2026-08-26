@@ -72,26 +72,28 @@ export default async function Home({
          `,
         }}
         />
-         <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: -1 }}>
-          <div
-            className="absolute rounded-full"
-            style={{
-              right: 0,
-              top: '19.7%',
-              width: '820px',
-              height: '820px',
-              transform: 'translate(50%, -50%)',
-              backgroundColor: '#0055FF',
-              filter: 'blur(200px)',
-            }}
-          />
-        </div>
-        <HeroSection data={heroData} locale={locale as 'en' | 'de'} />
-        <section className="relative">
-          <div className="mx-4 md:mx-20 bg-white rounded-t-[48px] pt-10 pb-10 px-6 md:pt-20 md:pb-20 md:px-20">
-            <TextAndPictureSection data={textAndPictureData} locale={locale as 'en' | 'de'} textColor="dark" />
+        <div className="relative">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: -1 }}>
+            <div
+              className="absolute rounded-full"
+              style={{
+                right: 0,
+                top: '19.7%',
+                width: '820px',
+                height: '820px',
+                transform: 'translate(50%, -50%)',
+                backgroundColor: '#0055FF',
+                filter: 'blur(200px)',
+              }}
+            />
           </div>
-        </section>
+          <HeroSection data={heroData} locale={locale as 'en' | 'de'} />
+          <section className="relative">
+            <div className="mx-4 md:mx-20 bg-white rounded-t-[48px] pt-10 pb-10 px-6 md:pt-20 md:pb-20 md:px-20">
+              <TextAndPictureSection data={textAndPictureData} locale={locale as 'en' | 'de'} textColor="dark" priority />
+            </div>
+          </section>
+        </div>
         <FeaturedWorkSection data={featuredWorkData} locale={locale as 'en' | 'de'} />
       </div>
       <ThreePillarsSection data={threePillarsData} locale={locale as 'en' | 'de'} />

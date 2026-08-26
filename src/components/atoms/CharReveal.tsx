@@ -13,6 +13,7 @@ const STAGGER = 0.035
 export default function CharReveal({ text, className = '' }: CharRevealProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const [visible, setVisible] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const el = ref.current
@@ -36,6 +37,17 @@ export default function CharReveal({ text, className = '' }: CharRevealProps) {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    // On narrow screens each word usually wraps to its own line, so a global
+    // per-character stagger reveals only an isolated letter-fragment at a time
+    // instead of a whole line — stagger per word there so each line rises as one piece.
+    const mq = window.matchMedia('(max-width: 767px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
   const words = text.split(' ')
   let charIndex = 0
 
@@ -44,7 +56,7 @@ export default function CharReveal({ text, className = '' }: CharRevealProps) {
       {words.map((word, wordIndex) => (
         <span key={wordIndex} className="inline-block">
           {word.split('').map((char) => {
-            const i = charIndex
+            const i = isMobile ? wordIndex * 3 : charIndex
             charIndex += 1
             return (
               <span key={i} className="inline-block overflow-hidden" style={{ verticalAlign: 'top' }}>

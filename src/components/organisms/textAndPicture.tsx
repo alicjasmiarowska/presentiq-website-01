@@ -23,9 +23,10 @@ interface TextAndPictureSectionProps {
   data: TextAndPictureData
   locale: 'en' | 'de'
   textColor?: 'dark' | 'light'
+  priority?: boolean
 }
 
-export default function TextAndPictureSection({ data, locale, textColor = 'dark' }: TextAndPictureSectionProps) {
+export default function TextAndPictureSection({ data, locale, textColor = 'dark', priority = false }: TextAndPictureSectionProps) {
   if (!data) return null
 
   const t = (field: any) => field?.[locale] || field?.en || ''
@@ -74,11 +75,13 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
               style={{ '--img-h': `${imageHeight}px` } as React.CSSProperties}
             >
                 <Image
-                  src={urlFor(data.image).width(600).url()}
+                  src={urlFor(data.image).width(1200).url()}
                   alt={data.image.alt || ''}
                   fill
                   sizes={`(max-width: 768px) 100vw, ${imageWidth}vw`}
                   className={fitClass}
+                  priority={priority}
+                  loading={priority ? undefined : 'lazy'}
                 />
               </div>
             )

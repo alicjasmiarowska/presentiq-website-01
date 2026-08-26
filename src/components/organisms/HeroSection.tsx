@@ -28,7 +28,7 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
   const buttonHref2 = resolveButtonHref(locale, data.buttonPage2, data.buttonHref2)
 
   return (
-    <section className="min-h-150 max-lg:landscape:min-h-0 max-lg:landscape:h-auto md:h-[80vh] flex flex-col justify-between gap-10 max-lg:landscape:gap-6 px-6 md:px-20 lg:px-40 pt-28 max-lg:landscape:pt-20 pb-12 max-lg:landscape:pb-10 md:pt-20 md:pb-40">
+    <section className="min-h-150 max-lg:landscape:min-h-0 max-lg:landscape:h-auto md:h-[80vh] flex flex-col justify-between gap-10 max-lg:landscape:gap-6 px-6 md:px-20 lg:px-40 pt-16 max-lg:landscape:pt-20 pb-12 max-lg:landscape:pb-10 md:pt-20 md:pb-40">
       <div className="w-full max-w-[1680px] mx-auto">
         <div className="w-full md:w-[90%]">
           <Heading level="h1" text={t(data.title)} className="text-white">
