@@ -21,6 +21,7 @@ interface Service {
 
 interface NavigationData {
   logo?: any
+  logoLight?: any
   navLinks: NavLink[]
   servicesLabel?: { en: string; de: string }
   loginLabel: { en: string; de: string }
@@ -40,11 +41,19 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
   const [servicesOpen, setServicesOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     setMobileOpen(false)
     setMobileServicesOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -69,29 +78,34 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
   const loginIsExternal = isExternal(data.loginHref || '')
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-neutral-light">
-      <nav className="max-w-[1680px] mx-auto flex items-center justify-between gap-6 px-6 md:px-20 lg:px-40 py-4">
-        <Link href={`/${locale}`} className="shrink-0">
-          {data.logo?.asset ? (
-            <Image
-              src={urlFor(data.logo).width(300).url()}
-              alt={data.logo.alt || 'Presentiq'}
-              width={175}
-              height={40}
-              priority
-              className="h-12 md:h-10 w-auto"
-            />
+    <header
+      className={`fixed top-0 inset-x-0 z-50 border-b border-white/20 transition-colors duration-300 ${
+        scrolled ? 'bg-primary-dark/70 backdrop-blur-md' : 'bg-transparent'
+      }`}
+    >
+      <nav className="max-w-[1680px] mx-auto flex items-stretch">
+        <Link href={`/${locale}`} className="shrink-0 flex items-center px-6 md:px-12 lg:px-20 py-4">
+          {data.logoLight?.asset || data.logo?.asset ? (
+            <span className="relative block h-12 w-48 md:h-16 md:w-64">
+              <Image
+                src={urlFor(data.logoLight?.asset ? data.logoLight : data.logo).width(300).url()}
+                alt={(data.logoLight?.asset ? data.logoLight.alt : data.logo?.alt) || 'Presentiq'}
+                fill
+                priority
+                className="object-contain object-left"
+              />
+            </span>
           ) : (
-            <span className="font-display text-xl md:text-2xl font-bold text-primary-dark">
+            <span className="font-display text-xl md:text-2xl font-bold text-white">
               Presentiq
             </span>
           )}
         </Link>
 
-        <ul className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-stretch divide-x divide-white/20 ml-auto">
           {activeServices.length > 0 && (
-            <li
-              className="relative"
+            <div
+              className="relative flex items-center px-3"
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
@@ -101,7 +115,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
                 aria-expanded={servicesOpen}
                 aria-haspopup="true"
                 aria-controls="desktop-services-menu"
-                className="flex items-center gap-1.5 text-sm font-medium uppercase text-primary-dark hover:text-primary-blue transition-colors"
+                className="flex items-center gap-1.5 whitespace-nowrap text-sm font-medium uppercase text-white hover:text-primary-blue transition-colors"
               >
                 {t(data.servicesLabel) || 'Services'}
                 <svg
@@ -137,32 +151,30 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
                   ))}
                 </div>
               </div>
-            </li>
+            </div>
           )}
           {data.navLinks?.map((link) => (
-            <li key={link._key}>
+            <div key={link._key} className="flex items-center px-8">
               <Link
                 href={resolveHref(linkHref(link))}
                 {...(isExternal(linkHref(link)) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="text-sm font-medium uppercase text-primary-dark hover:text-primary-blue transition-colors"
+                className="whitespace-nowrap text-sm font-medium uppercase text-white hover:text-primary-blue transition-colors"
               >
                 {t(link.label)}
               </Link>
-            </li>
+            </div>
           ))}
-        </ul>
 
-        <div className="hidden lg:flex items-center gap-6">
-          <div className="flex items-center gap-1 text-sm font-semibold">
+          <div className="flex items-center gap-1 px-8 whitespace-nowrap text-sm font-semibold">
             {locales.map((loc, i) => (
               <span key={loc} className="flex items-center gap-1">
-                {i > 0 && <span className="text-gray-300" aria-hidden="true">/</span>}
+                {i > 0 && <span className="text-white/40" aria-hidden="true">/</span>}
                 <Link
                   href={`/${loc}${pathWithoutLocale}`}
                   className={
                     loc === locale
-                      ? 'text-primary-dark'
-                      : 'text-gray-500 hover:text-primary-dark'
+                      ? 'text-white'
+                      : 'text-white/60 hover:text-white'
                   }
                 >
                   {loc.toUpperCase()}
@@ -171,39 +183,43 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
             ))}
           </div>
 
-          <Link
-            href={loginHref}
-            {...(loginIsExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className="font-semibold rounded-full transition-all duration-200 border-2 border-primary-blue text-primary-blue active:bg-primary-blue active:text-white active:scale-105 px-4 py-2 text-sm"
-          >
-            {t(data.loginLabel) || 'Login'}
-          </Link>
+          <div className="flex items-center pl-8 pr-6 md:pr-12 lg:pr-20">
+            <Link
+              href={loginHref}
+              {...(loginIsExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className="whitespace-nowrap font-semibold rounded-full transition-all duration-200 border-1 border-white text-white active:bg-white active:text-white active:scale-105 px-4 py-2 text-sm"
+            >
+              {t(data.loginLabel) || 'Login'}
+            </Link>
+          </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setMobileOpen((open) => !open)}
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-nav-panel"
-          className="lg:hidden relative w-8 h-8 shrink-0"
-        >
-          <span
-            className={`absolute left-1/2 top-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-primary-dark transition-transform duration-300 ${
-              mobileOpen ? 'rotate-45' : '-translate-y-2'
-            }`}
-          />
-          <span
-            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-0.5 w-6 rounded-full bg-primary-dark transition-opacity duration-200 ${
-              mobileOpen ? 'opacity-0' : 'opacity-100'
-            }`}
-          />
-          <span
-            className={`absolute left-1/2 top-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-primary-dark transition-transform duration-300 ${
-              mobileOpen ? '-rotate-45' : 'translate-y-2'
-            }`}
-          />
-        </button>
+        <div className="lg:hidden ml-auto flex items-center px-6">
+          <button
+            type="button"
+            onClick={() => setMobileOpen((open) => !open)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-panel"
+            className="relative w-8 h-8 shrink-0"
+          >
+            <span
+              className={`absolute left-1/2 top-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full transition-transform duration-300 ${
+                mobileOpen ? 'rotate-45 bg-primary-dark' : '-translate-y-2 bg-white'
+              }`}
+            />
+            <span
+              className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-0.5 w-6 rounded-full transition-opacity duration-200 ${
+                mobileOpen ? 'opacity-0 bg-primary-dark' : 'opacity-100 bg-white'
+              }`}
+            />
+            <span
+              className={`absolute left-1/2 top-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full transition-transform duration-300 ${
+                mobileOpen ? '-rotate-45 bg-primary-dark' : 'translate-y-2 bg-white'
+              }`}
+            />
+          </button>
+        </div>
       </nav>
 
       <div

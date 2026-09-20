@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import HeroSection from '../../src/components/organisms/HeroSection'
-import TextAndPictureSection from '../../src/components/organisms/textAndPicture'
+import TwoColumnSection from '../../src/components/organisms/twoColumnSection'
 import ThreePillarsSection from '../../src/components/organisms/threePillars'
 import ServicesSection from '../../src/components/organisms/servicesSection'
 import FeaturedWorkSection from '../../src/components/organisms/featuredWork'
@@ -52,7 +52,7 @@ export default async function Home({
 
   const homepageData = await getHomepage()
   const heroData = homepageData?.hero
-  const textAndPictureData = homepageData?.textAndPicture
+  const twoColumnSectionData = homepageData?.twoColumnSection
   const featuredWorkData = await getFeaturedWork(locale as 'en' | 'de')
   const threePillarsData = await getThreePillars(locale as 'en' | 'de')
   const servicesSectionData = await getServicesSection(locale as 'en' | 'de')
@@ -88,13 +88,9 @@ export default async function Home({
             />
           </div>
           <HeroSection data={heroData} locale={locale as 'en' | 'de'} />
-          <section className="relative">
-            <div className="mx-4 md:mx-20 bg-white rounded-t-[20px] md:rounded-t-[48px] pt-10 pb-10 px-6 md:pt-20 md:pb-20 md:px-20">
-              <TextAndPictureSection data={textAndPictureData} locale={locale as 'en' | 'de'} textColor="dark" priority />
-            </div>
-          </section>
+          <TwoColumnSection data={twoColumnSectionData} locale={locale as 'en' | 'de'} />
         </div>
-        <FeaturedWorkSection data={featuredWorkData} locale={locale as 'en' | 'de'} />
+        {/* Tymczasowo ukryte: <FeaturedWorkSection data={featuredWorkData} locale={locale as 'en' | 'de'} /> */}
       </div>
       <ThreePillarsSection data={threePillarsData} locale={locale as 'en' | 'de'} />
       <ServicesSection
@@ -103,13 +99,7 @@ export default async function Home({
         locale={locale as 'en' | 'de'}
       />
       <LogoWall data={logoWallData} locale={locale as 'en' | 'de'} />
-      <div className="relative"
-         style={{
-        backgroundImage: `
-        linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 10%, #000023 60%, #000023 100%)
-         `,
-        }}
-      >
+      <div className="relative bg-primary-dark">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
             className="absolute"
@@ -124,7 +114,7 @@ export default async function Home({
             }}
           />
         </div>
-      <VideoSection data={videoSectionData} />
+      {/* Tymczasowo ukryte: <VideoSection data={videoSectionData} /> */}
       <FaqSection data={faqData} locale={locale as 'en' | 'de'} />
       </div>
       <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />

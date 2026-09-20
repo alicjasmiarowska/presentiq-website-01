@@ -11,9 +11,15 @@ export default {
     },
     {
       name: 'textAndPicture',
-      title: 'Text and Picture Section',
+      title: 'Text and Picture Section (nieużywana obecnie)',
       type: 'reference',
       to: [{ type: 'textAndPicture' }],
+    },
+    {
+      name: 'twoColumnSection',
+      title: 'Two Column Section',
+      type: 'reference',
+      to: [{ type: 'twoColumnSection' }],
     },
     {
       name: 'logoWall',

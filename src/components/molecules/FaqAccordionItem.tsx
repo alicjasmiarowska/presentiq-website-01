@@ -20,7 +20,7 @@ export default function FaqAccordionItem({ question, answer }: FaqAccordionItemP
         aria-controls={panelId}
         className="w-full flex items-center justify-between gap-4 py-6 text-left"
       >
-        <span className="font-display text-lg font-semibold text-white">
+        <span className="font-display text-base font-semibold text-white">
           {question}
         </span>
         <span className="relative shrink-0 w-5 h-5" aria-hidden="true">

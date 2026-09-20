@@ -59,7 +59,7 @@ export default function VideoSection({ data }: VideoSectionProps) {
   return (
     <section ref={wrapperRef} className={`relative ${isDesktop ? 'h-[200vh]' : ''}`}>
       <div
-        className={`flex items-center justify-center overflow-hidden px-6 md:px-20 lg:px-40 ${
+        className={`flex items-center justify-center overflow-hidden px-6 md:px-12 lg:px-20 ${
           isDesktop ? 'sticky top-0 h-screen' : 'py-10'
         }`}
       >

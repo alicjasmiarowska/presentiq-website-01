@@ -88,7 +88,7 @@ export default function FeaturedWorkSection({ data, locale }: FeaturedWorkSectio
           isDesktop ? 'sticky top-0 h-screen' : ''
         }`}
       >
-        <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between gap-4 sm:gap-8 mb-8 md:mb-16 pl-6 pr-6 md:pl-20 md:pr-40">
+        <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between gap-4 sm:gap-8 mb-8 md:mb-16 pl-6 pr-6 md:pl-12 md:pr-40">
           <Heading level="h3" text={t(data.headline)} />
           {data.buttonText && (
             <Button text={t(data.buttonText)} href={buttonHref} variant="secondary-light" size="md" />
@@ -97,7 +97,7 @@ export default function FeaturedWorkSection({ data, locale }: FeaturedWorkSectio
 
         <div
           ref={viewportRef}
-          className={isDesktop ? 'overflow-hidden pl-6 md:pl-20' : 'px-6'}
+          className={isDesktop ? 'overflow-hidden pl-6 md:pl-12' : 'px-6'}
         >
           <div
             ref={trackRef}

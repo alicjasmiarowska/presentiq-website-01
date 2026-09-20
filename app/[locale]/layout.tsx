@@ -42,7 +42,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <div className={`${redHatDisplay.variable} ${roboto.variable} font-sans`}>
+    <div className={`${redHatDisplay.variable} ${roboto.variable} font-display`}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
