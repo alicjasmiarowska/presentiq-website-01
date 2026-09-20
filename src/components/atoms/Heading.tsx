@@ -1,3 +1,5 @@
+import { typography } from '../../styles/design-tokens'
+
 interface HeadingProps {
   text: string
   level?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -6,12 +8,16 @@ interface HeadingProps {
   children?: React.ReactNode
 }
 
+// Sizes come from design-tokens.ts (`typography.headingSize`), wired into
+// Tailwind's fontSize scale in tailwind.config.ts — this file only maps
+// levels to the resulting utility classes plus their weight/case, so the
+// actual pixel values live in exactly one place.
 const sizes = {
-  h1: 'text-[48px] md:text-[72px] lg:text-[112px] font-bold',
-  h2: 'text-[36px] md:text-[56px] lg:text-[84px] font-extrabold',
-  h3: 'text-[28px] md:text-[36px] lg:text-[48px] font-bold',
-  h4: 'text-[22px] md:text-[26px] lg:text-[32px] font-bold',
-  h5: 'text-[18px] md:text-[20px] lg:text-[24px] font-bold',
+  h1: 'text-h1 md:text-h1-md lg:text-h1-lg font-bold',
+  h2: 'text-h2 md:text-h2-md lg:text-h2-lg font-extrabold',
+  h3: 'text-h3 md:text-h3-md lg:text-h3-lg font-bold uppercase',
+  h4: 'text-h4 md:text-h4-md lg:text-h4-lg font-bold',
+  h5: 'text-h5 md:text-h5-md lg:text-h5-lg font-bold',
   h6: 'text-base font-bold',
 }
 
@@ -19,8 +25,8 @@ const sizes = {
 // out, clamped size. Used for every H2 that introduces a section (Hero
 // subsections, FAQ, services, pillars, logo wall, ...) so they all stay in
 // sync from this one place instead of each section re-declaring the style.
-const SECTION_VARIANT_CLASSES = 'font-display font-normal uppercase tracking-wider leading-[1.1]'
-const SECTION_VARIANT_STYLE = { fontSize: 'clamp(28px, 3.5vw, 40px)' }
+export const SECTION_VARIANT_CLASSES = 'font-display font-normal uppercase tracking-wider leading-[1.1]'
+export const SECTION_VARIANT_STYLE = { fontSize: typography.sectionHeading.fontSize }
 
 export default function Heading({ text, level = 'h1', variant = 'default', className = '', children }: HeadingProps) {
   const Tag = level

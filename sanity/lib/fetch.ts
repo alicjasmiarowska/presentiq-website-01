@@ -49,6 +49,16 @@ export async function getFourPillars(locale: 'en' | 'de') {
   return client.fetch(`*[_type == "fourPillars"][0]`)
 }
 
+export async function getFourColumns() {
+  return client.fetch(`*[_type == "fourColumns"][0]{
+    ...,
+    columns[]{
+      ...,
+      buttonPage->{ "type": _type, "slug": slug.current }
+    }
+  }`)
+}
+
 export async function getProcess(locale: 'en' | 'de') {
   return client.fetch(`*[_type == "process"][0]`)
 }

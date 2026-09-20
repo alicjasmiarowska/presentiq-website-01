@@ -35,4 +35,31 @@ export const typography = {
     '5xl': ['48px', { lineHeight: '52px' }],
     '6xl': ['60px', { lineHeight: '68px' }],
   },
+  // Responsive per-level sizes for the Heading atom's default variant
+  // (h1–h5; h6 reuses `base` above). Three steps matching the site's
+  // mobile/md/lg breakpoints — kept size-only (no bundled line-height) since
+  // Heading applies its own `leading-*` utility on top.
+  headingSize: {
+    h1: '48px',
+    'h1-md': '72px',
+    'h1-lg': '112px',
+    h2: '36px',
+    'h2-md': '56px',
+    'h2-lg': '84px',
+    h3: '28px',
+    'h3-md': '36px',
+    'h3-lg': '48px',
+    h4: '22px',
+    'h4-md': '26px',
+    'h4-lg': '32px',
+    h5: '18px',
+    'h5-md': '20px',
+    'h5-lg': '24px',
+  },
+  // The site-wide "section heading" look (Heading's `variant="section"`):
+  // one fluid clamp size applied via inline style, so it scales smoothly
+  // instead of stepping at breakpoints like the scale above.
+  sectionHeading: {
+    fontSize: 'clamp(28px, 3.5vw, 40px)',
+  },
 }

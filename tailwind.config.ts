@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors,
-      fontSize: typography.fontSize,
+      fontSize: { ...typography.fontSize, ...typography.headingSize },
       fontFamily: {
         sans: 'var(--font-sans)',
         display: 'var(--font-display)',

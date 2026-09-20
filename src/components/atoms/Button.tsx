@@ -9,9 +9,10 @@ interface ButtonProps {
   size?: 'sm' | 'md' | 'lg'
   className?: string
   showArrow?: boolean
+  arrowClassName?: string
 }
 
-function ArrowIcon() {
+function ArrowIcon({ className = 'text-primary-blue' }: { className?: string }) {
   return (
     <svg
       width="34"
@@ -19,7 +20,7 @@ function ArrowIcon() {
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
-      className="shrink-0 text-primary-blue transition-transform duration-200 group-hover:translate-x-1"
+      className={`shrink-0 transition-transform duration-200 group-hover:translate-x-1 ${className}`}
     >
       <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -35,6 +36,7 @@ export default function Button({
   size = 'md',
   className = '',
   showArrow = false,
+  arrowClassName,
 }: ButtonProps) {
   const baseStyles = 'transition-all duration-200'
 
@@ -58,7 +60,7 @@ export default function Button({
   const content = (
     <>
       <span>{text}</span>
-      {showArrow && <ArrowIcon />}
+      {showArrow && <ArrowIcon className={arrowClassName} />}
     </>
   )
 

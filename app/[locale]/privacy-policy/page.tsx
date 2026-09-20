@@ -47,7 +47,7 @@ export default async function PrivacyPolicyPage({
           <Heading
             level="h1"
             text={heading}
-            className="text-[36px]! md:text-[56px]! lg:text-[84px]! font-extrabold! mb-16"
+            className="text-h2! md:text-h2-md! lg:text-h2-lg! font-extrabold! mb-16"
           >
             <CharReveal text={heading} />
           </Heading>

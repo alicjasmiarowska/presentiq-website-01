@@ -6,6 +6,7 @@ import Heading from '../atoms/Heading'
 import CountUpNumber from '../atoms/CountUpNumber'
 import Reveal from '../atoms/Reveal'
 import { urlFor } from '../../../sanity/lib/image'
+import { colors } from '../../styles/design-tokens'
 
 interface Logo {
   _key: string
@@ -137,7 +138,7 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
           className="flex-1 py-12 overflow-hidden"
           style={{
             backgroundImage:
-              'linear-gradient(180deg, rgba(0, 85, 255, 0) 0%, rgba(0, 85, 255, 0.25) 100%), linear-gradient(180deg, #000023 0%, #050518 100%)',
+              `linear-gradient(180deg, rgba(0, 85, 255, 0) 0%, rgba(0, 85, 255, 0.25) 100%), linear-gradient(180deg, ${colors.primary.dark} 0%, #050518 100%)`,
           }}
         >
           {logos.length > 0 &&
