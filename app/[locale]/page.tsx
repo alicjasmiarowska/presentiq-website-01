@@ -5,15 +5,19 @@ import ThreePillarsSection from '../../src/components/organisms/threePillars'
 import ServicesSection from '../../src/components/organisms/servicesSection'
 import FeaturedWorkSection from '../../src/components/organisms/featuredWork'
 import LogoWall from '../../src/components/organisms/logoWall'
+import FourColumnsSection from '../../src/components/organisms/fourColumns'
 import VideoSection from '../../src/components/organisms/videoSection'
 import FaqSection from '../../src/components/organisms/faqSection'
 import FinalCtaSection from '../../src/components/organisms/finalCta'
+import BlurGlow from '../../src/components/atoms/BlurGlow'
+import { colors } from '../../src/styles/design-tokens'
 import {
   getHomepage,
   getThreePillars,
   getServicesSection,
   getFeaturedWork,
   getLogoWall,
+  getFourColumns,
   getVideoSection,
   getFaq,
   getFinalCta,
@@ -57,6 +61,7 @@ export default async function Home({
   const threePillarsData = await getThreePillars(locale as 'en' | 'de')
   const servicesSectionData = await getServicesSection(locale as 'en' | 'de')
   const logoWallData = await getLogoWall(locale as 'en' | 'de')
+  const fourColumnsData = await getFourColumns()
   const videoSectionData = await getVideoSection()
   const faqData = await getFaq('home')
   const finalCtaData = await getFinalCta(locale as 'en' | 'de')
@@ -66,27 +71,12 @@ export default async function Home({
       <div className="relative">
         <div
           className="absolute inset-0 bg-cover bg-top bg-no-repeat -z-10"
-           style={{
-        backgroundImage: `
-        linear-gradient(180deg, #000023 0%, #000023 24.48%, #FFFFFF 55.8%, #FFFFFF 100%)
-         `,
-        }}
+          style={{
+            backgroundImage: `linear-gradient(180deg, ${colors.primary.dark} 0%, ${colors.primary.dark} 24.48%, ${colors.neutral.white} 55.8%, ${colors.neutral.white} 100%)`,
+          }}
         />
         <div className="relative">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: -1 }}>
-            <div
-              className="absolute rounded-full"
-              style={{
-                right: 0,
-                top: '19.7%',
-                width: '820px',
-                height: '820px',
-                transform: 'translate(50%, -50%)',
-                backgroundColor: '#0055FF',
-                filter: 'blur(200px)',
-              }}
-            />
-          </div>
+          <BlurGlow variant="edge" />
           <HeroSection data={heroData} locale={locale as 'en' | 'de'} />
           <TwoColumnSection data={twoColumnSectionData} locale={locale as 'en' | 'de'} />
         </div>
@@ -99,21 +89,8 @@ export default async function Home({
         locale={locale as 'en' | 'de'}
       />
       <LogoWall data={logoWallData} locale={locale as 'en' | 'de'} />
+      <FourColumnsSection data={fourColumnsData} locale={locale as 'en' | 'de'} />
       <div className="relative bg-primary-dark">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div
-            className="absolute"
-            style={{
-              left: 0,
-              bottom: 0,
-              width: '420px',
-              height: '420px',
-              backgroundColor: '#0055FF',
-              filter: 'blur(200px)',
-              borderRadius: '0 820px 0 0', // ćwiartka koła w rogu dolno-lewym
-            }}
-          />
-        </div>
       {/* Tymczasowo ukryte: <VideoSection data={videoSectionData} /> */}
       <FaqSection data={faqData} locale={locale as 'en' | 'de'} />
       </div>

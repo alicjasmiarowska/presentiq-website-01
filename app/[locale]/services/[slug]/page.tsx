@@ -7,11 +7,13 @@ import FaqSection from '../../../../src/components/organisms/faqSection'
 import Text from '../../../../src/components/atoms/Text'
 import Reveal from '../../../../src/components/atoms/Reveal'
 import Section from '../../../../src/components/atoms/Section'
+import BlurGlow from '../../../../src/components/atoms/BlurGlow'
 import FinalCtaSection from '../../../../src/components/organisms/finalCta'
 import { getServiceBySlug, getFinalCta } from '../../../../sanity/lib/fetch'
 import { notFound } from 'next/navigation'
 import { buildMetadata, resolveSeoText } from '../../../../src/lib/pageMetadata'
 import { siteUrl } from '../../../../src/lib/siteUrl'
+import { colors } from '../../../../src/styles/design-tokens'
 import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
@@ -51,7 +53,7 @@ export default async function ServicePage({
 
   const t = (field: any) => field?.[locale] || field?.en || ''
   const finalCtaData = await getFinalCta(locale as 'en' | 'de')
-  const accentColor = data.accentColor?.hex || '#0055FF'
+  const accentColor = data.accentColor?.hex || colors.primary.blue
   const serviceName = t(data.title)
   const pageUrl = `${siteUrl}/${locale}/services/${slug}`
 
@@ -88,32 +90,8 @@ export default async function ServicePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="relative overflow-hidden bg-primary-dark">
-        <div
-        className="absolute pointer-events-none"
-        style={{
-          right: 0,
-          bottom: 0,
-          width: '420px',
-          height: '420px',
-          backgroundColor: accentColor,
-          filter: 'blur(200px)',
-          borderRadius: '820px 0 0 0', // ćwiartka koła w rogu dolno-prawym
-        }}
-      />
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: -1 }}>
-          <div
-            className="absolute rounded-full"
-            style={{
-              right: 0,
-              top: '19.7%',
-              width: '820px',
-              height: '820px',
-              transform: 'translate(50%, -50%)',
-              backgroundColor: accentColor,
-              filter: 'blur(200px)',
-            }}
-          />
-        </div>
+        <BlurGlow variant="corner" position="bottom-right" color={accentColor} />
+        <BlurGlow variant="edge" color={accentColor} />
         <HeroSection data={data.hero} locale={locale as 'en' | 'de'} />
       </div>
       {data.textAndPicture && (

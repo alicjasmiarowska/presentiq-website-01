@@ -4,6 +4,7 @@ import Text from '../../../src/components/atoms/Text'
 import Reveal from '../../../src/components/atoms/Reveal'
 import CharReveal from '../../../src/components/atoms/CharReveal'
 import ContactForm from '../../../src/components/organisms/ContactForm'
+import BlurGlow from '../../../src/components/atoms/BlurGlow'
 import { getContact } from '../../../sanity/lib/fetch'
 import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
 
@@ -41,18 +42,7 @@ export default async function ContactPage({
 
   return (
     <main className="relative overflow-hidden bg-primary-dark px-6 md:px-12 lg:px-20 pt-16 pb-16 md:pt-20 md:pb-30">
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          right: 0,
-          bottom: 0,
-          width: '820px',
-          height: '820px',
-          backgroundColor: '#0055FF',
-          filter: 'blur(200px)',
-          borderRadius: '820px 0 0 0', // ćwiartka koła w rogu dolno-prawym
-        }}
-      />
+      <BlurGlow variant="corner" position="bottom-right" size={820} />
       <div className="relative max-w-[1680px] mx-auto">
         <Heading level="h1" text={t(data?.headline)} className="text-white mb-10 md:mb-20">
           <CharReveal text={t(data?.headline)} />

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Text from '../atoms/Text'
+import Heading from '../atoms/Heading'
 import PrivacySettingsButton from '../atoms/PrivacySettingsButton'
 import { urlFor } from '../../../sanity/lib/image'
 
@@ -71,24 +72,24 @@ export default function Footer({ data, services, locale }: FooterProps) {
               </span>
             )}
             {data.phone && (
-              <h4 className="font-display leading-[1.2] text-[22px] md:text-[26px] lg:text-[32px] font-bold mb-2">
+              <Heading level="h4" text={data.phone} className="mb-2">
                 <a
                   href={`tel:${data.phone}`}
                   className="text-primary-blue hover:text-white"
                 >
                   {data.phone}
                 </a>
-              </h4>
+              </Heading>
             )}
             {data.email && (
-              <h4 className="font-display leading-[1.2] text-[22px] md:text-[26px] lg:text-[32px] font-bold">
+              <Heading level="h4" text={data.email}>
                 <a
                   href={`mailto:${data.email}`}
                   className="text-primary-blue hover:text-white"
                 >
                   {data.email}
                 </a>
-              </h4>
+              </Heading>
             )}
           </div>
 

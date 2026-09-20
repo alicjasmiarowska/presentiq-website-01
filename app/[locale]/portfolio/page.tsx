@@ -3,6 +3,7 @@ import HeroSection from '../../../src/components/organisms/HeroSection'
 import CaseStudyGrid from '../../../src/components/organisms/caseStudyGrid'
 import FinalCtaSection from '../../../src/components/organisms/finalCta'
 import Section from '../../../src/components/atoms/Section'
+import BlurGlow from '../../../src/components/atoms/BlurGlow'
 import { getPortfolio, getCaseStudies, getFinalCta } from '../../../sanity/lib/fetch'
 import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
 
@@ -41,32 +42,8 @@ export default async function PortfolioPage({
   return (
     <main>
       <div className="relative overflow-hidden bg-primary-dark">
-        <div
-        className="absolute pointer-events-none"
-        style={{
-          right: 0,
-          bottom: 0,
-          width: '420px',
-          height: '420px',
-          backgroundColor: '#0055FF',
-          filter: 'blur(200px)',
-          borderRadius: '820px 0 0 0', // ćwiartka koła w rogu dolno-prawym
-        }}
-      />
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: -1 }}>
-          <div
-            className="absolute rounded-full"
-            style={{
-              right: 0,
-              top: '19.7%',
-              width: '820px',
-              height: '820px',
-              transform: 'translate(50%, -50%)',
-              backgroundColor: '#0055FF',
-              filter: 'blur(200px)',
-            }}
-          />
-        </div>
+        <BlurGlow variant="corner" position="bottom-right" />
+        <BlurGlow variant="edge" />
         <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} />
       </div>
       <Section>

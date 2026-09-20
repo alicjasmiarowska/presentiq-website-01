@@ -1,4 +1,5 @@
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
+import { SECTION_VARIANT_CLASSES, SECTION_VARIANT_STYLE } from './Heading'
 
 interface RichTextProps {
   value: any
@@ -8,12 +9,18 @@ interface RichTextProps {
 const components: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
-      <h2 className="font-display text-[32px] font-bold text-primary-dark mt-12 mb-4 first:mt-0 text-balance hyphens-auto">
+      <h2
+        className={`${SECTION_VARIANT_CLASSES} text-primary-dark mt-12 mb-4 first:mt-0 text-balance hyphens-auto`}
+        style={SECTION_VARIANT_STYLE}
+      >
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-display text-2xl font-bold text-primary-dark mt-8 mb-3 text-balance hyphens-auto">
+      <h3
+        className={`${SECTION_VARIANT_CLASSES} text-primary-dark mt-8 mb-3 text-balance hyphens-auto`}
+        style={SECTION_VARIANT_STYLE}
+      >
         {children}
       </h3>
     ),

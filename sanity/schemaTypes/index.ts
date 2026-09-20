@@ -9,6 +9,7 @@ import textAndImageSlider from './textAndImageSlider'
 import textAndImageSliderServices from './textAndImageSliderServices'
 import threePillars from './threePillars'
 import fourPillars from './fourPillars'
+import fourColumns from './fourColumns'
 import processSection from './process'
 import features from './features'
 import tools from './tools'
@@ -44,6 +45,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     textAndImageSliderServices,
     threePillars,
     fourPillars,
+    fourColumns,
     processSection,
     features,
     tools,

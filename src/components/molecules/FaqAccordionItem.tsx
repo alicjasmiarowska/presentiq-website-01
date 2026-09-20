@@ -12,7 +12,7 @@ export default function FaqAccordionItem({ question, answer }: FaqAccordionItemP
   const panelId = useId()
 
   return (
-    <div className="border-b border-neutral-light">
+    <div className="border-b border-neutral-light/30">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}

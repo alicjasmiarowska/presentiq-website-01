@@ -29,7 +29,7 @@ export default function FourPillarsSection({ data, locale }: FourPillarsSectionP
     <Section className="bg-primary-dark">
       <div className="pt-10 pb-20">
         <Reveal>
-          <Heading level="h2" text={t(data.headline)} className="text-white mb-16" />
+          <Heading level="h2" variant="section" text={t(data.headline)} className="text-white mb-16" />
         </Reveal>
 
         <div className="flex justify-end">

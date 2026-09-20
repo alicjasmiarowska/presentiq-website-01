@@ -32,13 +32,14 @@ export default function FinalCtaSection({ data, locale }: FinalCtaSectionProps) 
 
         <div>
           <Heading
-            level="h3"
+            level="h2"
+            variant="section"
             text={t(data.headline)}
             className="text-white mb-6"
           />
           <Text
             text={t(data.subheadline)}
-            size="lg"
+            size="base"
             color="secondary"
             className="text-white mb-12"
           />

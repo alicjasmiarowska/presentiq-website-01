@@ -35,6 +35,7 @@ export default function ToolsSection({ data, locale, textColor = 'dark' }: Tools
           <Reveal>
             <Heading
               level="h2"
+              variant="section"
               text={t(data.headline)}
               className={isLight ? 'text-white' : ''}
             />

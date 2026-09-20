@@ -43,6 +43,7 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
         <Reveal>
           <Heading
             level="h2"
+            variant="section"
             text={t(data.headline)}
             className={`mb-6 md:mb-30 ${isLight ? 'text-white' : ''}`}
           />
