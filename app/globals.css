@@ -51,3 +51,47 @@
     opacity: 0;
   }
 }
+
+@keyframes intro-line-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+.intro-line-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.intro-line-svg svg > rect {
+  clip-path: inset(0 0 100% 0);
+}
+
+.intro-line-play svg > rect {
+  animation: intro-line-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.intro-line-play svg > rect:nth-of-type(1) {
+  animation-delay: 0ms;
+}
+
+.intro-line-play svg > rect:nth-of-type(2) {
+  animation-delay: 140ms;
+}
+
+.intro-line-play svg > rect:nth-of-type(3) {
+  animation-delay: 280ms;
+}
+
+.intro-line-play svg > rect:nth-of-type(4) {
+  animation-delay: 420ms;
+}
+
+.intro-line-play svg > rect:nth-of-type(5) {
+  animation-delay: 560ms;
+}
+
