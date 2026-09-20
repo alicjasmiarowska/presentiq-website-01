@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 677.5 692">
+  <!-- Generator: Adobe Illustrator 30.8.1, SVG Export Plug-In . SVG Version: 2.1.4 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#linear-gradient2);
+      }
+
+      .st1 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st2 {
+        fill: url(#linear-gradient3);
+      }
+
+      .st3 {
+        fill: url(#linear-gradient4);
+      }
+
+      .st4 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="2148.5" y1="0" x2="2148.5" y2="692" gradientTransform="translate(-1989.4757)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#bb173a" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#05f" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="1683.5" y1="0" x2="1683.5" y2="471" gradientTransform="translate(-1059.4761 221)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6fdcdf" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#05f" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient2" x1="1645" y1="0" x2="1645" gradientTransform="translate(-982.5)" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient3" x1="1934.1" y1="0" x2="1934.1" y2="404" gradientTransform="translate(-1560.8227 288)" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient4" x1="2209.3" x2="2209.3" y2="362" gradientTransform="translate(-2111.0735 330)" xlink:href="#linear-gradient"/>
+  </defs>
+  <rect class="st4" x="0" y="0" width="318" height="692" transform="translate(318 692) rotate(-180)"/>
+  <rect class="st1" x="590" y="221" width="68" height="471" transform="translate(1247.9996 913) rotate(-180)"/>
+  <rect class="st0" x="647.5" width="30" height="692" transform="translate(1324.9996 692) rotate(-180)"/>
+  <rect class="st2" x="339.3" y="288" width="68" height="404" transform="translate(746.7 980) rotate(-180)"/>
+  <rect class="st3" x="69.7" y="330" width="57" height="362" transform="translate(196.4022 1022) rotate(-180)"/>
+</svg>

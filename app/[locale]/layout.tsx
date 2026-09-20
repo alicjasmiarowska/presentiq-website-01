@@ -2,6 +2,7 @@ import { Red_Hat_Display, Roboto } from "next/font/google";
 import Navigation from "../../src/components/organisms/Navigation";
 import Footer from "../../src/components/organisms/footer";
 import BackToTopButton from "../../src/components/atoms/BackToTopButton";
+import IntroLoader from "../../src/components/organisms/IntroLoader";
 import { getNavigation, getFooter, getServicesSection } from "../../sanity/lib/fetch";
 import { urlFor } from "../../sanity/lib/image";
 import { siteUrl } from "../../src/lib/siteUrl";
@@ -47,6 +48,7 @@ export default async function LocaleLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
+      <IntroLoader />
       <Navigation data={navigationData} services={servicesSectionData?.services} locale={locale as 'en' | 'de'} />
       {children}
       <Footer data={footerData} services={servicesSectionData?.services} locale={locale as 'en' | 'de'} />
