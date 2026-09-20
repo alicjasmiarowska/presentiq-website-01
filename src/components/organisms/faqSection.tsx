@@ -1,5 +1,5 @@
-import Heading from '../atoms/Heading'
 import Text from '../atoms/Text'
+import Heading from '../atoms/Heading'
 import Section from '../atoms/Section'
 import FaqAccordionItem from '../molecules/FaqAccordionItem'
 import Reveal from '../atoms/Reveal'
@@ -41,7 +41,7 @@ export default function FaqSection({ data, locale }: FaqSectionProps) {
   }
 
   return (
-    <Section>
+    <Section className="py-30!">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -52,12 +52,10 @@ export default function FaqSection({ data, locale }: FaqSectionProps) {
             <p className="text-white font-semibold uppercase text-sm mb-4">
               {t(data.eyebrow)}
             </p>
-            <Heading
-              level="h3" text={t(data.headline)}
-              className="mb-6 md:mb-14 text-white" />
+            <Heading level="h2" variant="section" text={t(data.headline)} className="text-white mb-6 md:mb-14" />
             <Text
               text={t(data.subheadline)}
-              size="lg"
+              size="base"
             />
           </Reveal>
         </div>

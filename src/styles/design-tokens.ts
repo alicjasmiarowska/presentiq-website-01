@@ -25,9 +25,9 @@ export const typography = {
   },
   fontSize: {
     xs: ['12px', { lineHeight: '16px' }],
-    sm: ['16px', { lineHeight: '20px' }],
-    base: ['18px', { lineHeight: '24px' }],
-    lg: ['24px', { lineHeight: '28px' }],
+    sm: ['18px', { lineHeight: '20px' }],
+    base: ['22px', { lineHeight: '28px' }],
+    lg: ['28px', { lineHeight: '32px' }],
     xl: ['36px', { lineHeight: '28px' }],
     '2xl': ['24px', { lineHeight: '32px' }],
     '3xl': ['30px', { lineHeight: '36px' }],

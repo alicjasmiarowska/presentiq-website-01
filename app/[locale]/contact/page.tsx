@@ -40,7 +40,7 @@ export default async function ContactPage({
   const t = (field: any) => field?.[locale] || field?.en || ''
 
   return (
-    <main className="relative overflow-hidden bg-primary-dark px-6 md:px-20 lg:px-40 pt-16 pb-16 md:pt-20 md:pb-30">
+    <main className="relative overflow-hidden bg-primary-dark px-6 md:px-12 lg:px-20 pt-16 pb-16 md:pt-20 md:pb-30">
       <div
         className="absolute pointer-events-none"
         style={{

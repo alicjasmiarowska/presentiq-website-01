@@ -1,8 +1,6 @@
-import Heading from '../atoms/Heading'
-import Button from '../atoms/Button'
+import Image from 'next/image'
 import Reveal from '../atoms/Reveal'
 import CharReveal from '../atoms/CharReveal'
-import { resolveButtonHref } from '../../lib/resolveHref'
 
 interface HeroData {
   title: { en: string; de: string }
@@ -24,52 +22,58 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
   if (!data) return null
 
   const t = (field: any) => field?.[locale] || field?.en || ''
-  const buttonHref1 = resolveButtonHref(locale, data.buttonPage1, data.buttonHref1)
-  const buttonHref2 = resolveButtonHref(locale, data.buttonPage2, data.buttonHref2)
 
   return (
-    <section className="min-h-150 max-lg:landscape:min-h-0 max-lg:landscape:h-auto md:h-[80vh] flex flex-col justify-between gap-10 max-lg:landscape:gap-6 px-6 md:px-20 lg:px-40 pt-16 max-lg:landscape:pt-20 pb-12 max-lg:landscape:pb-10 md:pt-20 md:pb-40">
-      <div className="w-full max-w-[1680px] mx-auto">
-        <div className="w-full md:w-[90%]">
-          <Heading level="h1" text={t(data.title)} className="text-white">
-            <CharReveal text={t(data.title)} />
-          </Heading>
-        </div>
+    <section
+      className="relative flex flex-col min-h-screen"
+      style={{ backgroundImage: 'linear-gradient(180deg, #000023 0%, #050518 100%)' }}
+    >
+      <Image
+        src="/images/line_1.svg"
+        alt=""
+        aria-hidden="true"
+        width={677}
+        height={692}
+        className="absolute top-0 left-0 w-40 md:w-156 lg:w-124 h-auto pointer-events-none select-none"
+        unoptimized
+        priority
+      />
+
+      <div className="absolute inset-y-0 left-7/12 w-5/12 pointer-events-none">
+        <Image
+          src="/images/line-2.png"
+          alt=""
+          aria-hidden="true"
+          width={2648}
+          height={2746}
+          className="absolute bottom-0 left-0 w-full h-auto select-none"
+        />
       </div>
 
-      <div className="w-full max-w-[1680px] mx-auto flex flex-col md:flex-row gap-8 md:gap-20">
-        <div className="w-full md:w-[40%]">
-          <Reveal delay={500}>
-            <Heading
-              level="h5"
-              text={t(data.subtitle)}
-              className="text-white font-light"
-            />
-          </Reveal>
-        </div>
+      <div
+        className="flex-1 flex items-end px-6 md:px-12 lg:px-20 pt-24 pb-24 md:pt-32 md:pb-36"
+        style={{
+          backgroundImage:
+            'linear-gradient(180deg, rgba(0, 85, 255, 0) 0%, rgba(0, 85, 255, 0.05) 50%, rgba(0, 85, 255, 0.25) 100%)',
+        }}
+      >
+        <h1
+          className="w-full max-w-[1680px] mx-auto font-display text-white uppercase font-normal leading-[1.05] tracking-wider"
+          style={{ fontSize: 'clamp(48px, 6vw, 72px)' }}
+        >
+          <CharReveal text={t(data.title)} />
+        </h1>
+      </div>
 
-        <div className="flex-1 flex items-start md:items-end justify-start md:justify-end">
-          <Reveal delay={650}>
-            <div className="flex flex-wrap gap-4 md:gap-6">
-              {t(data.buttonText1) && (
-                <Button
-                  text={t(data.buttonText1)}
-                  href={buttonHref1}
-                  variant="primary"
-                  size="md"
-                />
-              )}
-              {t(data.buttonText2) && (
-                <Button
-                  text={t(data.buttonText2)}
-                  href={buttonHref2}
-                  variant="secondary"
-                  size="md"
-                />
-              )}
-            </div>
+      <div className="flex flex-col md:flex-row">
+        <div className="w-full md:w-7/12 bg-primary-blue pl-6 md:pl-12 lg:pl-20 pr-6 md:pr-16 py-10 md:py-14">
+          <Reveal delay={500}>
+            <p className="font-display text-white uppercase font-normal leading-[1.3] tracking-wider text-[20px] md:text-[24px]">
+              {t(data.subtitle)}
+            </p>
           </Reveal>
         </div>
+        <div className="hidden md:block md:w-5/12" />
       </div>
     </section>
   )

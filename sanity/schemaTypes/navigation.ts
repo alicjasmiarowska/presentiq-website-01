@@ -11,6 +11,14 @@ export default {
       fields: [{ name: 'alt', title: 'Alt text', type: 'string' }],
     },
     {
+      name: 'logoLight',
+      title: 'Logo (jasna wersja)',
+      description: 'Używane w nawigacji, która nakłada się na ciemne tło (np. hero). Jeśli puste, używane jest zwykłe Logo.',
+      type: 'image',
+      options: { hotspot: true },
+      fields: [{ name: 'alt', title: 'Alt text', type: 'string' }],
+    },
+    {
       name: 'navLinks',
       title: 'Linki w menu',
       description: 'np. Portfolio, Services, Tools, About, Contact',

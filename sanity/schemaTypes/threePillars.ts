@@ -14,6 +14,12 @@ export default {
       type: 'localeString',
     },
     {
+      name: 'introText',
+      title: 'Tekst pod nagłówkiem (2 linie)',
+      description: 'Krótki tekst wyświetlany pod nagłówkiem w pierwszej komórce siatki.',
+      type: 'localeText',
+    },
+    {
       name: 'pillars',
       title: 'Pillars (exactly 3)',
       type: 'array',

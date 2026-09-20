@@ -222,6 +222,10 @@ export async function getHomepage() {
       ...,
       "videoUrl": video.asset->url,
       buttonPage->{ "type": _type, "slug": slug.current }
+    },
+    twoColumnSection->{
+      ...,
+      buttonPage->{ "type": _type, "slug": slug.current }
     }
   }`)
 }
