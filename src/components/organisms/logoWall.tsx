@@ -131,9 +131,14 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
           </div>
         </div>
       )}
+      </div>
 
+      {/* Left gutter mirrors the capped layout's proportions (1/5 of
+          1680px) up to that width, then holds steady so the navy bar
+          keeps stretching to the true right edge on wider screens instead
+          of being capped like the rest of the content above. */}
       <div className="relative mt-16 md:mt-24 flex">
-        <div className="w-1/5 shrink-0" aria-hidden="true" />
+        <div className="w-[20vw] max-w-84 shrink-0" aria-hidden="true" />
         <div
           className="flex-1 py-12 overflow-hidden"
           style={{
@@ -155,7 +160,6 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
               </div>
             ))}
         </div>
-      </div>
       </div>
     </section>
   )
