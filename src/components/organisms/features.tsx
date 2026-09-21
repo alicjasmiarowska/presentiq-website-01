@@ -73,7 +73,7 @@ export default async function FeaturesSection({ data, locale, textColor = 'dark'
                 )}
                 <div className="pt-6 border-t-2 border-primary-blue">
                   <Heading
-                    level="h4"
+                    level="h5"
                     text={t(item.title)}
                     className={`mb-3 ${isLight ? 'text-white' : ''}`}
                   />

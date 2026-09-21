@@ -72,7 +72,7 @@ export default function Footer({ data, services, locale }: FooterProps) {
               </span>
             )}
             {data.phone && (
-              <Heading level="h4" text={data.phone} className="mb-2">
+              <Heading level="h5" text={data.phone} className="mb-2">
                 <a
                   href={`tel:${data.phone}`}
                   className="text-primary-blue hover:text-white"
@@ -82,7 +82,7 @@ export default function Footer({ data, services, locale }: FooterProps) {
               </Heading>
             )}
             {data.email && (
-              <Heading level="h4" text={data.email}>
+              <Heading level="h5" text={data.email}>
                 <a
                   href={`mailto:${data.email}`}
                   className="text-primary-blue hover:text-white"

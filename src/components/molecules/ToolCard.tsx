@@ -35,7 +35,7 @@ export default function ToolCard({ title, description }: ToolCardProps) {
     >
       <div className="md:w-2/4 md:shrink-0 md:pr-40">
         <Heading
-          level="h4"
+          level="h5"
           text={title}
           className="text-white"
         />
