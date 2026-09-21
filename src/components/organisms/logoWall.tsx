@@ -89,7 +89,7 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
 
   return (
     <section className="relative overflow-hidden bg-white text-primary-dark">
-      <div className="relative">
+      <div className="relative max-w-[1680px] mx-auto">
       <Image
         src="/images/line-03.png"
         alt=""

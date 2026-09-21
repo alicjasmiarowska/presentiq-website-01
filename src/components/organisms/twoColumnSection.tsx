@@ -3,6 +3,7 @@ import RichText from '../atoms/RichText'
 import Reveal from '../atoms/Reveal'
 import Heading from '../atoms/Heading'
 import { resolveButtonHref } from '../../lib/resolveHref'
+import { layout } from '../../styles/design-tokens'
 
 interface TwoColumnSectionData {
   leftHeadline: { en: string; de: string }
@@ -26,7 +27,7 @@ export default function TwoColumnSection({ data, locale }: TwoColumnSectionProps
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-[auto_auto]">
-      <div className="bg-primary-dark px-6 md:px-12 lg:px-20 py-16 md:py-24 lg:py-32 grid md:grid-rows-subgrid md:row-span-2">
+      <div className={`bg-primary-dark ${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20 py-16 md:py-24 lg:py-32 grid md:grid-rows-subgrid md:row-span-2`}>
         <Reveal>
           <Heading level="h2" variant="section" text={t(data.leftHeadline)} className="text-white" />
         </Reveal>
@@ -39,7 +40,7 @@ export default function TwoColumnSection({ data, locale }: TwoColumnSectionProps
         )}
       </div>
 
-      <div className="bg-white px-6 md:px-12 lg:px-20 py-16 md:py-24 lg:py-32 grid md:grid-rows-subgrid md:row-span-2">
+      <div className={`bg-white pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right} py-16 md:py-24 lg:py-32 grid md:grid-rows-subgrid md:row-span-2`}>
         <Reveal delay={150}>
           <RichText value={data.rightBody?.[locale] || data.rightBody?.en} />
         </Reveal>

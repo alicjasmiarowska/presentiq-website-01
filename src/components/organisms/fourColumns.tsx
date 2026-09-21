@@ -3,6 +3,7 @@ import Text from '../atoms/Text'
 import Button from '../atoms/Button'
 import Reveal from '../atoms/Reveal'
 import { resolveButtonHref } from '../../lib/resolveHref'
+import { layout } from '../../styles/design-tokens'
 
 interface FourColumnsItem {
   _key: string
@@ -22,11 +23,15 @@ interface FourColumnsSectionProps {
   locale: 'en' | 'de'
 }
 
+// Left-column cells (0, 2) bleed their background to the true viewport
+// edge on the left; right-column cells (1, 3) bleed on the right. The
+// opposite side always uses the plain gutter since it faces the shared
+// seam between columns, not the page edge.
 const BLOCK_STYLES = [
-  { bg: 'bg-primary-dark', headingClassName: 'text-white', textColor: 'primary' as const, buttonClassName: '', arrowClassName: undefined },
-  { bg: 'bg-white', headingClassName: '', textColor: 'secondary' as const, buttonClassName: 'text-primary-dark', arrowClassName: undefined },
-  { bg: 'bg-neutral-light', headingClassName: '', textColor: 'secondary' as const, buttonClassName: 'text-primary-dark', arrowClassName: undefined },
-  { bg: 'bg-primary-blue', headingClassName: 'text-white', textColor: 'primary' as const, buttonClassName: '', arrowClassName: 'text-white' },
+  { bg: 'bg-primary-dark', headingClassName: 'text-white', textColor: 'primary' as const, buttonClassName: '', arrowClassName: undefined, edgeClassName: `${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20` },
+  { bg: 'bg-white', headingClassName: '', textColor: 'secondary' as const, buttonClassName: 'text-primary-dark', arrowClassName: undefined, edgeClassName: `pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right}` },
+  { bg: 'bg-neutral-light', headingClassName: '', textColor: 'secondary' as const, buttonClassName: 'text-primary-dark', arrowClassName: undefined, edgeClassName: `${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20` },
+  { bg: 'bg-primary-blue', headingClassName: 'text-white', textColor: 'primary' as const, buttonClassName: '', arrowClassName: 'text-white', edgeClassName: `pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right}` },
 ]
 
 export default function FourColumnsSection({ data, locale }: FourColumnsSectionProps) {
@@ -43,7 +48,7 @@ export default function FourColumnsSection({ data, locale }: FourColumnsSectionP
         return (
           <div
             key={item._key}
-            className={`${style.bg} flex flex-col px-6 md:px-12 lg:px-20 py-16 md:py-24`}
+            className={`${style.bg} flex flex-col ${style.edgeClassName} py-16 md:py-24`}
           >
             <Reveal delay={index * 100}>
               <Heading level="h3" text={t(item.heading)} className={style.headingClassName} />
