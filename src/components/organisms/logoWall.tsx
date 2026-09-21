@@ -89,7 +89,10 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
 
   return (
     <section className="relative overflow-hidden bg-white text-primary-dark">
-      <div className="relative max-w-[1680px] mx-auto">
+      {/* Bottom-aligned against the section itself (not the capped content
+          div) so it lines up with the logo bar below, which now lives
+          outside that cap too. Width matches the bar's left gutter exactly
+          so the two stay flush at every viewport size. */}
       <Image
         src="/images/line-03.png"
         alt=""
@@ -97,9 +100,10 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
         width={170}
         height={345.7}
         unoptimized
-        className="absolute bottom-0 left-0 w-1/5 h-auto pointer-events-none select-none"
+        className="absolute bottom-0 left-0 w-[20vw] max-w-84 h-auto pointer-events-none select-none"
       />
 
+      <div className="relative max-w-[1680px] mx-auto">
       <div className="relative px-6 md:px-12 lg:px-20 pt-30">
         <Reveal>
           <Heading level="h2" variant="section" text={t(data.headline)} className="text-primary-dark" />
