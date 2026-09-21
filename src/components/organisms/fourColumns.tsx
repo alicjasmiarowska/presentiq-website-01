@@ -29,8 +29,8 @@ interface FourColumnsSectionProps {
 // seam between columns, not the page edge.
 const BLOCK_STYLES = [
   { bg: 'bg-primary-dark', headingClassName: 'text-white', textColor: 'primary' as const, buttonClassName: '', arrowClassName: undefined, edgeClassName: `${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20` },
-  { bg: 'bg-white', headingClassName: '', textColor: 'secondary' as const, buttonClassName: 'text-primary-dark', arrowClassName: undefined, edgeClassName: `pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right}` },
-  { bg: 'bg-neutral-light', headingClassName: '', textColor: 'secondary' as const, buttonClassName: 'text-primary-dark', arrowClassName: undefined, edgeClassName: `${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20` },
+  { bg: 'bg-white', headingClassName: '', textColor: 'secondary' as const, buttonClassName: 'text-primary-dark!', arrowClassName: undefined, edgeClassName: `pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right}` },
+  { bg: 'bg-neutral-light', headingClassName: '', textColor: 'secondary' as const, buttonClassName: 'text-primary-dark!', arrowClassName: undefined, edgeClassName: `${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20` },
   { bg: 'bg-primary-blue', headingClassName: 'text-white', textColor: 'primary' as const, buttonClassName: '', arrowClassName: 'text-white', edgeClassName: `pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right}` },
 ]
 
@@ -55,8 +55,8 @@ export default function FourColumnsSection({ data, locale }: FourColumnsSectionP
               <Text text={t(item.text)} size="base" color={style.textColor} className="mt-12" />
             </Reveal>
             {t(item.buttonText) && (
-              <Reveal delay={index * 100 + 100}>
-                <div className="flex justify-end mt-auto pt-10">
+              <Reveal delay={index * 100 + 100} className="mt-auto">
+                <div className="flex justify-end pt-10">
                   <Button
                     text={t(item.buttonText)}
                     href={buttonHref}
