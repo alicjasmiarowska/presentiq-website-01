@@ -26,7 +26,7 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
 
   return (
     <section
-      className="relative flex flex-col min-h-screen"
+      className="relative flex flex-col min-h-screen 2xl:min-h-[80vh]"
       style={{ backgroundImage: `linear-gradient(180deg, ${colors.primary.dark} 0%, #050518 100%)` }}
     >
       <Image
