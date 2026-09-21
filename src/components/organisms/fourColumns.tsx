@@ -40,7 +40,7 @@ export default function FourColumnsSection({ data, locale }: FourColumnsSectionP
   const t = (field: any) => field?.[locale] || field?.en || ''
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2">
+    <section className="grid grid-cols-1 md:grid-cols-2 md:auto-rows-fr">
       {data.columns.map((item, index) => {
         const style = BLOCK_STYLES[index % BLOCK_STYLES.length]
         const buttonHref = resolveButtonHref(locale, item.buttonPage, item.buttonHref)
@@ -52,7 +52,7 @@ export default function FourColumnsSection({ data, locale }: FourColumnsSectionP
           >
             <Reveal delay={index * 100}>
               <Heading level="h4" text={t(item.heading)} className={style.headingClassName} />
-              <Text text={t(item.text)} size="base" color={style.textColor} className="mt-6" />
+              <Text text={t(item.text)} size="base" color={style.textColor} className="mt-12" />
             </Reveal>
             {t(item.buttonText) && (
               <Reveal delay={index * 100 + 100}>
