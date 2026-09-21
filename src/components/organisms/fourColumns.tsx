@@ -51,7 +51,7 @@ export default function FourColumnsSection({ data, locale }: FourColumnsSectionP
             className={`${style.bg} flex flex-col ${style.edgeClassName} py-16 md:py-24`}
           >
             <Reveal delay={index * 100}>
-              <Heading level="h3" text={t(item.heading)} className={style.headingClassName} />
+              <Heading level="h4" text={t(item.heading)} className={style.headingClassName} />
               <Text text={t(item.text)} size="base" color={style.textColor} className="mt-6" />
             </Reveal>
             {t(item.buttonText) && (

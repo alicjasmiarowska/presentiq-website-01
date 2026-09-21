@@ -50,7 +50,7 @@ export default function ProcessSection({ data, locale, textColor = 'dark' }: Pro
                   className={`pt-6 border-t-2 ${isLight ? 'border-primary-blue' : 'border-primary-blue'}`}
                 >
                   <Heading
-                    level="h4"
+                    level="h5"
                     text={t(step.title)}
                     className={`mb-3 ${isLight ? 'text-white' : ''}`}
                   />

@@ -16,7 +16,7 @@ const sizes = {
   h1: 'text-h1 md:text-h1-md lg:text-h1-lg font-bold',
   h2: 'text-h2 md:text-h2-md lg:text-h2-lg font-extrabold',
   h3: 'text-h3 md:text-h3-md lg:text-h3-lg font-bold uppercase',
-  h4: 'text-h4 md:text-h4-md lg:text-h4-lg font-bold',
+  h4: 'text-h4 md:text-h4-md lg:text-h4-lg font-bold uppercase',
   h5: 'text-h5 md:text-h5-md lg:text-h5-lg font-bold',
   h6: 'text-base font-bold',
 }
