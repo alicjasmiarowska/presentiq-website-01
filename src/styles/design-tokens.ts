@@ -18,6 +18,29 @@ export const colors = {
   },
 }
 
+// Shared page-content width cap: every section's readable content lines up
+// to this, even when its own background bleeds full-bleed to the true
+// viewport edge (see `edgeGutter` below). Keep in sync with the "1680px"
+// literals in `edgeGutter` — they can't reference this value directly
+// because Tailwind needs each full class string present verbatim in the
+// source to generate it (no interpolation inside an arbitrary value).
+export const layout = {
+  maxWidth: '1680px',
+  // For a full-width color block split into side-by-side cells (e.g. a
+  // two- or four-column section where each cell's background should reach
+  // the true viewport edge): apply `left`/`right` to whichever cell edge
+  // faces that outer viewport edge. It behaves exactly like the site's
+  // normal px-6/md:px-12/lg:px-20 gutter on every screen up to 1680px wide;
+  // only past that width does it grow further, so outer text keeps lining
+  // up with the page's normal max-w-[1680px] content instead of drifting
+  // toward the screen edge. The opposite (inner/shared) side should just
+  // use the plain px-6/md:px-12/lg:px-20 scale.
+  edgeGutter: {
+    left: 'pl-6 md:pl-[max(48px,calc((100vw_-_1680px)/2))] lg:pl-[max(80px,calc((100vw_-_1680px)/2))]',
+    right: 'pr-6 md:pr-[max(48px,calc((100vw_-_1680px)/2))] lg:pr-[max(80px,calc((100vw_-_1680px)/2))]',
+  },
+}
+
 export const typography = {
   fontFamily: {
     sans: ['Roboto', 'sans-serif'],

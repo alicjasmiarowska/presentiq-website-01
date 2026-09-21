@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Reveal from '../atoms/Reveal'
 import CharReveal from '../atoms/CharReveal'
-import { colors } from '../../styles/design-tokens'
+import { colors, layout } from '../../styles/design-tokens'
 
 interface HeroData {
   title: { en: string; de: string }
@@ -67,7 +67,7 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
       </div>
 
       <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-7/12 bg-primary-blue pl-6 md:pl-12 lg:pl-20 pr-6 md:pr-16 py-10 md:py-14">
+        <div className={`w-full md:w-7/12 bg-primary-blue ${layout.edgeGutter.left} pr-6 md:pr-16 py-10 md:py-14`}>
           <Reveal delay={500}>
             <p className="font-display text-white uppercase font-normal leading-[1.3] tracking-wider text-[20px] md:text-[24px]">
               {t(data.subtitle)}
