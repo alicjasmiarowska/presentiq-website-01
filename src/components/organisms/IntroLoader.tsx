@@ -35,11 +35,8 @@ export default function IntroLoader() {
   }, [])
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setPhase('hidden')
-      return
-    }
-
+    // Always plays in full, including for prefers-reduced-motion — this is
+    // a deliberate brand moment, not a decorative animation to suppress.
     document.body.style.overflow = 'hidden'
     const logoTimer = setTimeout(() => setLogoVisible(true), LOGO_DELAY_MS)
     const exitTimer = setTimeout(() => setPhase('exiting'), VISIBLE_MS)
