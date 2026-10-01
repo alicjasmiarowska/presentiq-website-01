@@ -1,3 +1,5 @@
+import { localeValidation } from '../lib/textRules'
+
 export default {
   name: 'textAndPicture',
   title: 'Text and Picture',
@@ -18,6 +20,7 @@ export default {
       name: 'body',
       title: 'Body',
       type: 'object',
+      validation: localeValidation,
       fields: [
         { name: 'en', type: 'text', title: 'English' },
         { name: 'de', type: 'text', title: 'Deutsch' },

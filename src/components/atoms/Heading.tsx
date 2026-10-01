@@ -29,7 +29,9 @@ const sizes = {
 // (src/lib/hyphenate.ts); hyphens-manual breaks only there, so long German
 // compounds wrap at their seam ("Präsentations-agentur") instead of
 // overflowing narrow phones.
-export const SECTION_VARIANT_CLASSES = 'font-display font-normal uppercase tracking-wider leading-[1.1] text-balance hyphens-manual break-words'
+// German capitals carry umlauts (Ä Ö Ü), so German headings get a little
+// more line spacing to keep the dots clear of the line above.
+export const SECTION_VARIANT_CLASSES = 'font-display font-normal uppercase tracking-wider leading-[1.1] [&:lang(de)]:leading-[1.15] text-balance hyphens-manual break-words'
 export const SECTION_VARIANT_STYLE = { fontSize: typography.sectionHeading.fontSize }
 
 export default function Heading({ text, level = 'h1', variant = 'default', className = '', children }: HeadingProps) {

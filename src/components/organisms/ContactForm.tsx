@@ -1,101 +1,58 @@
 'use client'
 
-import { useState } from 'react'
+import { startTransition, useActionState, useEffect, useRef, useState } from 'react'
 import Input from '../atoms/Input'
 import Textarea from '../atoms/Textarea'
 import Checkbox from '../atoms/Checkbox'
 import Button from '../atoms/Button'
+import { contactCopy, validateContact, type ContactErrors, type ContactValues } from '../../lib/contactForm'
+import { sendContactMessage, type ContactState } from '../../../app/[locale]/contact/actions'
 
 interface ContactFormProps {
   locale: 'en' | 'de'
   privacyText: string
+  // Shown if sending fails, so the enquiry is never lost.
+  fallbackEmail: string
 }
 
-interface FormValues {
-  name: string
-  email: string
-  phone: string
-  message: string
-  privacyConsent: boolean
-}
+const initialState: ContactState = { status: 'idle' }
 
-type FormErrors = Partial<Record<keyof FormValues, string>>
+export default function ContactForm({ locale, privacyText, fallbackEmail }: ContactFormProps) {
+  const t = contactCopy[locale] || contactCopy.en
 
-const copy = {
-  en: {
-    name: 'Name',
-    email: 'Email',
-    phone: 'Phone',
-    message: 'Message',
-    submit: 'Send message',
-    thanks: "Thanks — we'll be in touch soon.",
-    errors: {
-      nameRequired: 'Please enter your name.',
-      emailRequired: 'Please enter your email.',
-      emailInvalid: 'Please enter a valid email address.',
-      phoneInvalid: 'Please enter a valid phone number.',
-      messageRequired: 'Please enter a message.',
-      messageTooShort: 'Message should be at least 10 characters.',
-      privacyRequired: 'Please accept the privacy policy to continue.',
-    },
-  },
-  de: {
-    name: 'Name',
-    email: 'E-Mail',
-    phone: 'Telefon',
-    message: 'Nachricht',
-    submit: 'Nachricht senden',
-    thanks: 'Danke — wir melden uns in Kürze.',
-    errors: {
-      nameRequired: 'Bitte gib deinen Namen ein.',
-      emailRequired: 'Bitte gib deine E-Mail-Adresse ein.',
-      emailInvalid: 'Bitte gib eine gültige E-Mail-Adresse ein.',
-      phoneInvalid: 'Bitte gib eine gültige Telefonnummer ein.',
-      messageRequired: 'Bitte gib eine Nachricht ein.',
-      messageTooShort: 'Die Nachricht sollte mindestens 10 Zeichen lang sein.',
-      privacyRequired: 'Bitte akzeptiere die Datenschutzerklärung, um fortzufahren.',
-    },
-  },
-}
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const PHONE_PATTERN = /^[+\d][\d\s()-]{6,}$/
-
-export default function ContactForm({ locale, privacyText }: ContactFormProps) {
-  const t = copy[locale] || copy.en
-
-  const [values, setValues] = useState<FormValues>({
+  const [values, setValues] = useState<ContactValues>({
     name: '',
     email: '',
     phone: '',
     message: '',
     privacyConsent: false,
   })
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [submitted, setSubmitted] = useState(false)
+  const [errors, setErrors] = useState<ContactErrors>({})
+  const [startedAt, setStartedAt] = useState(0)
+  const [state, formAction, pending] = useActionState(sendContactMessage.bind(null, locale), initialState)
 
-  const validate = (v: FormValues): FormErrors => {
-    const next: FormErrors = {}
+  // Set after mount (not during render) so the time check in the server
+  // action measures how long a real visitor had the form open.
+  useEffect(() => setStartedAt(Date.now()), [])
 
-    if (!v.name.trim()) next.name = t.errors.nameRequired
+  // The server re-validates; show its messages if they differ from ours.
+  useEffect(() => {
+    if (state.status === 'invalid' && state.errors) setErrors(state.errors)
+  }, [state])
 
-    if (!v.email.trim()) next.email = t.errors.emailRequired
-    else if (!EMAIL_PATTERN.test(v.email.trim())) next.email = t.errors.emailInvalid
+  // The form is replaced by a shorter confirmation, which can end up under
+  // the fixed header — bring it into view and focus it for screen readers.
+  const thanksRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (state.status !== 'success' || !thanksRef.current) return
+    thanksRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    thanksRef.current.focus({ preventScroll: true })
+  }, [state.status])
 
-    if (v.phone.trim() && !PHONE_PATTERN.test(v.phone.trim())) {
-      next.phone = t.errors.phoneInvalid
-    }
-
-    if (!v.message.trim()) next.message = t.errors.messageRequired
-    else if (v.message.trim().length < 10) next.message = t.errors.messageTooShort
-
-    if (!v.privacyConsent) next.privacyConsent = t.errors.privacyRequired
-
-    return next
-  }
+  const validate = (v: ContactValues) => validateContact(v, locale)
 
   const handleChange =
-    (field: keyof FormValues) =>
+    (field: keyof ContactValues) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setValues((prev) => ({ ...prev, [field]: e.target.value }))
     }
@@ -104,22 +61,23 @@ export default function ContactForm({ locale, privacyText }: ContactFormProps) {
     setValues((prev) => ({ ...prev, privacyConsent: e.target.checked }))
   }
 
-  const handleBlur = (field: keyof FormValues) => () => {
-    setErrors((prev) => ({ ...prev, ...validate(values) } as FormErrors))
+  const handleBlur = (field: keyof ContactValues) => () => {
+    setErrors((prev) => ({ ...prev, ...validate(values) } as ContactErrors))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const nextErrors = validate(values)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length === 0) {
-      setSubmitted(true)
+      const formData = new FormData(e.currentTarget)
+      startTransition(() => formAction(formData))
     }
   }
 
-  if (submitted) {
+  if (state.status === 'success') {
     return (
-      <div className="rounded-2xl border border-white/20 p-8 text-center">
+      <div ref={thanksRef} tabIndex={-1} role="status" className="rounded-2xl border border-white/20 p-8 text-center outline-none">
         <p className="text-lg font-semibold text-white">{t.thanks}</p>
       </div>
     )
@@ -127,6 +85,14 @@ export default function ContactForm({ locale, privacyText }: ContactFormProps) {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+      {/* Spam traps, see actions.ts: a field hidden from people that only
+          bots fill in, and when the form was opened. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+      <input type="hidden" name="startedAt" value={startedAt} />
+
       <Input
         label={t.name}
         name="name"
@@ -180,8 +146,25 @@ export default function ContactForm({ locale, privacyText }: ContactFormProps) {
           labelClassName="text-white/80"
           className="flex-1"
         />
-        <Button text={t.submit} type="submit" variant="primary" size="md" className="shrink-0" />
+        <Button
+          text={pending ? t.sending : t.submit}
+          type="submit"
+          variant="primary"
+          size="md"
+          className="shrink-0"
+          disabled={pending}
+        />
       </div>
+
+      {state.status === 'error' && (
+        <p role="alert" className="text-base text-white">
+          {t.failed}{' '}
+          <a href={`mailto:${fallbackEmail}`} className="underline hover:no-underline">
+            {fallbackEmail}
+          </a>
+          .
+        </p>
+      )}
     </form>
   )
 }

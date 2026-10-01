@@ -1,3 +1,5 @@
+import { localeValidation } from '../lib/textRules'
+
 export default {
   name: 'service',
   title: 'Service',
@@ -21,6 +23,7 @@ export default {
       title: 'Description',
       description: 'Krótki opis pokazywany na liście usług (np. na Home).',
       type: 'object',
+      validation: localeValidation,
       fields: [
         { name: 'en', type: 'text', title: 'English' },
         { name: 'de', type: 'text', title: 'Deutsch' },
@@ -72,6 +75,7 @@ export default {
       name: 'body',
       title: 'Body (treść na dedykowanej stronie usługi)',
       type: 'object',
+      validation: localeValidation,
       fields: [
         { name: 'en', type: 'text', title: 'English' },
         { name: 'de', type: 'text', title: 'Deutsch' },

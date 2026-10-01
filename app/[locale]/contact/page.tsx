@@ -6,7 +6,7 @@ import CharReveal from '../../../src/components/atoms/CharReveal'
 import { hyphenate } from '../../../src/lib/hyphenate'
 import ContactForm from '../../../src/components/organisms/ContactForm'
 import BlurGlow from '../../../src/components/atoms/BlurGlow'
-import { getContact } from '../../../sanity/lib/fetch'
+import { getContact, getFooter } from '../../../sanity/lib/fetch'
 import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
 
 export const dynamic = 'force-dynamic'
@@ -38,6 +38,8 @@ export default async function ContactPage({
 }) {
   const { locale } = await params
   const data = await getContact()
+  // The address from the footer doubles as the fallback if the form can't send.
+  const footer = await getFooter()
 
   const t = (field: any) => field?.[locale] || field?.en || ''
 
@@ -59,6 +61,7 @@ export default async function ContactPage({
             <ContactForm
               locale={locale as 'en' | 'de'}
               privacyText={t(data?.privacyText)}
+              fallbackEmail={footer?.email || 'kontakt@presentiq.de'}
             />
           </Reveal>
         </div>

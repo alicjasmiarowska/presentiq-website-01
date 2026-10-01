@@ -1,3 +1,5 @@
+import { localeValidation } from '../lib/textRules'
+
 export default {
   name: 'fourPillars',
   title: 'Four Pillars Section',
@@ -39,6 +41,7 @@ export default {
               name: 'description',
               title: 'Description',
               type: 'object',
+              validation: localeValidation,
               fields: [
                 { name: 'en', type: 'text', title: 'English' },
                 { name: 'de', type: 'text', title: 'Deutsch' },

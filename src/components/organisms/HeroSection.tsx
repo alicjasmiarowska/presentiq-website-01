@@ -59,7 +59,7 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
         }}
       >
         <h1
-          className="w-full max-w-[1680px] mx-auto font-display text-white uppercase font-normal leading-[1.05] tracking-wider"
+          className="w-full max-w-[1680px] mx-auto font-display text-white uppercase font-normal leading-[1.05] [&:lang(de)]:leading-[1.15] tracking-wider"
           // On phones the size follows the screen width so the longest line
           // ("FÜR ENTSCHEIDER", ~9.8em wide in this face) fits within the
           // 24px gutters, and long German compounds break at their seam

@@ -1,3 +1,5 @@
+import { localeValidation } from '../lib/textRules'
+
 export default {
   name: 'faq',
   title: 'FAQ',
@@ -52,6 +54,7 @@ export default {
               name: 'answer',
               title: 'Answer',
               type: 'object',
+              validation: localeValidation,
               fields: [
                 { name: 'en', type: 'text', title: 'English' },
                 { name: 'de', type: 'text', title: 'Deutsch' },
