@@ -1,3 +1,5 @@
+import { localeValidation } from '../lib/textRules'
+
 export default {
   name: 'textAndImageSlider',
   title: 'Text and Image Slider',
@@ -17,6 +19,7 @@ export default {
       name: 'body',
       title: 'Body',
       type: 'object',
+      validation: localeValidation,
       fields: [
         { name: 'en', type: 'text', title: 'English' },
         { name: 'de', type: 'text', title: 'Deutsch' },

@@ -1,3 +1,5 @@
+import { localeValidation } from '../lib/textRules'
+
 const blockContent = {
   type: 'array' as const,
   of: [
@@ -22,6 +24,7 @@ const blockContent = {
           {
             name: 'link',
             type: 'object',
+  validation: localeValidation,
             title: 'Link',
             fields: [{ name: 'href', title: 'URL', type: 'url' }],
           },

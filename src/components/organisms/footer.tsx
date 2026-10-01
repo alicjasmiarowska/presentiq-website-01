@@ -76,7 +76,7 @@ export default function Footer({ data, services, locale }: FooterProps) {
             )}
             {data.phone && (
               <p className={`${CONTACT_CLASSES} mb-2`}>
-                <a href={`tel:${data.phone}`} className="text-primary-blue hover:text-white">
+                <a href={`tel:${data.phone}`} className="whitespace-nowrap text-primary-blue hover:text-white">
                   {data.phone}
                 </a>
               </p>

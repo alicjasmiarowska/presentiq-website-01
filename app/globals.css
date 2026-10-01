@@ -18,6 +18,14 @@
   }
 }
 
+/* Never more than two hyphenated line endings in a row (Safari honours
+   this; elsewhere it's ignored harmlessly). */
+p,
+li {
+  -webkit-hyphenate-limit-lines: 2;
+  hyphenate-limit-lines: 2;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

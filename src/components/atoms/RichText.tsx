@@ -30,7 +30,7 @@ const components: PortableTextComponents = {
       </blockquote>
     ),
     normal: ({ children }) => (
-      <p className="text-base text-primary-dark leading-relaxed mb-4 text-pretty hyphens-manual">{children}</p>
+      <p className="max-w-[70ch] text-base text-primary-dark leading-relaxed mb-4 text-pretty hyphens-manual">{children}</p>
     ),
   },
   list: {
@@ -38,8 +38,8 @@ const components: PortableTextComponents = {
     number: ({ children }) => <ol className="list-decimal pl-6 mb-4 space-y-2">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li className="text-base text-primary-dark leading-relaxed text-pretty hyphens-manual">{children}</li>,
-    number: ({ children }) => <li className="text-base text-primary-dark leading-relaxed text-pretty hyphens-manual">{children}</li>,
+    bullet: ({ children }) => <li className="max-w-[70ch] text-base text-primary-dark leading-relaxed text-pretty hyphens-manual">{children}</li>,
+    number: ({ children }) => <li className="max-w-[70ch] text-base text-primary-dark leading-relaxed text-pretty hyphens-manual">{children}</li>,
   },
   marks: {
     strong: ({ children }) => <strong className="font-semibold">{children}</strong>,

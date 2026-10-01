@@ -10,6 +10,7 @@ interface ButtonProps {
   className?: string
   showArrow?: boolean
   arrowClassName?: string
+  disabled?: boolean
 }
 
 function ArrowIcon({ className = 'text-primary-blue' }: { className?: string }) {
@@ -37,6 +38,7 @@ export default function Button({
   className = '',
   showArrow = false,
   arrowClassName,
+  disabled = false,
 }: ButtonProps) {
   const baseStyles = 'transition-all duration-200'
 
@@ -75,8 +77,9 @@ export default function Button({
   return (
     <button
       type={type}
-      className={classes}
+      className={`${classes} disabled:opacity-60 disabled:pointer-events-none`}
       onClick={onClick}
+      disabled={disabled}
     >
       {content}
     </button>

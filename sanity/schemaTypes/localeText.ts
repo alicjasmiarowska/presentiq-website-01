@@ -1,7 +1,10 @@
+import { localeValidation } from '../lib/textRules'
+
 export default {
   name: 'localeText',
   title: 'Localized Text (description)',
   type: 'object',
+  validation: localeValidation,
   fields: [
     {
       name: 'en',

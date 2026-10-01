@@ -38,7 +38,7 @@ export default function FaqAccordionItem({ question, answer }: FaqAccordionItemP
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <p className="pb-6 text-base leading-relaxed text-white whitespace-pre-line">
+        <p className="pb-6 max-w-[70ch] text-base leading-relaxed text-white whitespace-pre-line text-pretty hyphens-manual">
           {answer}
         </p>
       </div>

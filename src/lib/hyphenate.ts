@@ -1,6 +1,7 @@
 import { hyphenateSync as hyphenateDe } from 'hyphen/de'
 import { hyphenateSync as hyphenateEn } from 'hyphen/en'
 import { compoundSeams } from './germanCompounds'
+import { NBSP, typeset } from './typography'
 
 // Dictionary-correct hyphenation, done on the server.
 //
@@ -55,8 +56,35 @@ function breakOffsets(word: string, locale: 'en' | 'de'): number[] {
   return syllables.filter(edgeSafe(0, word.length))
 }
 
+// Words the patterns get wrong: brand names that must never break, and
+// English terms used in German copy, which German patterns would split by
+// German syllables ("Desi-gner", "Gui-de-lines"). "|" marks allowed breaks.
+const EXCEPTIONS: Record<string, string> = {
+  presentiq: 'presentiq',
+  powerpoint: 'powerpoint',
+  designer: 'designer',
+  templates: 'tem|plates',
+  template: 'tem|plate',
+  guidelines: 'guide|lines',
+  storytelling: 'story|telling',
+  workspace: 'work|space',
+  business: 'busi|ness',
+  copyright: 'copy|right',
+  keynotes: 'key|notes',
+}
+
 function hyphenateWord(word: string, locale: 'en' | 'de'): string {
   if (word.length < MIN_WORD_LENGTH) return word
+  const exception = EXCEPTIONS[word.toLowerCase()]
+  if (exception) {
+    let pos = 0
+    return exception
+      .split('|')
+      .map((part) => word.slice(pos, (pos += part.length)))
+      .join(SOFT_HYPHEN)
+  }
+  // CamelCase is a product name ("PowerPoint", "InDesign") — keep it whole.
+  if (/\p{Ll}\p{Lu}/u.test(word)) return word
   let out = ''
   let pos = 0
   for (const p of breakOffsets(word, locale)) {
@@ -66,10 +94,29 @@ function hyphenateWord(word: string, locale: 'en' | 'de'): string {
   return out + word.slice(pos)
 }
 
-export function hyphenate(text: string, locale: 'en' | 'de'): string {
+// A line's last word stays whole and on the same line as the word before
+// it, so no paragraph or heading ends on a hyphenated fragment or a lone
+// word. Long words are exempt: on a narrow phone they may still need to
+// break.
+const LAST_WORD_MAX = 12
+const LAST_PAIR_MAX = 20
+const letters = (w: string) => w.replace(/[^\p{L}\d]/gu, '').length
+
+function finishLine(line: string): string {
+  const words = line.trim().split(' ').filter(Boolean).length
+  return line.replace(/(?:([^ ]+) )?([^ ]+?)( *)$/, (match, prev: string | undefined, last: string, trail: string) => {
+    if (letters(last) > LAST_WORD_MAX) return match
+    const lastWhole = stripSoftHyphens(last)
+    if (!prev) return lastWhole + trail
+    const glue = words >= 3 && letters(prev) + letters(last) <= LAST_PAIR_MAX ? NBSP : ' '
+    return prev + glue + lastWhole + trail
+  })
+}
+
+export function hyphenate(text: string, locale: 'en' | 'de', { isSpan = false } = {}): string {
   if (!text) return text
-  const clean = stripSoftHyphens(text)
-  const key = locale + clean
+  const clean = typeset(stripSoftHyphens(text), locale, { isSpan })
+  const key = locale + (isSpan ? 'span:' : '') + clean
   const hit = cache.get(key)
   if (hit !== undefined) return hit
 
@@ -77,9 +124,12 @@ export function hyphenate(text: string, locale: 'en' | 'de'): string {
   // and the <br> line-break marker editors type into headings. Within a
   // token, each run of letters is a word — so "Business-Präsentationen"
   // keeps its real hyphen and each half is handled on its own.
-  const result = clean.replace(/[^\s<>]+/g, (token) =>
+  let result = clean.replace(/[^\s<>]+/g, (token) =>
     /[@/:.]\S/.test(token) ? token : token.replace(/\p{L}+/gu, (word) => hyphenateWord(word, locale))
   )
+  // Portable Text spans are fragments of a paragraph, so they have no
+  // line ending of their own to finish.
+  if (!isSpan) result = result.split(/(\n|<br\s*\/?>)/i).map(finishLine).join('')
 
   if (cache.size > 5000) cache.clear()
   cache.set(key, result)
@@ -90,13 +140,14 @@ export function stripSoftHyphens<T extends string | undefined>(text: T): T {
   return (text ? text.replace(/\u00AD/g, '') : text) as T
 }
 
-// Walks a Sanity query result and hyphenates every localized string:
+// Walks a Sanity query result and typesets + hyphenates every localized
+// string:
 // the value under an `en` / `de` key, and Portable Text span `text` inside
 // one. Everything else (slugs, hrefs, asset refs, _type, marks, …) is left
 // untouched.
 export function hyphenateLocalized<T>(value: T, lang: 'en' | 'de' | null = null, key?: string): T {
   if (typeof value === 'string') {
-    return (lang && (key === 'en' || key === 'de' || key === 'text') ? hyphenate(value, lang) : value) as T
+    return (lang && (key === 'en' || key === 'de' || key === 'text') ? hyphenate(value, lang, { isSpan: key === 'text' }) : value) as T
   }
   if (Array.isArray(value)) {
     return value.map((item) => hyphenateLocalized(item, lang, key)) as T
@@ -114,5 +165,5 @@ export function hyphenateLocalized<T>(value: T, lang: 'en' | 'de' | null = null,
 
 // JSON-LD for search engines must not carry soft hyphens.
 export function toJsonLd(data: unknown): string {
-  return JSON.stringify(data).replace(/­/g, '')
+  return JSON.stringify(data).replace(/\u00AD/g, '')
 }
