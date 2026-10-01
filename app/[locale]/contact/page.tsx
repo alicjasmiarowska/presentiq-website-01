@@ -4,6 +4,7 @@ import Text from '../../../src/components/atoms/Text'
 import Reveal from '../../../src/components/atoms/Reveal'
 import CharReveal from '../../../src/components/atoms/CharReveal'
 import ContactForm from '../../../src/components/organisms/ContactForm'
+import EdgeBars from '../../../src/components/atoms/EdgeBars'
 import { HERO_TITLE_BOTTOM, HERO_TITLE_CLASSES, HERO_TITLE_STYLE } from '../../../src/components/organisms/HeroSection'
 import Image from 'next/image'
 import { gradients, layout } from '../../../src/styles/design-tokens'
@@ -78,16 +79,7 @@ export default async function ContactPage({
           left, the form on white on the right. */}
       <section className="grid grid-cols-1 md:grid-cols-2">
         <div className={`relative overflow-hidden bg-primary-dark ${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20 pt-16 pb-16 md:pt-30 md:pb-30`}>
-          {/* Bar graphic along the column's left edge, as in the design:
-              169×574 at 1440px, a third of it tucked past the viewport edge. */}
-          <Image
-            src="/images/line-04.png"
-            alt=""
-            aria-hidden="true"
-            width={318}
-            height={1080}
-            className="absolute left-0 -top-[7px] -translate-x-[44.4%] w-[min(11.7vw,169px)] min-w-24 h-auto pointer-events-none select-none"
-          />
+          <EdgeBars />
           <div className="relative max-w-[517px]">
             <Reveal>
               <Heading level="h2" variant="section" text={t(data?.formHeadline)} className="text-white" />

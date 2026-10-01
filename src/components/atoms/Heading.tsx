@@ -34,6 +34,10 @@ const sizes = {
 export const SECTION_VARIANT_CLASSES = 'font-display font-normal uppercase tracking-wider leading-[1.1] [&:lang(de)]:leading-[1.15] text-balance hyphens-manual break-words'
 export const SECTION_VARIANT_STYLE = { fontSize: typography.sectionHeading.fontSize }
 
+// The smaller uppercase "lead" look: pillar titles on the homepage, the
+// principle titles and longer intro statements on About.
+export const LEAD_TEXT_CLASSES = 'font-display font-normal uppercase !text-[28px] !leading-tight text-balance hyphens-manual'
+
 export default function Heading({ text, level = 'h1', variant = 'default', className = '', children }: HeadingProps) {
   const Tag = level
 

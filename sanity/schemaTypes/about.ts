@@ -24,15 +24,24 @@ export default {
       to: [{ type: 'hero' }],
     },
     {
-      name: 'teamHeadline',
-      title: 'Team Section Headline',
-      type: 'localeString',
+      name: 'intro',
+      title: 'Intro (dwie kolumny nad zdjęciami zespołu)',
+      description: 'Wybierz dokument Two Column Section: lewa kolumna = nagłówek + tekst, prawa = tekst + niebieski nagłówek („Lernen Sie unser Team kennen”).',
+      type: 'reference',
+      to: [{ type: 'twoColumnSection' }],
     },
-    {
-      name: 'teamText',
-      title: 'Team Section Text (opis, obok headline po prawej)',
-      type: 'localeText',
-    },
+    // Replaced by `intro`; kept hidden so existing content isn't lost. Plain
+    // objects (not localeString/localeText) so the editorial checks in
+    // textRules.ts don't raise warnings on text nobody sees.
+    ...['teamHeadline', 'teamText'].map((name) => ({
+      name,
+      type: 'object',
+      hidden: true,
+      fields: [
+        { name: 'en', type: 'text' },
+        { name: 'de', type: 'text' },
+      ],
+    })),
     {
       name: 'team',
       title: 'Team Members',
@@ -45,7 +54,7 @@ export default {
           fields: [
             {
               name: 'photo',
-              title: 'Photo (portrait, 3:4)',
+              title: 'Photo (kadrowane do kwadratu 1:1 – ustaw hotspot na twarzy)',
               type: 'image',
               options: { hotspot: true },
               fields: [{ name: 'alt', title: 'Alt text', type: 'string' }],
@@ -63,11 +72,11 @@ export default {
       ],
     },
     {
-      name: 'textAndPicture',
-      title: 'Text and Picture Section',
-      description: 'Wybierz, który dokument Text and Picture ma być użyty na tej stronie (renderowany przed Final CTA).',
+      name: 'principles',
+      title: 'Unsere Prinzipien (siatka 2×2)',
+      description: 'Wybierz dokument Four Pillars z nagłówkiem i 4 zasadami (tytuł + opis; zdjęcia nie są tu używane).',
       type: 'reference',
-      to: [{ type: 'textAndPicture' }],
+      to: [{ type: 'fourPillars' }],
     },
     {
       name: 'seo',

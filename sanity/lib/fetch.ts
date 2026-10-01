@@ -171,15 +171,15 @@ export async function getContact() {
 export async function getAbout() {
   return fetchContent(`*[_type == "about"][0]{
     ...,
+    intro->{
+      ...,
+      buttonPage->{ "type": _type, "slug": slug.current }
+    },
+    principles->,
     hero->{
       ...,
       buttonPage1->{ "type": _type, "slug": slug.current },
       buttonPage2->{ "type": _type, "slug": slug.current }
-    },
-    textAndPicture->{
-      ...,
-      "videoUrl": video.asset->url,
-      buttonPage->{ "type": _type, "slug": slug.current }
     }
   }`)
 }
