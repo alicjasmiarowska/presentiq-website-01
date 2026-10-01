@@ -15,6 +15,11 @@ export default {
       type: 'localeString',
     },
     {
+      name: 'leftBody',
+      title: 'Lewa kolumna: tekst pod nagłówkiem (opcjonalnie)',
+      type: 'localeText',
+    },
+    {
       name: 'buttonText',
       title: 'Lewa kolumna: tekst przycisku',
       type: 'localeString',

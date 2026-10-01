@@ -9,10 +9,10 @@ interface TeamMemberCardProps {
 export default function TeamMemberCard({ photo, name }: TeamMemberCardProps) {
   return (
     <div>
-      <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-gray-100">
+      <div className="relative aspect-square w-full overflow-hidden bg-gray-100">
         {photo?.asset ? (
           <Image
-            src={urlFor(photo).width(600).height(800).url()}
+            src={urlFor(photo).width(800).height(800).url()}
             alt={photo.alt || name}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"

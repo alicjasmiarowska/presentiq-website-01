@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Text from '../atoms/Text'
 import Reveal from '../atoms/Reveal'
 import DrawLine from '../atoms/DrawLine'
-import Heading from '../atoms/Heading'
+import Heading, { LEAD_TEXT_CLASSES } from '../atoms/Heading'
 
 interface Pillar {
   _key: string
@@ -61,8 +61,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
   const t = (field: any) => field?.[locale] || field?.en || ''
   const [pillar1, pillar2, pillar3] = data.pillars
 
-  const pillarTextClass =
-    'font-display font-normal uppercase !text-[28px] !leading-tight text-primary-dark'
+  const pillarTextClass = `${LEAD_TEXT_CLASSES} text-primary-dark`
 
   return (
     <section className="bg-white text-primary-dark">
