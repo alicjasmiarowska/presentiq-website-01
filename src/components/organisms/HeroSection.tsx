@@ -3,6 +3,18 @@ import Reveal from '../atoms/Reveal'
 import CharReveal from '../atoms/CharReveal'
 import { gradients, layout } from '../../styles/design-tokens'
 
+// Shared by every page hero (this component and the contact page) so the
+// headline looks and sits the same everywhere.
+export const HERO_TITLE_CLASSES =
+  'w-full max-w-[1680px] mx-auto font-display text-white uppercase font-normal leading-[1.05] [&:lang(de)]:leading-[1.15] tracking-wider'
+// On phones the size follows the screen width so the longest line
+// ("FÜR ENTSCHEIDER", ~9.8em wide in this face) fits within the 24px
+// gutters, and long German compounds break at their seam
+// ("PRÄSENTATIONS-/AGENTUR") instead of mid-syllable.
+export const HERO_TITLE_STYLE = { fontSize: 'min(72px, max(48px, 6vw), calc((100vw - 48px) / 9.8))' }
+// Space between the headline and the bottom of the hero.
+export const HERO_TITLE_BOTTOM = 'pb-24 md:pb-36'
+
 interface HeroData {
   title: { en: string; de: string }
   subtitle: { en: string; de: string }
@@ -52,17 +64,10 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
       </div>
 
       <div
-        className="flex-1 flex items-end px-6 md:px-12 lg:px-20 pt-24 pb-24 md:pt-32 md:pb-36"
+        className={`flex-1 flex items-end px-6 md:px-12 lg:px-20 pt-24 md:pt-32 ${HERO_TITLE_BOTTOM}`}
         style={{ backgroundImage: gradients.heroGlow }}
       >
-        <h1
-          className="w-full max-w-[1680px] mx-auto font-display text-white uppercase font-normal leading-[1.05] [&:lang(de)]:leading-[1.15] tracking-wider"
-          // On phones the size follows the screen width so the longest line
-          // ("FÜR ENTSCHEIDER", ~9.8em wide in this face) fits within the
-          // 24px gutters, and long German compounds break at their seam
-          // ("PRÄSENTATIONS-/AGENTUR") instead of mid-syllable.
-          style={{ fontSize: 'min(72px, max(48px, 6vw), calc((100vw - 48px) / 9.8))' }}
-        >
+        <h1 className={HERO_TITLE_CLASSES} style={HERO_TITLE_STYLE}>
           <CharReveal text={t(data.title)} />
         </h1>
       </div>

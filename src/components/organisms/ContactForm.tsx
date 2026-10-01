@@ -137,7 +137,7 @@ export default function ContactForm({ locale, privacyText, fallbackEmail }: Cont
         error={errors.message}
       />
 
-      <div className="mt-4 flex flex-col sm:flex-row sm:items-start gap-8 sm:gap-10">
+      <div className="mt-4 flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-10">
         <Checkbox
           name="privacyConsent"
           label={privacyText}
