@@ -18,6 +18,14 @@ export const colors = {
   },
 }
 
+// Hero backgrounds: the navy base and the soft blue glow that rises toward
+// the bottom edge. Shared by every hero (homepage, contact) so they match.
+export const gradients = {
+  heroBase: `linear-gradient(180deg, ${colors.primary.dark} 0%, #050518 100%)`,
+  heroGlow:
+    'linear-gradient(180deg, rgba(0, 85, 255, 0) 0%, rgba(0, 85, 255, 0.05) 50%, rgba(0, 85, 255, 0.25) 100%)',
+}
+
 // Shared page-content width cap: every section's readable content lines up
 // to this, even when its own background bleeds full-bleed to the true
 // viewport edge (see `edgeGutter` below). Keep in sync with the "1680px"

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Reveal from '../atoms/Reveal'
 import CharReveal from '../atoms/CharReveal'
-import { colors, layout } from '../../styles/design-tokens'
+import { gradients, layout } from '../../styles/design-tokens'
 
 interface HeroData {
   title: { en: string; de: string }
@@ -27,7 +27,7 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
   return (
     <section
       className="relative flex flex-col min-h-screen 2xl:min-h-[80vh]"
-      style={{ backgroundImage: `linear-gradient(180deg, ${colors.primary.dark} 0%, #050518 100%)` }}
+      style={{ backgroundImage: gradients.heroBase }}
     >
       <Image
         src="/images/line_1.svg"
@@ -53,10 +53,7 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
 
       <div
         className="flex-1 flex items-end px-6 md:px-12 lg:px-20 pt-24 pb-24 md:pt-32 md:pb-36"
-        style={{
-          backgroundImage:
-            'linear-gradient(180deg, rgba(0, 85, 255, 0) 0%, rgba(0, 85, 255, 0.05) 50%, rgba(0, 85, 255, 0.25) 100%)',
-        }}
+        style={{ backgroundImage: gradients.heroGlow }}
       >
         <h1
           className="w-full max-w-[1680px] mx-auto font-display text-white uppercase font-normal leading-[1.05] [&:lang(de)]:leading-[1.15] tracking-wider"

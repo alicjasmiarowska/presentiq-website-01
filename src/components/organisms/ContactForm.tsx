@@ -61,8 +61,10 @@ export default function ContactForm({ locale, privacyText, fallbackEmail }: Cont
     setValues((prev) => ({ ...prev, privacyConsent: e.target.checked }))
   }
 
+  // Check only the field being left, so untouched fields further down don't
+  // show errors before the visitor has reached them.
   const handleBlur = (field: keyof ContactValues) => () => {
-    setErrors((prev) => ({ ...prev, ...validate(values) } as ContactErrors))
+    setErrors((prev) => ({ ...prev, [field]: validate(values)[field] }))
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -77,14 +79,14 @@ export default function ContactForm({ locale, privacyText, fallbackEmail }: Cont
 
   if (state.status === 'success') {
     return (
-      <div ref={thanksRef} tabIndex={-1} role="status" className="rounded-2xl border border-white/20 p-8 text-center outline-none">
-        <p className="text-lg font-semibold text-white">{t.thanks}</p>
+      <div ref={thanksRef} tabIndex={-1} role="status" className="border-b border-primary-blue pb-8 outline-none">
+        <p className="font-display text-lg uppercase text-primary-dark">{t.thanks}</p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} noValidate className="relative flex flex-col gap-5 md:gap-7">
       {/* Spam traps, see actions.ts: a field hidden from people that only
           bots fill in, and when the form was opened. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
@@ -97,45 +99,45 @@ export default function ContactForm({ locale, privacyText, fallbackEmail }: Cont
         label={t.name}
         name="name"
         required
+        autoComplete="name"
         value={values.name}
         onChange={handleChange('name')}
         onBlur={handleBlur('name')}
         error={errors.name}
-        labelClassName="text-white"
       />
       <Input
         label={t.email}
         name="email"
         type="email"
         required
+        autoComplete="email"
         value={values.email}
         onChange={handleChange('email')}
         onBlur={handleBlur('email')}
         error={errors.email}
-        labelClassName="text-white"
       />
       <Input
         label={t.phone}
         name="phone"
         type="tel"
+        autoComplete="tel"
         value={values.phone}
         onChange={handleChange('phone')}
         onBlur={handleBlur('phone')}
         error={errors.phone}
-        labelClassName="text-white"
       />
       <Textarea
         label={t.message}
         name="message"
         required
+        rows={4}
         value={values.message}
         onChange={handleChange('message')}
         onBlur={handleBlur('message')}
         error={errors.message}
-        labelClassName="text-white"
       />
 
-      <div className="flex flex-col sm:flex-row sm:items-start gap-10">
+      <div className="mt-4 flex flex-col sm:flex-row sm:items-start gap-8 sm:gap-10">
         <Checkbox
           name="privacyConsent"
           label={privacyText}
@@ -143,7 +145,7 @@ export default function ContactForm({ locale, privacyText, fallbackEmail }: Cont
           onChange={handleCheckboxChange}
           onBlur={handleBlur('privacyConsent')}
           error={errors.privacyConsent}
-          labelClassName="text-white/80"
+          labelClassName="text-primary-dark/80"
           className="flex-1"
         />
         <Button
@@ -157,9 +159,9 @@ export default function ContactForm({ locale, privacyText, fallbackEmail }: Cont
       </div>
 
       {state.status === 'error' && (
-        <p role="alert" className="text-base text-white">
+        <p role="alert" className="text-base text-primary-dark">
           {t.failed}{' '}
-          <a href={`mailto:${fallbackEmail}`} className="underline hover:no-underline">
+          <a href={`mailto:${fallbackEmail}`} className="text-primary-blue underline hover:no-underline">
             {fallbackEmail}
           </a>
           .

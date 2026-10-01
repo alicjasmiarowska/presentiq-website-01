@@ -5,7 +5,8 @@ import Reveal from '../../../src/components/atoms/Reveal'
 import CharReveal from '../../../src/components/atoms/CharReveal'
 import { hyphenate } from '../../../src/lib/hyphenate'
 import ContactForm from '../../../src/components/organisms/ContactForm'
-import BlurGlow from '../../../src/components/atoms/BlurGlow'
+import Image from 'next/image'
+import { gradients, layout } from '../../../src/styles/design-tokens'
 import { getContact, getFooter } from '../../../sanity/lib/fetch'
 import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
 
@@ -44,28 +45,71 @@ export default async function ContactPage({
   const t = (field: any) => field?.[locale] || field?.en || ''
 
   return (
-    <main className="relative overflow-hidden bg-primary-dark px-6 md:px-12 lg:px-20 pt-16 pb-16 md:pt-20 md:pb-30">
-      <BlurGlow variant="corner" position="bottom-right" size={820} />
-      <div className="relative max-w-[1680px] mx-auto">
-        <Heading level="h1" text={t(data?.headline)} className="text-white mb-10 md:mb-20">
-          <CharReveal text={hyphenate(t(data?.headline), locale as 'en' | 'de')} />
-        </Heading>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-          <Reveal delay={500}>
-            <Heading level="h3" text={t(data?.formHeadline)} className="text-white mb-6" />
-            <Text text={t(data?.formBody)} size="base" color="primary" className="mr-10" />
-          </Reveal>
-
-          <Reveal delay={650}>
-            <ContactForm
-              locale={locale as 'en' | 'de'}
-              privacyText={t(data?.privacyText)}
-              fallbackEmail={footer?.email || 'kontakt@presentiq.de'}
-            />
-          </Reveal>
+    <main>
+      {/* Hero: same navy base and blue glow as the homepage hero, the bar
+          graphics top-left and bottom-right, headline bottom-left. */}
+      <section className="relative overflow-hidden" style={{ backgroundImage: gradients.heroBase }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: gradients.heroGlow }} aria-hidden="true" />
+        <Image
+          src="/images/line_1.svg"
+          alt=""
+          aria-hidden="true"
+          width={677}
+          height={692}
+          unoptimized
+          priority
+          className="absolute left-[5px] top-0 -translate-y-[16.7%] w-[max(10rem,min(31.4vw,452px))] h-auto pointer-events-none select-none"
+        />
+        <div
+          className="absolute bottom-0 left-[calc(75%-7px)] w-[min(25.5vw,367px)] aspect-[367/468] overflow-hidden pointer-events-none"
+          aria-hidden="true"
+        >
+          <Image src="/images/line-2.png" alt="" fill sizes="367px" className="object-cover select-none" />
         </div>
-      </div>
+
+        <div className="relative px-6 md:px-12 lg:px-20 pt-40 pb-14 md:pt-56 md:pb-20 lg:pt-[271px] lg:pb-[109px]">
+          <Heading
+            level="h1"
+            text={t(data?.headline)}
+            className="max-w-[1680px] mx-auto text-white! font-medium! uppercase tracking-[0.05em] leading-[1.29]! text-[clamp(40px,4.86vw,70px)]!"
+          >
+            <CharReveal text={hyphenate(t(data?.headline), locale as 'en' | 'de')} />
+          </Heading>
+        </div>
+      </section>
+
+      {/* Two halves that bleed to the viewport edges: navy statement on the
+          left, the form on white on the right. */}
+      <section className="grid grid-cols-1 md:grid-cols-2">
+        <div className={`relative overflow-hidden bg-primary-dark ${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20 pt-16 pb-16 md:pt-30 md:pb-30`}>
+          {/* Bar graphic along the column's left edge, as in the design:
+              169×574 at 1440px, a third of it tucked past the viewport edge. */}
+          <Image
+            src="/images/line-04.png"
+            alt=""
+            aria-hidden="true"
+            width={318}
+            height={1080}
+            className="absolute left-0 -top-[7px] -translate-x-[44.4%] w-[min(11.7vw,169px)] min-w-24 h-auto pointer-events-none select-none"
+          />
+          <div className="relative max-w-[517px]">
+            <Reveal>
+              <Heading level="h2" variant="section" text={t(data?.formHeadline)} className="text-white" />
+            </Reveal>
+            <Reveal delay={150}>
+              <Text text={t(data?.formBody)} size="base" color="primary" className="mt-12 lg:mt-36" />
+            </Reveal>
+          </div>
+        </div>
+
+        <div className={`bg-white pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right} pt-12 pb-16 md:pt-[102px] md:pb-30`}>
+          <ContactForm
+            locale={locale as 'en' | 'de'}
+            privacyText={t(data?.privacyText)}
+            fallbackEmail={footer?.email || 'kontakt@presentiq.de'}
+          />
+        </div>
+      </section>
     </main>
   )
 }
