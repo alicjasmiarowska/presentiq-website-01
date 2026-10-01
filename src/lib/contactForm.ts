@@ -15,8 +15,8 @@ export type ContactErrors = Partial<Record<keyof ContactValues, string>>
 export const contactCopy = {
   en: {
     name: 'Name',
-    email: 'Email',
-    phone: 'Phone',
+    email: 'Email address',
+    phone: 'Phone number',
     message: 'Message',
     submit: 'Send message',
     sending: 'Sending…',
@@ -35,8 +35,8 @@ export const contactCopy = {
   },
   de: {
     name: 'Name',
-    email: 'E-Mail',
-    phone: 'Telefon',
+    email: 'E-Mail-Adresse',
+    phone: 'Telefonnummer',
     message: 'Nachricht',
     submit: 'Nachricht senden',
     sending: 'Wird gesendet …',

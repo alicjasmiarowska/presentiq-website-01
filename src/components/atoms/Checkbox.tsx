@@ -38,7 +38,7 @@ export default function Checkbox({
         <span className={`text-sm leading-relaxed ${labelClassName}`}>{label}</span>
       </label>
       {error && (
-        <p id={`${name}-error`} role="alert" className="mt-1.5 ml-7 text-sm text-red-400">
+        <p id={`${name}-error`} role="alert" className="mt-1.5 ml-7 text-sm text-red-600">
           {error}
         </p>
       )}
