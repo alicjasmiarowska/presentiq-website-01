@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Text from '../atoms/Text'
-import Heading from '../atoms/Heading'
 import PrivacySettingsButton from '../atoms/PrivacySettingsButton'
 import { urlFor } from '../../../sanity/lib/image'
+
+// Phone/email lines: same look as an h5, but they're contact details, not
+// headings, so they stay out of the page's heading outline.
+const CONTACT_CLASSES = 'font-display leading-[1.2] text-h5 md:text-h5-md lg:text-h5-lg font-bold'
 
 interface FooterLink {
   _key: string
@@ -49,7 +52,7 @@ export default function Footer({ data, services, locale }: FooterProps) {
 
   const renderColumn = (key: string, links: React.ReactNode) => (
     <div key={key} className="min-w-0">
-      <ul className="space-y-4">{links}</ul>
+      <ul className="space-y-1 md:space-y-4">{links}</ul>
     </div>
   )
 
@@ -72,24 +75,18 @@ export default function Footer({ data, services, locale }: FooterProps) {
               </span>
             )}
             {data.phone && (
-              <Heading level="h5" text={data.phone} className="mb-2">
-                <a
-                  href={`tel:${data.phone}`}
-                  className="text-primary-blue hover:text-white"
-                >
+              <p className={`${CONTACT_CLASSES} mb-2`}>
+                <a href={`tel:${data.phone}`} className="text-primary-blue hover:text-white">
                   {data.phone}
                 </a>
-              </Heading>
+              </p>
             )}
             {data.email && (
-              <Heading level="h5" text={data.email}>
-                <a
-                  href={`mailto:${data.email}`}
-                  className="text-primary-blue hover:text-white"
-                >
+              <p className={CONTACT_CLASSES}>
+                <a href={`mailto:${data.email}`} className="text-primary-blue hover:text-white">
                   {data.email}
                 </a>
-              </Heading>
+              </p>
             )}
           </div>
 
@@ -100,7 +97,7 @@ export default function Footer({ data, services, locale }: FooterProps) {
                 <li key={link._key}>
                   <Link
                     href={`/${locale}${linkHref(link)}`}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="inline-block py-2 md:py-0 text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {t(link.label)}
                   </Link>
@@ -115,7 +112,7 @@ export default function Footer({ data, services, locale }: FooterProps) {
                 <li key={service._id}>
                   <Link
                     href={`/${locale}/services/${service.slug!.current}`}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="inline-block py-2 md:py-0 text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {t(service.title)}
                   </Link>
@@ -130,7 +127,7 @@ export default function Footer({ data, services, locale }: FooterProps) {
                 <li key={link._key}>
                   <Link
                     href={`/${locale}${linkHref(link)}`}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="inline-block py-2 md:py-0 text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {t(link.label)}
                   </Link>

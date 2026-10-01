@@ -9,13 +9,27 @@ interface CharRevealProps {
 
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const STAGGER = 0.035
-// Long unbroken words (German compounds especially) can't rely on
-// hyphens-auto/text-balance here — the text is split into per-character
-// spans, so the browser has no plain text run left to hyphenate and the
-// word overflows instead of wrapping. Chunking each word into inline-block
-// groups with a <wbr/> between them gives it a legal place to wrap if it
-// doesn't fit, without changing anything for ordinary short words.
-const CHUNK_SIZE = 8
+// Long words (German compounds especially) can't rely on hyphens-auto
+// here — the text is split into per-character spans, so the browser has no
+// plain text run left to hyphenate and the word overflows instead of
+// wrapping. Callers pass text pre-hyphenated with soft hyphens (see
+// src/lib/hyphenate.ts); each word is chunked into unbreakable groups at
+// those syllable breaks, and after any real hyphen, so it can only wrap at
+// a dictionary-correct point.
+const SOFT_HYPHEN = '\u00AD'
+
+function splitWord(word: string): { text: string; softBreak: boolean }[] {
+  const chunks: { text: string; softBreak: boolean }[] = []
+  for (const part of word.split(SOFT_HYPHEN)) {
+    // A real hyphen ("Decision-makers") is already visible, so the break
+    // after it needs no extra hyphen drawn.
+    const pieces = part.split(/(?<=-)/)
+    pieces.forEach((piece, i) => {
+      if (piece) chunks.push({ text: piece, softBreak: i === 0 && chunks.length > 0 })
+    })
+  }
+  return chunks
+}
 
 export default function CharReveal({ text, className = '' }: CharRevealProps) {
   const ref = useRef<HTMLSpanElement>(null)
@@ -44,6 +58,28 @@ export default function CharReveal({ text, className = '' }: CharRevealProps) {
     return () => observer.disconnect()
   }, [])
 
+  // A word wraps only at its soft-hyphen chunk boundaries, but browsers
+  // don't reliably draw the "-" there when the letters are animated
+  // inline-blocks (Safari draws nothing). So each such boundary carries its
+  // own zero-width hyphen, shown only when the next chunk actually starts on
+  // a new line. Being zero-width, toggling it never changes the wrapping.
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const update = () => {
+      el.querySelectorAll<HTMLElement>('[data-hyphen]').forEach((hyphen) => {
+        const chunk = hyphen.parentElement!
+        const next = chunk.parentElement?.nextElementSibling?.querySelector<HTMLElement>('[data-chunk]')
+        hyphen.style.visibility = next && next.offsetTop > chunk.offsetTop ? 'visible' : 'hidden'
+      })
+    }
+    update()
+    document.fonts?.ready.then(update)
+    const observer = new ResizeObserver(update)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [text])
+
   useEffect(() => {
     // On narrow screens each word usually wraps to its own line, so a global
     // per-character stagger reveals only an isolated letter-fragment at a time
@@ -71,19 +107,15 @@ export default function CharReveal({ text, className = '' }: CharRevealProps) {
             const wordIndex = globalWordIndex
             globalWordIndex += 1
             const isLastInLine = idxInLine === wordsInLine.length - 1
-            const chars = word.split('')
-            const chunks: string[][] = []
-            for (let c = 0; c < chars.length; c += CHUNK_SIZE) {
-              chunks.push(chars.slice(c, c + CHUNK_SIZE))
-            }
+            const chunks = splitWord(word)
 
             return (
               <span key={wordIndex}>
                 {chunks.map((chunk, chunkIndex) => (
                   <span key={chunkIndex}>
-                    {chunkIndex > 0 && '­'}
-                    <span className="inline-block">
-                      {chunk.map((char) => {
+                    {chunkIndex > 0 && <wbr />}
+                    <span data-chunk className="whitespace-nowrap">
+                      {chunk.text.split('').map((char) => {
                         const key = charIndex
                         const delay = isMobile ? wordIndex * 3 : charIndex
                         charIndex += 1
@@ -105,6 +137,16 @@ export default function CharReveal({ text, className = '' }: CharRevealProps) {
                           </span>
                         )
                       })}
+                      {chunks[chunkIndex + 1]?.softBreak && (
+                        <span
+                          data-hyphen
+                          aria-hidden="true"
+                          className="inline-block w-0"
+                          style={{ visibility: 'hidden', opacity: visible ? 1 : 0, transition: 'opacity 0.5s' }}
+                        >
+                          -
+                        </span>
+                      )}
                     </span>
                   </span>
                 ))}

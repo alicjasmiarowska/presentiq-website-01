@@ -48,8 +48,8 @@ export default function ServicesSection({ services, data, locale }: ServicesSect
       />
 
       <Section className="relative">
-        <div className="pt-30 pb-30">
-          <div className="mb-20 ml-4">
+        <div className="pt-20 pb-20 md:pt-30 md:pb-30">
+          <div className="mb-12 md:mb-20 ml-4">
             <Reveal>
               <Heading level="h2" variant="section" text={t(data.headline)} className="text-white" />
             </Reveal>

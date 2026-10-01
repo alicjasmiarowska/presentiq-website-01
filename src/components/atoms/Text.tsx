@@ -24,7 +24,7 @@ export default function Text({
   }
 
   return (
-    <p className={`${sizes[size]} ${colors[color]} leading-relaxed whitespace-pre-line text-pretty hyphens-auto ${className}`}>
+    <p className={`${sizes[size]} ${colors[color]} leading-relaxed whitespace-pre-line text-pretty hyphens-manual ${className}`}>
       {text}
     </p>
   )

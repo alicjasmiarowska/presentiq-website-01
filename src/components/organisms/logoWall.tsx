@@ -104,7 +104,7 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
       />
 
       <div className="relative max-w-[1680px] mx-auto">
-      <div className="relative px-6 md:px-12 lg:px-20 pt-30">
+      <div className="relative px-6 md:px-12 lg:px-20 pt-20 md:pt-30">
         <Reveal>
           <Heading level="h2" variant="section" text={t(data.headline)} className="text-primary-dark" />
         </Reveal>
@@ -112,16 +112,27 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
 
       {stats.length > 0 && (
         <div className="relative mt-16 md:mt-24 pr-6 md:pr-12 lg:pr-20">
-          <div className="ml-[29%] grid grid-cols-3">
+          {/* Phones: one stat per row (label above its number, a rule between
+              stats), ordered via --o. From md up: labels share the first grid
+              row and numbers the second, so the columns line up. */}
+          <div className="md:ml-[29%] grid grid-cols-1 md:grid-cols-3">
             {stats.map((stat, i) => (
-              <div key={`label-${stat._key}`} className={`px-6 md:px-10 pb-8 ${i > 0 ? 'border-l border-primary-blue' : ''}`}>
+              <div
+                key={`label-${stat._key}`}
+                className={`order-[var(--o)] md:order-none px-6 md:px-10 pb-3 md:pb-8 ${i > 0 ? 'border-t md:border-t-0 md:border-l border-primary-blue pt-8 md:pt-0' : ''}`}
+                style={{ '--o': i * 2 } as React.CSSProperties}
+              >
                 <Reveal delay={i * 100}>
-                  <p className="text-[22px] font-normal leading-snug line-clamp-3">{t(stat.label)}</p>
+                  <p className="text-base font-normal leading-snug md:line-clamp-3">{t(stat.label)}</p>
                 </Reveal>
               </div>
             ))}
             {stats.map((stat, i) => (
-              <div key={`value-${stat._key}`} className={`px-6 md:px-10 ${i > 0 ? 'border-l border-primary-blue' : ''}`}>
+              <div
+                key={`value-${stat._key}`}
+                className={`order-[var(--o)] md:order-none px-6 md:px-10 pb-8 md:pb-0 ${i > 0 ? 'md:border-l border-primary-blue' : ''}`}
+                style={{ '--o': i * 2 + 1 } as React.CSSProperties}
+              >
                 <CountUpNumber
                   value={stat.value}
                   decimals={stat.decimals}

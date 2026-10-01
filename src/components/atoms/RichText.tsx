@@ -10,7 +10,7 @@ const components: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
       <h2
-        className={`${SECTION_VARIANT_CLASSES} text-primary-dark mt-12 mb-4 first:mt-0 text-balance hyphens-auto`}
+        className={`${SECTION_VARIANT_CLASSES} text-primary-dark mt-12 mb-4 first:mt-0 text-balance hyphens-manual`}
         style={SECTION_VARIANT_STYLE}
       >
         {children}
@@ -18,19 +18,19 @@ const components: PortableTextComponents = {
     ),
     h3: ({ children }) => (
       <h3
-        className={`${SECTION_VARIANT_CLASSES} text-primary-dark mt-8 mb-3 text-balance hyphens-auto`}
+        className={`${SECTION_VARIANT_CLASSES} text-primary-dark mt-8 mb-3 text-balance hyphens-manual`}
         style={SECTION_VARIANT_STYLE}
       >
         {children}
       </h3>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-primary-blue pl-6 italic text-gray-600 my-6 text-pretty hyphens-auto">
+      <blockquote className="border-l-4 border-primary-blue pl-6 italic text-gray-600 my-6 text-pretty hyphens-manual">
         {children}
       </blockquote>
     ),
     normal: ({ children }) => (
-      <p className="text-base text-primary-dark leading-relaxed mb-4 text-pretty hyphens-auto">{children}</p>
+      <p className="text-base text-primary-dark leading-relaxed mb-4 text-pretty hyphens-manual">{children}</p>
     ),
   },
   list: {
@@ -38,8 +38,8 @@ const components: PortableTextComponents = {
     number: ({ children }) => <ol className="list-decimal pl-6 mb-4 space-y-2">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li className="text-base text-primary-dark leading-relaxed text-pretty hyphens-auto">{children}</li>,
-    number: ({ children }) => <li className="text-base text-primary-dark leading-relaxed text-pretty hyphens-auto">{children}</li>,
+    bullet: ({ children }) => <li className="text-base text-primary-dark leading-relaxed text-pretty hyphens-manual">{children}</li>,
+    number: ({ children }) => <li className="text-base text-primary-dark leading-relaxed text-pretty hyphens-manual">{children}</li>,
   },
   marks: {
     strong: ({ children }) => <strong className="font-semibold">{children}</strong>,

@@ -96,7 +96,7 @@ export default function IntroLoader() {
         width={320}
         height={30}
         priority
-        className={`relative w-80 md:w-lg lg:w-160 h-auto transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`relative w-[min(20rem,calc(100vw_-_48px))] md:w-lg lg:w-160 h-auto transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         }`}
       />
