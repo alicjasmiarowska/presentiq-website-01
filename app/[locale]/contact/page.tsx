@@ -3,8 +3,8 @@ import Heading from '../../../src/components/atoms/Heading'
 import Text from '../../../src/components/atoms/Text'
 import Reveal from '../../../src/components/atoms/Reveal'
 import CharReveal from '../../../src/components/atoms/CharReveal'
-import { hyphenate } from '../../../src/lib/hyphenate'
 import ContactForm from '../../../src/components/organisms/ContactForm'
+import { HERO_TITLE_BOTTOM, HERO_TITLE_CLASSES, HERO_TITLE_STYLE } from '../../../src/components/organisms/HeroSection'
 import Image from 'next/image'
 import { gradients, layout } from '../../../src/styles/design-tokens'
 import { getContact, getFooter } from '../../../sanity/lib/fetch'
@@ -67,14 +67,10 @@ export default async function ContactPage({
           <Image src="/images/line-2.png" alt="" fill sizes="367px" className="object-cover select-none" />
         </div>
 
-        <div className="relative px-6 md:px-12 lg:px-20 pt-40 pb-14 md:pt-56 md:pb-20 lg:pt-[271px] lg:pb-[109px]">
-          <Heading
-            level="h1"
-            text={t(data?.headline)}
-            className="max-w-[1680px] mx-auto text-white! font-medium! uppercase tracking-[0.05em] leading-[1.29]! text-[clamp(40px,4.86vw,70px)]!"
-          >
-            <CharReveal text={hyphenate(t(data?.headline), locale as 'en' | 'de')} />
-          </Heading>
+        <div className={`relative px-6 md:px-12 lg:px-20 pt-40 md:pt-56 lg:pt-[271px] ${HERO_TITLE_BOTTOM}`}>
+          <h1 className={HERO_TITLE_CLASSES} style={HERO_TITLE_STYLE}>
+            <CharReveal text={t(data?.headline)} />
+          </h1>
         </div>
       </section>
 
