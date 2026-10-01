@@ -10,6 +10,9 @@
 
   body {
     font-family: system-ui, -apple-system, sans-serif;
+    /* Last-resort safety net: a word that still can't fit (no syllable
+       break left) wraps mid-word instead of widening the page. */
+    overflow-wrap: break-word;
     background-color: white;
     color: #1a1a1a;
   }

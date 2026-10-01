@@ -15,6 +15,7 @@ import { buildMetadata, resolveSeoText } from '../../../../src/lib/pageMetadata'
 import { siteUrl } from '../../../../src/lib/siteUrl'
 import { colors } from '../../../../src/styles/design-tokens'
 import type { Metadata } from 'next'
+import { toJsonLd } from '../../../../src/lib/hyphenate'
 
 export const dynamic = 'force-dynamic'
 
@@ -83,11 +84,11 @@ export default async function ServicePage({
     <main>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: toJsonLd(serviceJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }}
       />
       <div className="relative overflow-hidden bg-primary-dark">
         <BlurGlow variant="corner" position="bottom-right" color={accentColor} />

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { siteUrl } from './siteUrl'
 import { urlFor } from '../../sanity/lib/image'
+import { stripSoftHyphens } from './hyphenate'
 
 interface BuildMetadataParams {
   locale: 'en' | 'de'
@@ -10,7 +11,11 @@ interface BuildMetadataParams {
   image?: any
 }
 
-export function buildMetadata({ locale, path, title, description, image }: BuildMetadataParams): Metadata {
+export function buildMetadata({ locale, path, title: rawTitle, description: rawDescription, image }: BuildMetadataParams): Metadata {
+  // CMS text arrives with soft hyphens for on-page wrapping; search results
+  // and link previews must not carry them.
+  const title = stripSoftHyphens(rawTitle)
+  const description = stripSoftHyphens(rawDescription)
   const url = `${siteUrl}/${locale}${path}`
   const ogImageUrl = image?.asset ? urlFor(image).width(1200).height(630).url() : undefined
 

@@ -2,6 +2,7 @@ import Heading from '../../../src/components/atoms/Heading'
 import RichText from '../../../src/components/atoms/RichText'
 import Reveal from '../../../src/components/atoms/Reveal'
 import CharReveal from '../../../src/components/atoms/CharReveal'
+import { hyphenate } from '../../../src/lib/hyphenate'
 import Section from '../../../src/components/atoms/Section'
 import { getPrivacyPolicy } from '../../../sanity/lib/fetch'
 import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
@@ -49,7 +50,7 @@ export default async function PrivacyPolicyPage({
             text={heading}
             className="text-h2! md:text-h2-md! lg:text-h2-lg! font-extrabold! mb-16"
           >
-            <CharReveal text={heading} />
+            <CharReveal text={hyphenate(heading, locale as 'en' | 'de')} />
           </Heading>
           <Reveal delay={200}>
             <RichText value={t(data?.body)} />

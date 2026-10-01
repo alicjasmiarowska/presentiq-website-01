@@ -1,7 +1,15 @@
 import { client } from './client'
+import { hyphenateLocalized } from '../../src/lib/hyphenate'
+
+// Every query goes through here so all localized CMS text arrives with
+// dictionary-correct soft hyphens (see src/lib/hyphenate.ts) — long German
+// words then wrap on phones instead of pushing the page sideways.
+async function fetchContent(query: string, params: Record<string, unknown> = {}) {
+  return hyphenateLocalized(await client.fetch(query, params))
+}
 
 export async function getNavigation() {
-  return client.fetch(`*[_type == "navigation"][0]{
+  return fetchContent(`*[_type == "navigation"][0]{
     ...,
     navLinks[]{
       ...,
@@ -11,7 +19,7 @@ export async function getNavigation() {
 }
 
 export async function getHero(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "hero"][0]{
+  return fetchContent(`*[_type == "hero"][0]{
     ...,
     buttonPage1->{ "type": _type, "slug": slug.current },
     buttonPage2->{ "type": _type, "slug": slug.current }
@@ -19,7 +27,7 @@ export async function getHero(locale: 'en' | 'de') {
 }
 
 export async function getTextAndPicture(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "textAndPicture"][0]{
+  return fetchContent(`*[_type == "textAndPicture"][0]{
     ...,
     "videoUrl": video.asset->url,
     buttonPage->{ "type": _type, "slug": slug.current }
@@ -27,7 +35,7 @@ export async function getTextAndPicture(locale: 'en' | 'de') {
 }
 
 export async function getTextAndPictureBullets(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "textAndPictureBullets"][0]{
+  return fetchContent(`*[_type == "textAndPictureBullets"][0]{
     ...,
     "videoUrl": video.asset->url,
     buttonPage->{ "type": _type, "slug": slug.current }
@@ -35,22 +43,22 @@ export async function getTextAndPictureBullets(locale: 'en' | 'de') {
 }
 
 export async function getTextAndImageSlider(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "textAndImageSlider"][0]{
+  return fetchContent(`*[_type == "textAndImageSlider"][0]{
     ...,
     buttonPage->{ "type": _type, "slug": slug.current }
   }`)
 }
 
 export async function getThreePillars(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "pillars"][0]`)
+  return fetchContent(`*[_type == "pillars"][0]`)
 }
 
 export async function getFourPillars(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "fourPillars"][0]`)
+  return fetchContent(`*[_type == "fourPillars"][0]`)
 }
 
 export async function getFourColumns() {
-  return client.fetch(`*[_type == "fourColumns"][0]{
+  return fetchContent(`*[_type == "fourColumns"][0]{
     ...,
     columns[]{
       ...,
@@ -60,30 +68,30 @@ export async function getFourColumns() {
 }
 
 export async function getProcess(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "process"][0]`)
+  return fetchContent(`*[_type == "process"][0]`)
 }
 
 export async function getFeatures(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "features"][0]`)
+  return fetchContent(`*[_type == "features"][0]`)
 }
 
 export async function getTools(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "tools"][0]`)
+  return fetchContent(`*[_type == "tools"][0]`)
 }
 
 export async function getServicesSection(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "servicesSection"][0]{
+  return fetchContent(`*[_type == "servicesSection"][0]{
     ...,
     services[]->
   }`)
 }
 
 export async function getServiceSlugs() {
-  return client.fetch(`*[_type == "service" && defined(slug.current)]{ "slug": slug.current }`)
+  return fetchContent(`*[_type == "service" && defined(slug.current)]{ "slug": slug.current }`)
 }
 
 export async function getServiceBySlug(slug: string) {
-  return client.fetch(
+  return fetchContent(
     `*[_type == "service" && slug.current == $slug][0]{
       ...,
       hero->{
@@ -109,18 +117,18 @@ export async function getServiceBySlug(slug: string) {
 }
 
 export async function getLogoWall(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "logoWall"][0]`)
+  return fetchContent(`*[_type == "logoWall"][0]`)
 }
 
 export async function getVideoSection() {
-  return client.fetch(`*[_type == "videoSection"][0]{
+  return fetchContent(`*[_type == "videoSection"][0]{
     ...,
     "videoUrl": video.asset->url
   }`)
 }
 
 export async function getFeaturedWork(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "featuredWork"][0]{
+  return fetchContent(`*[_type == "featuredWork"][0]{
     ...,
     buttonPage->{ "type": _type, "slug": slug.current },
     projects[]->{
@@ -133,18 +141,18 @@ export async function getFeaturedWork(locale: 'en' | 'de') {
 }
 
 export async function getFinalCta(locale: 'en' | 'de') {
-  return client.fetch(`*[_type == "finalCta"][0]{
+  return fetchContent(`*[_type == "finalCta"][0]{
     ...,
     buttonPage->{ "type": _type, "slug": slug.current }
   }`)
 }
 
 export async function getFaq(page: 'home' | 'services' | 'howWeWork') {
-  return client.fetch(`*[_type == "faq" && page == $page][0]`, { page })
+  return fetchContent(`*[_type == "faq" && page == $page][0]`, { page })
 }
 
 export async function getFooter() {
-  return client.fetch(`*[_type == "footer"][0]{
+  return fetchContent(`*[_type == "footer"][0]{
     ...,
     columns[]{
       ...,
@@ -157,11 +165,11 @@ export async function getFooter() {
 }
 
 export async function getContact() {
-  return client.fetch(`*[_type == "contact"][0]`)
+  return fetchContent(`*[_type == "contact"][0]`)
 }
 
 export async function getAbout() {
-  return client.fetch(`*[_type == "about"][0]{
+  return fetchContent(`*[_type == "about"][0]{
     ...,
     hero->{
       ...,
@@ -177,7 +185,7 @@ export async function getAbout() {
 }
 
 export async function getHowWeWork() {
-  return client.fetch(`*[_type == "howWeWork"][0]{
+  return fetchContent(`*[_type == "howWeWork"][0]{
     ...,
     hero->{
       ...,
@@ -193,7 +201,7 @@ export async function getHowWeWork() {
 }
 
 export async function getPortfolio() {
-  return client.fetch(`*[_type == "portfolio"][0]{
+  return fetchContent(`*[_type == "portfolio"][0]{
     ...,
     hero->{
       ...,
@@ -204,7 +212,7 @@ export async function getPortfolio() {
 }
 
 export async function getCaseStudies() {
-  return client.fetch(`*[_type == "caseStudy"]{
+  return fetchContent(`*[_type == "caseStudy"]{
     _id,
     title,
     category,
@@ -213,15 +221,15 @@ export async function getCaseStudies() {
 }
 
 export async function getLegalNotice() {
-  return client.fetch(`*[_type == "legalNotice"][0]`)
+  return fetchContent(`*[_type == "legalNotice"][0]`)
 }
 
 export async function getPrivacyPolicy() {
-  return client.fetch(`*[_type == "privacyPolicy"][0]`)
+  return fetchContent(`*[_type == "privacyPolicy"][0]`)
 }
 
 export async function getHomepage() {
-  return client.fetch(`*[_type == "homepage"][0]{
+  return fetchContent(`*[_type == "homepage"][0]{
     ...,
     hero->{
       ...,

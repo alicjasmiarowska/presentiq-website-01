@@ -3,6 +3,7 @@ import Heading from '../../../src/components/atoms/Heading'
 import Text from '../../../src/components/atoms/Text'
 import Reveal from '../../../src/components/atoms/Reveal'
 import CharReveal from '../../../src/components/atoms/CharReveal'
+import { hyphenate } from '../../../src/lib/hyphenate'
 import ContactForm from '../../../src/components/organisms/ContactForm'
 import BlurGlow from '../../../src/components/atoms/BlurGlow'
 import { getContact } from '../../../sanity/lib/fetch'
@@ -45,7 +46,7 @@ export default async function ContactPage({
       <BlurGlow variant="corner" position="bottom-right" size={820} />
       <div className="relative max-w-[1680px] mx-auto">
         <Heading level="h1" text={t(data?.headline)} className="text-white mb-10 md:mb-20">
-          <CharReveal text={t(data?.headline)} />
+          <CharReveal text={hyphenate(t(data?.headline), locale as 'en' | 'de')} />
         </Heading>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">

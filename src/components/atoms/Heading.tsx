@@ -25,7 +25,11 @@ const sizes = {
 // out, clamped size. Used for every H2 that introduces a section (Hero
 // subsections, FAQ, services, pillars, logo wall, ...) so they all stay in
 // sync from this one place instead of each section re-declaring the style.
-export const SECTION_VARIANT_CLASSES = 'font-display font-normal uppercase tracking-wider leading-[1.1]'
+// CMS text arrives with grammatically placed soft hyphens
+// (src/lib/hyphenate.ts); hyphens-manual breaks only there, so long German
+// compounds wrap at their seam ("Präsentations-agentur") instead of
+// overflowing narrow phones.
+export const SECTION_VARIANT_CLASSES = 'font-display font-normal uppercase tracking-wider leading-[1.1] text-balance hyphens-manual break-words'
 export const SECTION_VARIANT_STYLE = { fontSize: typography.sectionHeading.fontSize }
 
 export default function Heading({ text, level = 'h1', variant = 'default', className = '', children }: HeadingProps) {
@@ -54,13 +58,13 @@ export default function Heading({ text, level = 'h1', variant = 'default', class
     )
   }
 
-  // text-balance/hyphens-auto assume a plain text node to re-flow and
+  // text-balance/hyphens-manual assume a plain text node to re-flow and
   // hyphenate. When children override `text` (e.g. CharReveal splitting the
   // heading into per-character spans for animation), the browser has no text
   // run left to balance or hyphenate, and text-balance actively suppresses
   // the visual hyphen at any manual break point we add ourselves — so skip
   // both here and let it wrap normally instead.
-  const wrapClasses = children ? '' : 'text-balance hyphens-auto'
+  const wrapClasses = children ? '' : 'text-balance hyphens-manual'
 
   return (
     <Tag className={`font-display leading-[1.2] ${sizes[level]} text-primary-dark ${wrapClasses} ${className}`}>

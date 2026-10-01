@@ -27,25 +27,25 @@ export default function TwoColumnSection({ data, locale }: TwoColumnSectionProps
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-[auto_auto]">
-      <div className={`bg-primary-dark ${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20 py-16 md:py-24 lg:py-32 grid md:grid-rows-subgrid md:row-span-2`}>
+      <div className={`bg-primary-dark ${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-20 py-16 md:py-24 lg:py-32 grid grid-cols-1 md:grid-rows-subgrid md:row-span-2`}>
         <Reveal>
           <Heading level="h2" variant="section" text={t(data.leftHeadline)} className="text-white" />
         </Reveal>
         {t(data.buttonText) && (
           <Reveal delay={100}>
-            <div className="mt-30">
+            <div className="mt-12 md:mt-30">
               <Button text={t(data.buttonText)} href={buttonHref} variant="text" showArrow />
             </div>
           </Reveal>
         )}
       </div>
 
-      <div className={`bg-white pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right} py-16 md:py-24 lg:py-32 grid md:grid-rows-subgrid md:row-span-2`}>
+      <div className={`bg-white pl-6 md:pl-12 lg:pl-20 ${layout.edgeGutter.right} py-16 md:py-24 lg:py-32 grid grid-cols-1 md:grid-rows-subgrid md:row-span-2`}>
         <Reveal delay={150}>
           <RichText value={data.rightBody?.[locale] || data.rightBody?.en} />
         </Reveal>
         <Reveal delay={250}>
-          <Heading level="h2" variant="section" text={t(data.rightHeadline)} className="text-primary-blue mt-30" />
+          <Heading level="h2" variant="section" text={t(data.rightHeadline)} className="text-primary-blue mt-16 md:mt-30" />
         </Reveal>
       </div>
     </section>

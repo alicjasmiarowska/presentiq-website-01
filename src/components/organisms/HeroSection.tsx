@@ -60,7 +60,11 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
       >
         <h1
           className="w-full max-w-[1680px] mx-auto font-display text-white uppercase font-normal leading-[1.05] tracking-wider"
-          style={{ fontSize: 'clamp(48px, 6vw, 72px)' }}
+          // On phones the size follows the screen width so the longest line
+          // ("FÜR ENTSCHEIDER", ~9.8em wide in this face) fits within the
+          // 24px gutters, and long German compounds break at their seam
+          // ("PRÄSENTATIONS-/AGENTUR") instead of mid-syllable.
+          style={{ fontSize: 'min(72px, max(48px, 6vw), calc((100vw - 48px) / 9.8))' }}
         >
           <CharReveal text={t(data.title)} />
         </h1>

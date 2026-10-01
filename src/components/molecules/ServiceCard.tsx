@@ -32,8 +32,8 @@ export default function ServiceCard({ index, title, description, href }: Service
 
   const content = (
     <>
-      <div className="flex items-end justify-between gap-4 md:contents">
-        <div className="flex items-end gap-4 md:contents">
+      <div className="flex items-center justify-between gap-4 md:contents">
+        <div className="flex items-baseline gap-4 md:contents">
           <Text text={number} size="lg" className="shrink-0 text-primary-blue! group-hover:text-white! transition-colors duration-300 md:w-16" />
 
           <div className="md:w-1/3 md:shrink-0 md:pr-8">

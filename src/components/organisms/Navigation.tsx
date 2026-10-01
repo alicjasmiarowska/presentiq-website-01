@@ -194,28 +194,28 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
           </div>
         </div>
 
-        <div className="lg:hidden ml-auto flex items-center px-6">
+        <div className="lg:hidden ml-auto flex items-center pl-6 pr-3.5">
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-panel"
-            className="relative w-8 h-8 shrink-0"
+            className="relative w-11 h-11 shrink-0"
           >
             <span
               className={`absolute left-1/2 top-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full transition-transform duration-300 ${
-                mobileOpen ? 'rotate-45 bg-primary-dark' : '-translate-y-2 bg-white'
+                mobileOpen ? 'rotate-45 bg-white' : '-translate-y-2 bg-white'
               }`}
             />
             <span
               className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-0.5 w-6 rounded-full transition-opacity duration-200 ${
-                mobileOpen ? 'opacity-0 bg-primary-dark' : 'opacity-100 bg-white'
+                mobileOpen ? 'opacity-0 bg-white' : 'opacity-100 bg-white'
               }`}
             />
             <span
               className={`absolute left-1/2 top-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full transition-transform duration-300 ${
-                mobileOpen ? '-rotate-45 bg-primary-dark' : 'translate-y-2 bg-white'
+                mobileOpen ? '-rotate-45 bg-white' : 'translate-y-2 bg-white'
               }`}
             />
           </button>
@@ -287,7 +287,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
           ))}
         </ul>
 
-        <div className="flex items-center justify-between px-6 pb-6 pt-4">
+        <div className="flex items-center justify-between pl-3 pr-6 pb-6 pt-4">
           <div className="flex items-center gap-1 text-sm font-semibold">
             {locales.map((loc, i) => (
               <span key={loc} className="flex items-center gap-1">
@@ -295,11 +295,11 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
                 <Link
                   href={`/${loc}${pathWithoutLocale}`}
                   tabIndex={mobileOpen ? 0 : -1}
-                  className={
+                  className={`inline-flex items-center justify-center min-w-11 min-h-11 ${
                     loc === locale
                       ? 'text-primary-dark'
                       : 'text-gray-500 hover:text-primary-dark'
-                  }
+                  }`}
                 >
                   {loc.toUpperCase()}
                 </Link>

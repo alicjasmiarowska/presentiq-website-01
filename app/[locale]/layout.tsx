@@ -6,6 +6,7 @@ import IntroLoader from "../../src/components/organisms/IntroLoader";
 import { getNavigation, getFooter, getServicesSection } from "../../sanity/lib/fetch";
 import { urlFor } from "../../sanity/lib/image";
 import { siteUrl } from "../../src/lib/siteUrl";
+import { toJsonLd } from '../../src/lib/hyphenate'
 
 const redHatDisplay = Red_Hat_Display({
   subsets: ['latin'],
@@ -46,7 +47,7 @@ export default async function LocaleLayout({
     <div className={`${redHatDisplay.variable} ${roboto.variable} font-display`}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: toJsonLd(organizationJsonLd) }}
       />
       <IntroLoader />
       <Navigation data={navigationData} services={servicesSectionData?.services} locale={locale as 'en' | 'de'} />

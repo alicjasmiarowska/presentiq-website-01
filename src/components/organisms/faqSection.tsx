@@ -3,6 +3,7 @@ import Heading from '../atoms/Heading'
 import Section from '../atoms/Section'
 import FaqAccordionItem from '../molecules/FaqAccordionItem'
 import Reveal from '../atoms/Reveal'
+import { toJsonLd } from '../../lib/hyphenate'
 
 interface FaqQnA {
   _key: string
@@ -44,7 +45,7 @@ export default function FaqSection({ data, locale }: FaqSectionProps) {
     <Section className="py-30!">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }}
       />
       <div className="flex flex-col md:flex-row gap-8 md:gap-16 pb-12 md:pb-20 px-0 md:px-10">
         <div className="w-full md:w-1/3">
