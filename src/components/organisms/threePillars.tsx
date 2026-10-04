@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Text from '../atoms/Text'
-import Reveal from '../atoms/Reveal'
-import DrawLine from '../atoms/DrawLine'
-import Heading, { LEAD_TEXT_CLASSES } from '../atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Reveal from '@/src/components/atoms/Reveal'
+import DrawLine from '@/src/components/atoms/DrawLine'
+import Heading, { LEAD_TEXT_CLASSES } from '@/src/components/atoms/Heading'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface Pillar {
   _key: string
@@ -58,7 +59,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
 
   if (!data || !data.pillars?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const [pillar1, pillar2, pillar3] = data.pillars
 
   const pillarTextClass = `${LEAD_TEXT_CLASSES} text-primary-dark`

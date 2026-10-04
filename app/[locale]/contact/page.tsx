@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
-import Heading from '../../../src/components/atoms/Heading'
-import Text from '../../../src/components/atoms/Text'
-import Reveal from '../../../src/components/atoms/Reveal'
-import ContactForm from '../../../src/components/organisms/ContactForm'
-import EdgeBars from '../../../src/components/atoms/EdgeBars'
-import HeroSection from '../../../src/components/organisms/HeroSection'
-import { layout } from '../../../src/styles/design-tokens'
-import { getContact, getFooter } from '../../../sanity/lib/fetch'
-import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Reveal from '@/src/components/atoms/Reveal'
+import ContactForm from '@/src/components/organisms/ContactForm'
+import EdgeBars from '@/src/components/atoms/EdgeBars'
+import HeroSection from '@/src/components/organisms/HeroSection'
+import { layout } from '@/src/styles/design-tokens'
+import { getContact, getFooter } from '@/sanity/lib/fetch'
+import { buildMetadata, resolveSeoText } from '@/src/lib/pageMetadata'
+import { resolveLocale } from '@/src/lib/locale'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,7 +20,7 @@ export async function generateMetadata({
   const { locale } = await params
   const l = locale as 'en' | 'de'
   const data = await getContact()
-  const t = (field: any) => field?.[l] || field?.en
+  const t = (field: any) => resolveLocale(field, l)
   const seo = resolveSeoText(data?.seo, l, t(data?.headline) || 'Contact', t(data?.formBody))
 
   return buildMetadata({
@@ -41,7 +42,7 @@ export default async function ContactPage({
   // The address from the footer doubles as the fallback if the form can't send.
   const footer = await getFooter()
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale as 'en' | 'de')
 
   return (
     <main>

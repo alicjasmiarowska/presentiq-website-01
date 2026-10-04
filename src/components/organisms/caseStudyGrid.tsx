@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import CaseStudyCard from '../molecules/CaseStudyCard'
+import CaseStudyCard from '@/src/components/molecules/CaseStudyCard'
 
 interface CaseStudy {
   _id: string

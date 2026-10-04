@@ -1,4 +1,4 @@
-import Reveal from '../atoms/Reveal'
+import Reveal from '@/src/components/atoms/Reveal'
 
 interface DividedTextListItem {
   key: string

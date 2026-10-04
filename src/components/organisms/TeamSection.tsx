@@ -1,10 +1,11 @@
-import Section from '../atoms/Section'
-import TeamMemberCard from '../molecules/TeamMemberCard'
-import Reveal from '../atoms/Reveal'
+import Section from '@/src/components/atoms/Section'
+import TeamMemberCard from '@/src/components/molecules/TeamMemberCard'
+import Reveal from '@/src/components/atoms/Reveal'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface TeamMember {
   _key: string
-  photo?: any
+  photo?: SanityImageValue
   name: string
 }
 
@@ -21,10 +22,10 @@ export default function TeamSection({ data, locale }: TeamSectionProps) {
   if (!data || !data.team?.length) return null
 
   return (
-    <Section>
+    <Section className="py-16 md:py-24">
       {/* Team photos only — the intro above them is the About page's
           two-column section. */}
-      <div className="pt-12 pb-12 md:pt-20 md:pb-20">
+      <div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
           {data.team.map((member, index) => (
             <Reveal key={member._key} delay={(index % 3) * 150}>

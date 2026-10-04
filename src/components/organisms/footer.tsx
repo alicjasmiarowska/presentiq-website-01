@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Text from '../atoms/Text'
-import PrivacySettingsButton from '../atoms/PrivacySettingsButton'
-import { urlFor } from '../../../sanity/lib/image'
+import Text from '@/src/components/atoms/Text'
+import PrivacySettingsButton from '@/src/components/atoms/PrivacySettingsButton'
+import { urlFor } from '@/sanity/lib/image'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 // Phone/email lines: same look as an h5, but they're contact details, not
 // headings, so they stay out of the page's heading outline.
@@ -28,7 +30,7 @@ interface Service {
 }
 
 interface FooterData {
-  logo?: any
+  logo?: SanityImageValue
   email: string
   phone: string
   columns: FooterColumn[]
@@ -45,7 +47,7 @@ interface FooterProps {
 export default function Footer({ data, services, locale }: FooterProps) {
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const linkHref = (link: FooterLink) => link.pageSlug ? `/${link.pageSlug}` : (link.href || '/')
   const activeServices = (services || []).filter((service) => service.slug?.current)
   const [pagesColumn, legalColumn] = data.columns || []

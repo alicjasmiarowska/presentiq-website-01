@@ -1,11 +1,14 @@
 import Link from 'next/link'
-import Reveal from '../atoms/Reveal'
+import Reveal from '@/src/components/atoms/Reveal'
+import ArrowIcon from '@/src/components/atoms/ArrowIcon'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface CaseStudy {
   _id: string
   title: { en: string; de: string }
   category?: { en: string; de: string }
-  mainImage?: any
+  mainImage?: SanityImageValue
   slug?: string
 }
 
@@ -20,7 +23,7 @@ interface CaseStudyListProps {
 // CaseStudyGrid + CaseStudyCard (the filtered, card-based version) are kept
 // in the codebase, just unused for now, in case filtering comes back.
 export default function CaseStudyList({ caseStudies, locale }: CaseStudyListProps) {
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const items = (caseStudies || []).filter((cs) => t(cs.title))
 
   if (items.length === 0) return null
@@ -40,22 +43,7 @@ export default function CaseStudyList({ caseStudies, locale }: CaseStudyListProp
                   {t(item.title)}
                 </span>
                 {item.slug && (
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                    className="shrink-0 text-primary-blue transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    <path
-                      d="M5 12h14M13 6l6 6-6 6"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <ArrowIcon className="shrink-0 text-primary-blue transition-transform duration-300 group-hover:translate-x-1" />
                 )}
               </div>
             )

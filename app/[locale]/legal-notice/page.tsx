@@ -1,12 +1,13 @@
-import Heading from '../../../src/components/atoms/Heading'
-import RichText from '../../../src/components/atoms/RichText'
-import Reveal from '../../../src/components/atoms/Reveal'
-import CharReveal from '../../../src/components/atoms/CharReveal'
-import { hyphenate } from '../../../src/lib/hyphenate'
-import Section from '../../../src/components/atoms/Section'
-import { getLegalNotice } from '../../../sanity/lib/fetch'
-import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
+import Heading from '@/src/components/atoms/Heading'
+import RichText from '@/src/components/atoms/RichText'
+import Reveal from '@/src/components/atoms/Reveal'
+import CharReveal from '@/src/components/atoms/CharReveal'
+import { hyphenate } from '@/src/lib/hyphenate'
+import Section from '@/src/components/atoms/Section'
+import { getLegalNotice } from '@/sanity/lib/fetch'
+import { buildMetadata, resolveSeoText } from '@/src/lib/pageMetadata'
 import type { Metadata } from 'next'
+import { resolveLocale } from '@/src/lib/locale'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,7 +19,7 @@ export async function generateMetadata({
   const { locale } = await params
   const l = locale as 'en' | 'de'
   const data = await getLegalNotice()
-  const t = (field: any) => field?.[l] || field?.en
+  const t = (field: any) => resolveLocale(field, l)
   const seo = resolveSeoText(data?.seo, l, t(data?.heading) || data?.title || 'Legal Notice')
 
   return buildMetadata({
@@ -38,7 +39,7 @@ export default async function LegalNoticePage({
   const { locale } = await params
   const data = await getLegalNotice()
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale as 'en' | 'de')
   const heading = t(data?.heading) || data?.title || 'Legal Notice'
 
   return (
@@ -53,7 +54,7 @@ export default async function LegalNoticePage({
             <CharReveal text={hyphenate(heading, locale as 'en' | 'de')} />
           </Heading>
           <Reveal delay={200}>
-            <RichText value={t(data?.body)} />
+            <RichText value={data?.body?.[locale as 'en' | 'de'] || data?.body?.en} />
           </Reveal>
         </div>
       </Section>

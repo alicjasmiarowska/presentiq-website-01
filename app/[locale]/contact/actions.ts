@@ -1,8 +1,8 @@
 'use server'
 
 import { headers } from 'next/headers'
-import { graphConfig, sendMail } from '../../../src/lib/mail/graph'
-import { validateContact, type ContactErrors, type ContactValues } from '../../../src/lib/contactForm'
+import { graphConfig, sendMail } from '@/src/lib/mail/graph'
+import { validateContact, type ContactErrors, type ContactValues } from '@/src/lib/contactForm'
 
 export interface ContactState {
   status: 'idle' | 'success' | 'invalid' | 'error'

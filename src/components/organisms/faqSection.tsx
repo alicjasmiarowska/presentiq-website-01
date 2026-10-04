@@ -1,9 +1,10 @@
-import Text from '../atoms/Text'
-import Heading from '../atoms/Heading'
-import Section from '../atoms/Section'
-import FaqAccordionItem from '../molecules/FaqAccordionItem'
-import Reveal from '../atoms/Reveal'
-import { toJsonLd } from '../../lib/hyphenate'
+import Text from '@/src/components/atoms/Text'
+import Heading from '@/src/components/atoms/Heading'
+import Section from '@/src/components/atoms/Section'
+import FaqAccordionItem from '@/src/components/molecules/FaqAccordionItem'
+import Reveal from '@/src/components/atoms/Reveal'
+import { toJsonLd } from '@/src/lib/hyphenate'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface FaqQnA {
   _key: string
@@ -26,7 +27,7 @@ interface FaqSectionProps {
 export default function FaqSection({ data, locale }: FaqSectionProps) {
   if (!data || !data.items?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -42,7 +43,7 @@ export default function FaqSection({ data, locale }: FaqSectionProps) {
   }
 
   return (
-    <Section className="py-30!">
+    <Section className="py-16! md:py-24!">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }}

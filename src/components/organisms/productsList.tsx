@@ -1,4 +1,4 @@
-import DividedTextList from '../molecules/DividedTextList'
+import DividedTextList from '@/src/components/molecules/DividedTextList'
 
 interface ProductsListItem {
   _key: string

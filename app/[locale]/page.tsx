@@ -1,16 +1,16 @@
 import type { Metadata } from 'next'
-import HeroSection from '../../src/components/organisms/HeroSection'
-import TwoColumnSection from '../../src/components/organisms/twoColumnSection'
-import ThreePillarsSection from '../../src/components/organisms/threePillars'
-import ServicesSection from '../../src/components/organisms/servicesSection'
-import FeaturedWorkSection from '../../src/components/organisms/featuredWork'
-import LogoWall from '../../src/components/organisms/logoWall'
-import FourColumnsSection from '../../src/components/organisms/fourColumns'
-import VideoSection from '../../src/components/organisms/videoSection'
-import FaqSection from '../../src/components/organisms/faqSection'
-import FinalCtaSection from '../../src/components/organisms/finalCta'
-import BlurGlow from '../../src/components/atoms/BlurGlow'
-import { colors } from '../../src/styles/design-tokens'
+import HeroSection from '@/src/components/organisms/HeroSection'
+import TwoColumnSection from '@/src/components/organisms/twoColumnSection'
+import ThreePillarsSection from '@/src/components/organisms/threePillars'
+import ServicesSection from '@/src/components/organisms/servicesSection'
+import FeaturedWorkSection from '@/src/components/organisms/featuredWork'
+import LogoWall from '@/src/components/organisms/logoWall'
+import FourColumnsSection from '@/src/components/organisms/fourColumns'
+import VideoSection from '@/src/components/organisms/videoSection'
+import FaqSection from '@/src/components/organisms/faqSection'
+import FinalCtaSection from '@/src/components/organisms/finalCta'
+import BlurGlow from '@/src/components/atoms/BlurGlow'
+import { colors } from '@/src/styles/design-tokens'
 import {
   getHomepage,
   getThreePillars,
@@ -21,8 +21,9 @@ import {
   getVideoSection,
   getFaq,
   getFinalCta,
-} from '../../sanity/lib/fetch'
-import { buildMetadata, resolveSeoText } from '../../src/lib/pageMetadata'
+} from '@/sanity/lib/fetch'
+import { buildMetadata, resolveSeoText } from '@/src/lib/pageMetadata'
+import { resolveLocale } from '@/src/lib/locale'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,7 +36,7 @@ export async function generateMetadata({
   const l = locale as 'en' | 'de'
   const homepageData = await getHomepage()
   const hero = homepageData?.hero
-  const t = (field: any) => field?.[l] || field?.en
+  const t = (field: any) => resolveLocale(field, l)
   const seo = resolveSeoText(homepageData?.seo, l, t(hero?.title) || 'Presentiq', t(hero?.subtitle))
 
   return buildMetadata({

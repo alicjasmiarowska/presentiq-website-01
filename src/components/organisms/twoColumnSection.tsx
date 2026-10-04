@@ -1,11 +1,13 @@
-import Button from '../atoms/Button'
-import RichText from '../atoms/RichText'
-import Reveal from '../atoms/Reveal'
-import Heading, { LEAD_TEXT_CLASSES } from '../atoms/Heading'
-import Text from '../atoms/Text'
-import EdgeBars from '../atoms/EdgeBars'
-import { resolveButtonHref } from '../../lib/resolveHref'
-import { layout } from '../../styles/design-tokens'
+import Button from '@/src/components/atoms/Button'
+import RichText from '@/src/components/atoms/RichText'
+import Reveal from '@/src/components/atoms/Reveal'
+import Heading, { LEAD_TEXT_CLASSES } from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import EdgeBars from '@/src/components/atoms/EdgeBars'
+import { resolveButtonHref } from '@/src/lib/resolveHref'
+import { layout } from '@/src/styles/design-tokens'
+import { resolveLocale } from '@/src/lib/locale'
+import type { PortableTextLocaleValue } from '@/src/types/sanity'
 
 interface TwoColumnSectionData {
   leftHeadline: { en: string; de: string }
@@ -13,7 +15,7 @@ interface TwoColumnSectionData {
   buttonText?: { en: string; de: string }
   buttonPage?: { type?: string; slug?: string }
   buttonHref?: string
-  rightBody?: { en: any[]; de: any[] }
+  rightBody?: PortableTextLocaleValue
   rightHeadline: { en: string; de: string }
 }
 
@@ -41,12 +43,12 @@ export default function TwoColumnSection({
 }: TwoColumnSectionProps) {
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const buttonHref = resolveButtonHref(locale, data.buttonPage, data.buttonHref)
   const compact = spacing === 'compact'
   const sectionClasses = compact ? 'grid grid-cols-1 md:grid-cols-2' : 'grid grid-cols-1 md:grid-cols-2 md:grid-rows-[auto_auto]'
   const columnClasses = compact
-    ? 'py-16 md:py-30 flex flex-col justify-between'
+    ? 'py-16 md:py-20 flex flex-col justify-between'
     : 'py-16 md:py-24 lg:py-32 grid grid-cols-1 md:grid-rows-subgrid md:row-span-2'
   const bottomGap = compact ? 'mt-12 md:mt-14' : 'mt-12 md:mt-30'
 

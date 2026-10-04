@@ -1,4 +1,4 @@
-import { localeValidation } from '../lib/textRules'
+import { localeValidation } from '@/sanity/lib/textRules'
 
 export default {
   name: 'service',

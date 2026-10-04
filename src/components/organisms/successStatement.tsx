@@ -1,7 +1,8 @@
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Reveal from '../atoms/Reveal'
-import EdgeBars from '../atoms/EdgeBars'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Reveal from '@/src/components/atoms/Reveal'
+import EdgeBars from '@/src/components/atoms/EdgeBars'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface SuccessStatementData {
   headline?: { en: string; de: string }
@@ -19,7 +20,7 @@ interface SuccessStatementProps {
 export default function SuccessStatement({ data, locale }: SuccessStatementProps) {
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const headline = t(data.headline)
   const body = t(data.body)
   if (!headline && !body) return null
@@ -27,7 +28,7 @@ export default function SuccessStatement({ data, locale }: SuccessStatementProps
   return (
     <section className="relative overflow-hidden bg-primary-dark">
       <EdgeBars />
-      <div className="relative max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 py-14 md:py-16">
+      <div className="relative max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24">
         <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
           {headline && (
             <Reveal className="md:w-1/3 shrink-0">

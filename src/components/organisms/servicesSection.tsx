@@ -1,8 +1,9 @@
 import Image from 'next/image'
-import Heading from '../atoms/Heading'
-import Section from '../atoms/Section'
-import ServiceCard from '../molecules/ServiceCard'
-import Reveal from '../atoms/Reveal'
+import Heading from '@/src/components/atoms/Heading'
+import Section from '@/src/components/atoms/Section'
+import ServiceCard from '@/src/components/molecules/ServiceCard'
+import Reveal from '@/src/components/atoms/Reveal'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface Service {
   _id: string
@@ -25,7 +26,7 @@ interface ServicesSectionProps {
 export default function ServicesSection({ services, data, locale }: ServicesSectionProps) {
   if (!services || !data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
 
   return (
     <div className="relative overflow-hidden bg-primary-dark">
@@ -47,8 +48,8 @@ export default function ServicesSection({ services, data, locale }: ServicesSect
         className="absolute bottom-0 right-0 w-40 md:w-56 lg:w-164 h-auto pointer-events-none select-none"
       />
 
-      <Section className="relative">
-        <div className="pt-20 pb-20 md:pt-30 md:pb-30">
+      <Section className="relative py-16 md:py-24">
+        <div>
           <div className="mb-12 md:mb-20 ml-4">
             <Reveal>
               <Heading level="h2" variant="section" text={t(data.headline)} className="text-white" />

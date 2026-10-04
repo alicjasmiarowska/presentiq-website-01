@@ -1,16 +1,18 @@
 import Image from 'next/image'
-import RichText from '../atoms/RichText'
-import Reveal from '../atoms/Reveal'
-import EdgeBars from '../atoms/EdgeBars'
-import AiBadge from '../atoms/AiBadge'
-import { LEAD_TEXT_CLASSES } from '../atoms/Heading'
-import { urlFor } from '../../../sanity/lib/image'
-import { layout } from '../../styles/design-tokens'
+import RichText from '@/src/components/atoms/RichText'
+import Reveal from '@/src/components/atoms/Reveal'
+import EdgeBars from '@/src/components/atoms/EdgeBars'
+import AiBadge from '@/src/components/atoms/AiBadge'
+import { LEAD_TEXT_CLASSES } from '@/src/components/atoms/Heading'
+import { urlFor } from '@/sanity/lib/image'
+import { layout } from '@/src/styles/design-tokens'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue, PortableTextLocaleValue } from '@/src/types/sanity'
 
 interface PhotoTextSplitData {
   headline?: { en: string; de: string }
-  image?: any
-  body?: { en: any[]; de: any[] }
+  image?: SanityImageValue
+  body?: PortableTextLocaleValue
 }
 
 interface PhotoTextSplitProps {
@@ -21,6 +23,10 @@ interface PhotoTextSplitProps {
   // "dark": navy text panel, white text. "light": gray text panel, navy
   // text (Word & PDF's second block).
   theme?: 'dark' | 'light'
+  // Forces this block's row to a shared height (desktop only) — set by
+  // PhotoTextBlocks so stacked blocks with different amounts of text all
+  // match the tallest one instead of each sizing to its own content.
+  minHeight?: number
 }
 
 // A full-bleed photo on one side, text with the same edge-bar accent as the
@@ -28,10 +34,10 @@ interface PhotoTextSplitProps {
 // with a real photo in place of the left-hand text column. One of these per
 // entry in a page's `intro` array — see PhotoTextBlocks, which alternates
 // `reverse`/`theme` across entries.
-export default function PhotoTextSplit({ data, locale, reverse = false, theme = 'dark' }: PhotoTextSplitProps) {
+export default function PhotoTextSplit({ data, locale, reverse = false, theme = 'dark', minHeight }: PhotoTextSplitProps) {
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const headline = t(data.headline)
   const body = data.body?.[locale] || data.body?.en
   const dark = theme === 'dark'
@@ -45,7 +51,7 @@ export default function PhotoTextSplit({ data, locale, reverse = false, theme = 
         <>
           <Image
             src={urlFor(data.image).width(2000).url()}
-            alt={data.image.alt || ''}
+            alt={data.image.alt || headline}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
@@ -75,7 +81,10 @@ export default function PhotoTextSplit({ data, locale, reverse = false, theme = 
   )
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2">
+    <section
+      className="grid grid-cols-1 md:grid-cols-2"
+      style={minHeight ? { minHeight: `${minHeight}px` } : undefined}
+    >
       {reverse ? (
         <>
           {text}

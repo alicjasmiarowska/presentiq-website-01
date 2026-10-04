@@ -1,7 +1,8 @@
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Section from '../atoms/Section'
-import Reveal from '../atoms/Reveal'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Section from '@/src/components/atoms/Section'
+import Reveal from '@/src/components/atoms/Reveal'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface ProcessStep {
   _key: string
@@ -23,12 +24,12 @@ interface ProcessSectionProps {
 export default function ProcessSection({ data, locale, textColor = 'dark' }: ProcessSectionProps) {
   if (!data || !data.steps?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const isLight = textColor === 'light'
 
   return (
-    <Section>
-      <div className="pt-10 pb-10 md:pt-20 md:pb-20">
+    <Section className="py-16 md:py-24">
+      <div>
         <Reveal>
           <Heading
             level="h3"
