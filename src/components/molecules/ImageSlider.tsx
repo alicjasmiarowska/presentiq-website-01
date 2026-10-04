@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import AiBadge from '../atoms/AiBadge'
-import { urlFor } from '../../../sanity/lib/image'
+import AiBadge from '@/src/components/atoms/AiBadge'
+import { urlFor } from '@/sanity/lib/image'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface SlideImage {
   _key: string
-  asset?: any
+  asset?: SanityImageValue
   alt?: string
   aiGenerated?: boolean
 }
@@ -15,11 +16,14 @@ interface SlideImage {
 interface ImageSliderProps {
   images: SlideImage[]
   locale: 'en' | 'de'
+  // Used when a slide's own alt text isn't filled in Sanity, so the image
+  // still gets a meaningful accessible name instead of an empty one.
+  fallbackAlt?: string
 }
 
 const AUTOPLAY_INTERVAL = 4000
 
-export default function ImageSlider({ images, locale }: ImageSliderProps) {
+export default function ImageSlider({ images, locale, fallbackAlt = '' }: ImageSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
@@ -60,7 +64,7 @@ export default function ImageSlider({ images, locale }: ImageSliderProps) {
             {image.asset && (
               <Image
                 src={urlFor(image).width(800).url()}
-                alt={image.alt || ''}
+                alt={image.alt || fallbackAlt}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"

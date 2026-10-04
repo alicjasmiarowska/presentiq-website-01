@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { siteUrl } from '../src/lib/siteUrl'
+import { siteUrl } from '@/src/lib/siteUrl'
 
 // AI crawlers that scrape content for model *training* — blocked.
 // AI crawlers that fetch pages for real-time search/citation (e.g. ChatGPT

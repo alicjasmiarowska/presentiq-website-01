@@ -1,16 +1,18 @@
 import Image from 'next/image'
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Button from '../atoms/Button'
-import Reveal from '../atoms/Reveal'
-import AiBadge from '../atoms/AiBadge'
-import { urlFor } from '../../../sanity/lib/image'
-import { resolveButtonHref } from '../../lib/resolveHref'
+import Heading from '@/src/components/atoms/Heading'
+import RichText from '@/src/components/atoms/RichText'
+import Button from '@/src/components/atoms/Button'
+import Reveal from '@/src/components/atoms/Reveal'
+import AiBadge from '@/src/components/atoms/AiBadge'
+import { urlFor } from '@/sanity/lib/image'
+import { resolveButtonHref } from '@/src/lib/resolveHref'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue, PortableTextLocaleValue } from '@/src/types/sanity'
 
 interface TextAndPictureData {
   headline: { en: string; de: string }
-  body: { en: string; de: string }
-  image?: any
+  body: PortableTextLocaleValue
+  image?: SanityImageValue
   videoUrl?: string
   aiGenerated?: boolean
   imageWidth?: number
@@ -31,7 +33,7 @@ interface TextAndPictureSectionProps {
 export default function TextAndPictureSection({ data, locale, textColor = 'dark', priority = false }: TextAndPictureSectionProps) {
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const imageWidth = data.imageWidth ?? 50
   const imageHeight = data.imageHeight ?? 400
   const imageFit = data.imageFit ?? 'cover'
@@ -82,7 +84,7 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
             >
                 <Image
                   src={urlFor(data.image).width(1200).url()}
-                  alt={data.image.alt || ''}
+                  alt={data.image.alt || t(data.headline)}
                   fill
                   sizes={`(max-width: 1024px) 100vw, ${imageWidth}vw`}
                   className={fitClass}
@@ -96,9 +98,8 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
         </div>
 
         <div className="flex-1">
-          <Text
-            text={t(data.body)}
-            size="base"
+          <RichText
+            value={data.body?.[locale] || data.body?.en}
             color={isLight ? 'primary' : 'secondary'}
             className="mb-10"
           />

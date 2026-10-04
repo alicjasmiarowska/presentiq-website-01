@@ -1,13 +1,15 @@
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Button from '../atoms/Button'
-import Reveal from '../atoms/Reveal'
-import ImageSlider from '../molecules/ImageSlider'
-import { resolveButtonHref } from '../../lib/resolveHref'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Button from '@/src/components/atoms/Button'
+import Reveal from '@/src/components/atoms/Reveal'
+import ImageSlider from '@/src/components/molecules/ImageSlider'
+import { resolveButtonHref } from '@/src/lib/resolveHref'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface SlideImage {
   _key: string
-  asset?: any
+  asset?: SanityImageValue
   alt?: string
 }
 
@@ -33,7 +35,7 @@ export default function TextAndImageSliderSection({
 }: TextAndImageSliderSectionProps) {
   if (!data || !data.images?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const isLight = textColor === 'light'
   const buttonHref = resolveButtonHref(locale, data.buttonPage, data.buttonHref)
 
@@ -41,7 +43,7 @@ export default function TextAndImageSliderSection({
     <div className="flex flex-col lg:flex-row">
       <div className="w-full lg:w-1/2 lg:mr-40 mb-6 lg:mb-0">
         <Reveal>
-          <ImageSlider images={data.images} locale={locale} />
+          <ImageSlider images={data.images} locale={locale} fallbackAlt={t(data.headline)} />
         </Reveal>
       </div>
 
