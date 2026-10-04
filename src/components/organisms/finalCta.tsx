@@ -1,8 +1,9 @@
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Button from '../atoms/Button'
-import PlusDraw from '../atoms/PlusDraw'
-import { resolveButtonHref } from '../../lib/resolveHref'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Button from '@/src/components/atoms/Button'
+import PlusDraw from '@/src/components/atoms/PlusDraw'
+import { resolveButtonHref } from '@/src/lib/resolveHref'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface FinalCtaData {
   headline: { en: string; de: string }
@@ -20,7 +21,7 @@ interface FinalCtaSectionProps {
 export default function FinalCtaSection({ data, locale }: FinalCtaSectionProps) {
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const buttonHref = resolveButtonHref(locale, data.buttonPage, data.buttonHref)
 
   return (

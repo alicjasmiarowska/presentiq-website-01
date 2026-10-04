@@ -1,11 +1,13 @@
-import Heading from '../atoms/Heading'
-import Section from '../atoms/Section'
-import PillarCard from '../molecules/PillarCard'
-import Reveal from '../atoms/Reveal'
+import Heading from '@/src/components/atoms/Heading'
+import Section from '@/src/components/atoms/Section'
+import PillarCard from '@/src/components/molecules/PillarCard'
+import Reveal from '@/src/components/atoms/Reveal'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface Pillar {
   _key: string
-  image?: any
+  image?: SanityImageValue
   title: { en: string; de: string }
   description: { en: string; de: string }
 }
@@ -23,11 +25,11 @@ interface FourPillarsSectionProps {
 export default function FourPillarsSection({ data, locale }: FourPillarsSectionProps) {
   if (!data || !data.pillars?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
 
   return (
-    <Section className="bg-primary-dark">
-      <div className="pt-10 pb-20">
+    <Section className="bg-primary-dark py-16 md:py-24">
+      <div>
         <Reveal>
           <Heading level="h2" variant="section" text={t(data.headline)} className="text-white mb-16" />
         </Reveal>

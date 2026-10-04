@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import AiBadge from '../atoms/AiBadge'
+import AiBadge from '@/src/components/atoms/AiBadge'
 
 interface VideoSectionData {
   videoUrl?: string

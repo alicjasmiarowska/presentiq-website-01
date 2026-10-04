@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { headers } from "next/headers";
-import { siteUrl } from "../src/lib/siteUrl";
+import { siteUrl } from "@/src/lib/siteUrl";
 import "./globals.css";
 
 const defaultDescription =

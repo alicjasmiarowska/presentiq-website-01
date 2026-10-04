@@ -1,8 +1,9 @@
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Section from '../atoms/Section'
-import ToolCard from '../molecules/ToolCard'
-import Reveal from '../atoms/Reveal'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Section from '@/src/components/atoms/Section'
+import ToolCard from '@/src/components/molecules/ToolCard'
+import Reveal from '@/src/components/atoms/Reveal'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface Tool {
   _key: string
@@ -25,12 +26,12 @@ interface ToolsSectionProps {
 export default function ToolsSection({ data, locale, textColor = 'dark' }: ToolsSectionProps) {
   if (!data || !data.tools?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const isLight = textColor === 'light'
 
   return (
-    <Section className="bg-primary-dark">
-      <div className="pt-10 pb-20">
+    <Section className="bg-primary-dark py-16 md:py-24">
+      <div>
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6 lg:gap-16 mb-10 md:mb-16">
           <Reveal>
             <Heading

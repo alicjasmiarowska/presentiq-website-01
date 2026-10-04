@@ -1,5 +1,7 @@
-import RichText from '../atoms/RichText'
-import Reveal from '../atoms/Reveal'
+import RichText from '@/src/components/atoms/RichText'
+import Reveal from '@/src/components/atoms/Reveal'
+import { resolveLocale } from '@/src/lib/locale'
+import type { PortableTextLocaleValue } from '@/src/types/sanity'
 
 interface LocaleString {
   en: string
@@ -8,9 +10,9 @@ interface LocaleString {
 
 interface SectionData {
   leftHeading?: LocaleString
-  leftBody?: { en: any[]; de: any[] }
+  leftBody?: PortableTextLocaleValue
   rightHeading?: LocaleString
-  rightBody?: { en: any[]; de: any[] }
+  rightBody?: PortableTextLocaleValue
 }
 
 interface FactItem {
@@ -38,10 +40,10 @@ function Column({
   locale,
 }: {
   heading?: LocaleString
-  body?: { en: any[]; de: any[] }
+  body?: PortableTextLocaleValue
   locale: 'en' | 'de'
 }) {
-  const t = (field?: LocaleString) => field?.[locale] || field?.en || ''
+  const t = (field?: LocaleString) => resolveLocale(field, locale)
   const headingText = t(heading)
   const bodyValue = body?.[locale] || body?.en
 
@@ -65,10 +67,10 @@ function SingleColumnFlow({
   locale,
 }: {
   heading?: LocaleString
-  body?: { en: any[]; de: any[] }
+  body?: PortableTextLocaleValue
   locale: 'en' | 'de'
 }) {
-  const t = (field?: LocaleString) => field?.[locale] || field?.en || ''
+  const t = (field?: LocaleString) => resolveLocale(field, locale)
   const headingText = t(heading)
   const bodyValue = body?.[locale] || body?.en
 
@@ -90,7 +92,7 @@ function SingleColumnFlow({
 // Result row when filled in — any number of free-text facts, since
 // different case studies need different ones (not a fixed set of fields).
 function FactsBox({ facts, locale }: { facts?: FactItem[]; locale: 'en' | 'de' }) {
-  const t = (field?: LocaleString) => field?.[locale] || field?.en || ''
+  const t = (field?: LocaleString) => resolveLocale(field, locale)
   const rows = (facts || [])
     .map((fact) => ({ key: fact._key, label: t(fact.label), value: t(fact.value) }))
     .filter((row) => row.value)
@@ -122,7 +124,7 @@ function FactsBox({ facts, locale }: { facts?: FactItem[]; locale: 'en' | 'de' }
 export default function CaseStudyBody({ data, locale }: CaseStudyBodyProps) {
   if (!data) return null
 
-  const t = (field?: LocaleString) => field?.[locale] || field?.en || ''
+  const t = (field?: LocaleString) => resolveLocale(field, locale)
   const hasFacts = (data.facts || []).some((fact) => t(fact.value))
 
   const rows = (

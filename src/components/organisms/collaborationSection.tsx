@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import RichText from '../atoms/RichText'
-import Reveal from '../atoms/Reveal'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import RichText from '@/src/components/atoms/RichText'
+import Reveal from '@/src/components/atoms/Reveal'
+import ArrowIcon from '@/src/components/atoms/ArrowIcon'
+import { resolveLocale } from '@/src/lib/locale'
+import type { PortableTextLocaleValue } from '@/src/types/sanity'
 
 interface CollaborationItem {
   _key: string
@@ -13,7 +16,7 @@ interface CollaborationItem {
 
 interface CollaborationData {
   headline?: { en: string; de: string }
-  body?: { en: any[]; de: any[] }
+  body?: PortableTextLocaleValue
   items?: CollaborationItem[]
 }
 
@@ -28,7 +31,7 @@ interface CollaborationSectionProps {
 export default function CollaborationSection({ data, locale }: CollaborationSectionProps) {
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const items = data.items || []
   const body = data.body?.[locale] || data.body?.en
 
@@ -65,22 +68,7 @@ export default function CollaborationSection({ data, locale }: CollaborationSect
                     className="group flex items-center justify-between gap-4 py-5 border-b border-primary-blue hover:opacity-80 transition-opacity duration-300"
                   >
                     <Text text={t(item.title)} size="lg" color="primary" />
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                      className="shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1"
-                    >
-                      <path
-                        d="M5 12h14M13 6l6 6-6 6"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <ArrowIcon className="shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </Reveal>
               ))}

@@ -1,4 +1,4 @@
-import { localeValidation } from '../lib/textRules'
+import { localeValidation } from '@/sanity/lib/textRules'
 
 const blockContent = {
   type: 'array' as const,

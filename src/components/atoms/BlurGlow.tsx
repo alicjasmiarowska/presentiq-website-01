@@ -1,4 +1,4 @@
-import { colors } from '../../styles/design-tokens'
+import { colors } from '@/src/styles/design-tokens'
 
 // Hidden site-wide for now — every call site stays in place, so flipping
 // this one flag is all it takes to bring the glow back everywhere.

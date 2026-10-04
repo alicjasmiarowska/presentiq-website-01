@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { colors } from '../../styles/design-tokens'
+import { colors } from '@/src/styles/design-tokens'
 
 const LOGO_DELAY_MS = 300
 const VISIBLE_MS = 3000

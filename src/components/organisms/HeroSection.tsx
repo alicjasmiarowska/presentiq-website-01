@@ -1,7 +1,9 @@
 import Image from 'next/image'
-import Reveal from '../atoms/Reveal'
-import CharReveal from '../atoms/CharReveal'
-import { gradients, layout } from '../../styles/design-tokens'
+import Reveal from '@/src/components/atoms/Reveal'
+import CharReveal from '@/src/components/atoms/CharReveal'
+import BlurGlow from '@/src/components/atoms/BlurGlow'
+import { gradients, layout } from '@/src/styles/design-tokens'
+import { resolveLocale } from '@/src/lib/locale'
 
 // Shared by every page hero (this component and the contact page) so the
 // headline looks and sits the same everywhere.
@@ -29,19 +31,26 @@ interface HeroData {
 interface HeroSectionProps {
   data: HeroData
   locale: 'en' | 'de'
+  // Wraps the hero in the standard `relative overflow-hidden bg-primary-dark`
+  // + BlurGlow (corner + edge) pair used by every page's hero except the
+  // homepage, which already has its own full-bleed gradient wrapper doing
+  // the equivalent job — pass nothing there rather than forcing this shape
+  // on a layout it doesn't fit.
+  glow?: boolean | { cornerPosition?: 'bottom-right' | 'bottom-left'; color?: string }
 }
 
-export default function HeroSection({ data, locale }: HeroSectionProps) {
+export default function HeroSection({ data, locale, glow }: HeroSectionProps) {
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   // Full viewport height only makes sense when the blue subtitle bar fills
   // out the bottom (homepage, service pages with a hero tagline). Without
   // it (Contact, case studies, ...) that same height leaves a huge empty
   // gap below the headline, so the section sizes to its content instead.
   const hasSubtitle = !!t(data.subtitle)
+  const glowConfig = glow === true ? {} : glow || null
 
-  return (
+  const hero = (
     <section
       className={`relative flex flex-col ${hasSubtitle ? 'min-h-screen 2xl:min-h-[80vh]' : ''}`}
       style={{ backgroundImage: gradients.heroBase }}
@@ -94,5 +103,15 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
         </div>
       )}
     </section>
+  )
+
+  if (!glowConfig) return hero
+
+  return (
+    <div className="relative overflow-hidden bg-primary-dark">
+      <BlurGlow variant="corner" position={glowConfig.cornerPosition || 'bottom-right'} color={glowConfig.color} />
+      <BlurGlow variant="edge" color={glowConfig.color} />
+      {hero}
+    </div>
   )
 }

@@ -1,9 +1,10 @@
 import Image from 'next/image'
-import RichText from '../atoms/RichText'
-import Reveal from '../atoms/Reveal'
+import RichText from '@/src/components/atoms/RichText'
+import Reveal from '@/src/components/atoms/Reveal'
+import type { PortableTextLocaleValue } from '@/src/types/sanity'
 
 interface PartnerBarData {
-  text?: { en: any[]; de: any[] }
+  text?: PortableTextLocaleValue
 }
 
 interface PartnerBarProps {
@@ -21,11 +22,11 @@ export default function PartnerBar({ data, locale }: PartnerBarProps) {
 
   return (
     <section className="bg-neutral-light">
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 py-10 md:py-0 md:min-h-[188px] flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-        <Reveal className="max-w-[720px]">
+      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 grid grid-cols-1 md:grid-cols-4 md:items-center gap-8">
+        <Reveal className="md:col-span-3">
           <RichText value={text} color="secondary" />
         </Reveal>
-        <Reveal delay={100} className="shrink-0">
+        <Reveal delay={100} className="md:col-span-1 md:justify-self-end">
           <Image src="/images/logo-k16.svg" alt="K16" width={96} height={83} className="w-20 md:w-24 h-auto" />
         </Reveal>
       </div>

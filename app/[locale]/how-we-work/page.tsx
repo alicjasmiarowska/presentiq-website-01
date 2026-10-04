@@ -1,13 +1,13 @@
-import HeroSection from '../../../src/components/organisms/HeroSection'
-import ReasonsGrid from '../../../src/components/organisms/reasonsGrid'
-import SuccessStatement from '../../../src/components/organisms/successStatement'
-import ProcessSteps from '../../../src/components/organisms/processSteps'
-import FaqSection from '../../../src/components/organisms/faqSection'
-import FinalCtaSection from '../../../src/components/organisms/finalCta'
-import BlurGlow from '../../../src/components/atoms/BlurGlow'
-import { getHowWeWork, getFaq, getFinalCta } from '../../../sanity/lib/fetch'
-import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
+import HeroSection from '@/src/components/organisms/HeroSection'
+import ReasonsGrid from '@/src/components/organisms/reasonsGrid'
+import SuccessStatement from '@/src/components/organisms/successStatement'
+import ProcessSteps from '@/src/components/organisms/processSteps'
+import FaqSection from '@/src/components/organisms/faqSection'
+import FinalCtaSection from '@/src/components/organisms/finalCta'
+import { getHowWeWork, getFaq, getFinalCta } from '@/sanity/lib/fetch'
+import { buildMetadata, resolveSeoText } from '@/src/lib/pageMetadata'
 import type { Metadata } from 'next'
+import { resolveLocale } from '@/src/lib/locale'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,7 +19,7 @@ export async function generateMetadata({
   const { locale } = await params
   const l = locale as 'en' | 'de'
   const data = await getHowWeWork()
-  const t = (field: any) => field?.[l] || field?.en
+  const t = (field: any) => resolveLocale(field, l)
   const seo = resolveSeoText(data?.seo, l, t(data?.hero?.title) || 'How We Work', t(data?.hero?.subtitle))
 
   return buildMetadata({
@@ -43,15 +43,11 @@ export default async function HowWeWorkPage({
 
   return (
     <main>
-      <div className="relative overflow-hidden bg-primary-dark">
-        <BlurGlow variant="corner" position="bottom-right" />
-        <BlurGlow variant="edge" />
-        <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} />
-      </div>
+      <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} glow />
       <ReasonsGrid data={data?.reasons} locale={locale as 'en' | 'de'} />
       <SuccessStatement data={data?.successStatement} locale={locale as 'en' | 'de'} />
       <ProcessSteps data={data?.process} locale={locale as 'en' | 'de'} />
-      <div className="bg-primary-dark pt-20">
+      <div className="bg-primary-dark">
         <FaqSection data={faqData} locale={locale as 'en' | 'de'} />
       </div>
       <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />

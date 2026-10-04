@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { urlFor } from '../../../sanity/lib/image'
+import { urlFor } from '@/sanity/lib/image'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface NavLink {
   _key: string
@@ -20,7 +22,7 @@ interface Service {
 }
 
 interface NavigationData {
-  logo?: any
+  logo?: SanityImageValue
   logoLight?: any
   navLinks: NavLink[]
   servicesLabel?: { en: string; de: string }
@@ -68,7 +70,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
 
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const pathWithoutLocale = pathname.replace(/^\/(en|de)/, '') || '/'
   const isExternal = (href: string) => /^https?:\/\//i.test(href)
   const resolveHref = (href: string) => (isExternal(href) ? href : `/${locale}${href}`)

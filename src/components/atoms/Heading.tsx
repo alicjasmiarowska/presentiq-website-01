@@ -1,4 +1,4 @@
-import { typography } from '../../styles/design-tokens'
+import { typography } from '@/src/styles/design-tokens'
 
 interface HeadingProps {
   text: string

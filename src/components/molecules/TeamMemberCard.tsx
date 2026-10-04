@@ -1,8 +1,9 @@
 import Image from 'next/image'
-import { urlFor } from '../../../sanity/lib/image'
+import { urlFor } from '@/sanity/lib/image'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface TeamMemberCardProps {
-  photo?: any
+  photo?: SanityImageValue
   name: string
 }
 

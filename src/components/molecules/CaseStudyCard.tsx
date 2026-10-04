@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { urlFor } from '../../../sanity/lib/image'
+import { urlFor } from '@/sanity/lib/image'
 
 interface CaseStudyCardProps {
   image?: any

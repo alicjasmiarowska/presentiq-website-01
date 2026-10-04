@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ArrowIcon from './ArrowIcon'
 
 interface ButtonProps {
   text: string
@@ -11,21 +12,6 @@ interface ButtonProps {
   showArrow?: boolean
   arrowClassName?: string
   disabled?: boolean
-}
-
-function ArrowIcon({ className = 'text-primary-blue' }: { className?: string }) {
-  return (
-    <svg
-      width="34"
-      height="34"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-      className={`shrink-0 transition-transform duration-200 group-hover:translate-x-1 ${className}`}
-    >
-      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
 }
 
 export default function Button({
@@ -62,7 +48,12 @@ export default function Button({
   const content = (
     <>
       <span>{text}</span>
-      {showArrow && <ArrowIcon className={arrowClassName} />}
+      {showArrow && (
+        <ArrowIcon
+          size={34}
+          className={`shrink-0 transition-transform duration-200 group-hover:translate-x-1 ${arrowClassName || 'text-primary-blue'}`}
+        />
+      )}
     </>
   )
 

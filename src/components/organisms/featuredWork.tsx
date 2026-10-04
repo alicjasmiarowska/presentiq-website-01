@@ -1,14 +1,16 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Heading from '../atoms/Heading'
-import Button from '../atoms/Button'
-import FeaturedWorkCard from '../molecules/FeaturedWorkCard'
-import { resolveButtonHref } from '../../lib/resolveHref'
+import Heading from '@/src/components/atoms/Heading'
+import Button from '@/src/components/atoms/Button'
+import FeaturedWorkCard from '@/src/components/molecules/FeaturedWorkCard'
+import { resolveButtonHref } from '@/src/lib/resolveHref'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface Project {
   _id: string
-  mainImage?: any
+  mainImage?: SanityImageValue
   title: { en: string; de: string }
   category: { en: string; de: string }
 }
@@ -78,7 +80,7 @@ export default function FeaturedWorkSection({ data, locale }: FeaturedWorkSectio
 
   if (!data?.projects?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const buttonHref = resolveButtonHref(locale, data.buttonPage, data.buttonHref)
 
   return (

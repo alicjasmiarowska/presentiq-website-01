@@ -1,25 +1,25 @@
-import HeroSection from '../../../../src/components/organisms/HeroSection'
-import TextAndPictureSection from '../../../../src/components/organisms/textAndPicture'
-import FourPillarsSection from '../../../../src/components/organisms/fourPillars'
-import FeaturesSection from '../../../../src/components/organisms/features'
-import TextAndImageSliderServicesSection from '../../../../src/components/organisms/textAndImageSliderServices'
-import FaqSection from '../../../../src/components/organisms/faqSection'
-import Text from '../../../../src/components/atoms/Text'
-import Reveal from '../../../../src/components/atoms/Reveal'
-import Section from '../../../../src/components/atoms/Section'
-import BlurGlow from '../../../../src/components/atoms/BlurGlow'
-import FinalCtaSection from '../../../../src/components/organisms/finalCta'
-import CollaborationSection from '../../../../src/components/organisms/collaborationSection'
-import TwoColumnSection from '../../../../src/components/organisms/twoColumnSection'
-import ProcessSteps from '../../../../src/components/organisms/processSteps'
-import SimpleServicePage from '../../../../src/components/organisms/simpleServicePage'
-import { getServiceBySlug, getFinalCta, getStorytelling, getAiDesign, getTemplates, getCompanyPresentations, getPresentationDesign, getWordAndAdobePdf } from '../../../../sanity/lib/fetch'
+import HeroSection from '@/src/components/organisms/HeroSection'
+import TextAndPictureSection from '@/src/components/organisms/textAndPicture'
+import FourPillarsSection from '@/src/components/organisms/fourPillars'
+import FeaturesSection from '@/src/components/organisms/features'
+import TextAndImageSliderServicesSection from '@/src/components/organisms/textAndImageSliderServices'
+import FaqSection from '@/src/components/organisms/faqSection'
+import Text from '@/src/components/atoms/Text'
+import Reveal from '@/src/components/atoms/Reveal'
+import Section from '@/src/components/atoms/Section'
+import FinalCtaSection from '@/src/components/organisms/finalCta'
+import CollaborationSection from '@/src/components/organisms/collaborationSection'
+import TwoColumnSection from '@/src/components/organisms/twoColumnSection'
+import ProcessSteps from '@/src/components/organisms/processSteps'
+import SimpleServicePage from '@/src/components/organisms/simpleServicePage'
+import { getServiceBySlug, getFinalCta, getStorytelling, getAiDesign, getTemplates, getCompanyPresentations, getPresentationDesign, getWordAndAdobePdf } from '@/sanity/lib/fetch'
 import { notFound } from 'next/navigation'
-import { buildMetadata, resolveSeoText } from '../../../../src/lib/pageMetadata'
-import { siteUrl } from '../../../../src/lib/siteUrl'
-import { colors } from '../../../../src/styles/design-tokens'
+import { buildMetadata, resolveSeoText } from '@/src/lib/pageMetadata'
+import { siteUrl } from '@/src/lib/siteUrl'
+import { colors } from '@/src/styles/design-tokens'
 import type { Metadata } from 'next'
-import { toJsonLd } from '../../../../src/lib/hyphenate'
+import { toJsonLd } from '@/src/lib/hyphenate'
+import { resolveLocale } from '@/src/lib/locale'
 
 // Services whose bespoke redesign is the same layout as Storytelling (hero →
 // photo+text intro → partner bar → collaboration → final CTA), rendered via
@@ -47,7 +47,7 @@ export async function generateMetadata({
   // returns below.
   if (slug in SIMPLE_SERVICE_FETCHERS) {
     const data = await SIMPLE_SERVICE_FETCHERS[slug]()
-    const t = (field: any) => field?.[l] || field?.en
+    const t = (field: any) => resolveLocale(field, l)
     const seo = resolveSeoText(data?.seo, l, t(data?.headline) || data?.title)
     return buildMetadata({
       locale: l,
@@ -60,7 +60,7 @@ export async function generateMetadata({
 
   if (slug === 'ai-support') {
     const data = await getAiDesign()
-    const t = (field: any) => field?.[l] || field?.en
+    const t = (field: any) => resolveLocale(field, l)
     const seo = resolveSeoText(data?.seo, l, t(data?.hero?.title) || 'AI Design')
     return buildMetadata({
       locale: l,
@@ -72,7 +72,7 @@ export async function generateMetadata({
   }
 
   const data = await getServiceBySlug(slug)
-  const t = (field: any) => field?.[l] || field?.en
+  const t = (field: any) => resolveLocale(field, l)
 
   if (!data) return buildMetadata({ locale: l, path: `/services/${slug}` })
 
@@ -113,16 +113,12 @@ export default async function ServicePage({
 
     return (
       <main>
-        <div className="relative overflow-hidden bg-primary-dark">
-          <BlurGlow variant="corner" position="bottom-right" />
-          <BlurGlow variant="edge" />
-          <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} />
-        </div>
+        <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} glow />
 
         <TwoColumnSection data={data?.intro} locale={locale as 'en' | 'de'} edgeBars spacing="compact" />
         <ProcessSteps data={data?.processSteps} locale={locale as 'en' | 'de'} />
         {data?.videoSection && (
-          <Section className="pb-20 md:pb-20">
+          <Section className="pb-20!">
             <TextAndPictureSection data={data.videoSection} locale={locale as 'en' | 'de'} />
           </Section>
         )}
@@ -136,7 +132,7 @@ export default async function ServicePage({
 
   if (!data) notFound()
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale as 'en' | 'de')
   const finalCtaData = await getFinalCta(locale as 'en' | 'de')
   const accentColor = data.accentColor?.hex || colors.primary.blue
   const serviceName = t(data.title)
@@ -174,13 +170,9 @@ export default async function ServicePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbJsonLd) }}
       />
-      <div className="relative overflow-hidden bg-primary-dark">
-        <BlurGlow variant="corner" position="bottom-right" color={accentColor} />
-        <BlurGlow variant="edge" color={accentColor} />
-        <HeroSection data={data.hero} locale={locale as 'en' | 'de'} />
-      </div>
+      <HeroSection data={data.hero} locale={locale as 'en' | 'de'} glow={{ color: accentColor }} />
       {data.textAndPicture && (
-        <Section className="pb-20 md:pb-20">
+        <Section className="pb-20!">
           <TextAndPictureSection data={data.textAndPicture} locale={locale as 'en' | 'de'} />
         </Section>
       )}

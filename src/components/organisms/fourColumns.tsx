@@ -1,9 +1,10 @@
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Button from '../atoms/Button'
-import Reveal from '../atoms/Reveal'
-import { resolveButtonHref } from '../../lib/resolveHref'
-import { layout } from '../../styles/design-tokens'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Button from '@/src/components/atoms/Button'
+import Reveal from '@/src/components/atoms/Reveal'
+import { resolveButtonHref } from '@/src/lib/resolveHref'
+import { layout } from '@/src/styles/design-tokens'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface FourColumnsItem {
   _key: string
@@ -37,7 +38,7 @@ const BLOCK_STYLES = [
 export default function FourColumnsSection({ data, locale }: FourColumnsSectionProps) {
   if (!data || !data.columns?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 md:auto-rows-fr">

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import HeroSection from '../../../src/components/organisms/HeroSection'
-import CaseStudyList from '../../../src/components/organisms/caseStudyList'
-import FinalCtaSection from '../../../src/components/organisms/finalCta'
-import BlurGlow from '../../../src/components/atoms/BlurGlow'
-import { getPortfolio, getCaseStudies, getFinalCta } from '../../../sanity/lib/fetch'
-import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
+import HeroSection from '@/src/components/organisms/HeroSection'
+import CaseStudyList from '@/src/components/organisms/caseStudyList'
+import FinalCtaSection from '@/src/components/organisms/finalCta'
+import { getPortfolio, getCaseStudies, getFinalCta } from '@/sanity/lib/fetch'
+import { buildMetadata, resolveSeoText } from '@/src/lib/pageMetadata'
+import { resolveLocale } from '@/src/lib/locale'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,7 +16,7 @@ export async function generateMetadata({
   const { locale } = await params
   const l = locale as 'en' | 'de'
   const data = await getPortfolio()
-  const t = (field: any) => field?.[l] || field?.en
+  const t = (field: any) => resolveLocale(field, l)
   const seo = resolveSeoText(data?.seo, l, t(data?.hero?.title) || 'Portfolio', t(data?.hero?.subtitle))
 
   return buildMetadata({
@@ -40,11 +40,7 @@ export default async function PortfolioPage({
 
   return (
     <main>
-      <div className="relative overflow-hidden bg-primary-dark">
-        <BlurGlow variant="corner" position="bottom-right" />
-        <BlurGlow variant="edge" />
-        <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} />
-      </div>
+      <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} glow />
       <CaseStudyList caseStudies={caseStudies} locale={locale as 'en' | 'de'} />
       <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />
     </main>

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import Text from '../atoms/Text'
+import Text from '@/src/components/atoms/Text'
+import ArrowIcon from '@/src/components/atoms/ArrowIcon'
 
 interface ServiceCardProps {
   index: number
@@ -42,22 +43,7 @@ export default function ServiceCard({ index, title, description, href }: Service
         </div>
 
         <div className="shrink-0 md:hidden">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-            className="text-white"
-          >
-            <path
-              d="M5 12h14M13 6l6 6-6 6"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <ArrowIcon className="text-white" />
         </div>
       </div>
 
@@ -71,22 +57,7 @@ export default function ServiceCard({ index, title, description, href }: Service
       </div>
 
       <div className="hidden md:block shrink-0">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          aria-hidden="true"
-          className="text-white"
-        >
-          <path
-            d="M5 12h14M13 6l6 6-6 6"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <ArrowIcon className="text-white" />
       </div>
     </>
   )

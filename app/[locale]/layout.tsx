@@ -1,12 +1,12 @@
 import { Red_Hat_Display, Roboto } from "next/font/google";
-import Navigation from "../../src/components/organisms/Navigation";
-import Footer from "../../src/components/organisms/footer";
-import BackToTopButton from "../../src/components/atoms/BackToTopButton";
-import IntroLoader from "../../src/components/organisms/IntroLoader";
-import { getNavigation, getFooter, getServicesSection } from "../../sanity/lib/fetch";
-import { urlFor } from "../../sanity/lib/image";
-import { siteUrl } from "../../src/lib/siteUrl";
-import { toJsonLd } from '../../src/lib/hyphenate'
+import Navigation from "@/src/components/organisms/Navigation";
+import Footer from "@/src/components/organisms/footer";
+import BackToTopButton from "@/src/components/atoms/BackToTopButton";
+import IntroLoader from "@/src/components/organisms/IntroLoader";
+import { getNavigation, getFooter, getServicesSection } from "@/sanity/lib/fetch";
+import { urlFor } from "@/sanity/lib/image";
+import { siteUrl } from "@/src/lib/siteUrl";
+import { toJsonLd } from '@/src/lib/hyphenate'
 
 const redHatDisplay = Red_Hat_Display({
   subsets: ['latin'],

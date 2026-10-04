@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
 
 interface ToolCardProps {
   title: string

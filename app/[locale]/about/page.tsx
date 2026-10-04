@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
-import HeroSection from '../../../src/components/organisms/HeroSection'
-import TeamSection from '../../../src/components/organisms/TeamSection'
-import TwoColumnSection from '../../../src/components/organisms/twoColumnSection'
-import PrinciplesSection from '../../../src/components/organisms/principles'
-import FinalCtaSection from '../../../src/components/organisms/finalCta'
-import BlurGlow from '../../../src/components/atoms/BlurGlow'
-import { getAbout, getFinalCta, getFourPillars } from '../../../sanity/lib/fetch'
-import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
+import HeroSection from '@/src/components/organisms/HeroSection'
+import TeamSection from '@/src/components/organisms/TeamSection'
+import TwoColumnSection from '@/src/components/organisms/twoColumnSection'
+import PrinciplesSection from '@/src/components/organisms/principles'
+import FinalCtaSection from '@/src/components/organisms/finalCta'
+import BlurGlow from '@/src/components/atoms/BlurGlow'
+import { getAbout, getFinalCta, getFourPillars } from '@/sanity/lib/fetch'
+import { buildMetadata, resolveSeoText } from '@/src/lib/pageMetadata'
+import { resolveLocale } from '@/src/lib/locale'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,7 +19,7 @@ export async function generateMetadata({
   const { locale } = await params
   const l = locale as 'en' | 'de'
   const data = await getAbout()
-  const t = (field: any) => field?.[l] || field?.en
+  const t = (field: any) => resolveLocale(field, l)
   const seo = resolveSeoText(
     data?.seo,
     l,
@@ -47,11 +48,7 @@ export default async function AboutPage({
 
   return (
     <main>
-      <div className="relative overflow-hidden bg-primary-dark">
-        <BlurGlow variant="corner" position="bottom-right" />
-        <BlurGlow variant="edge" />
-        <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} />
-      </div>
+      <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} glow />
 
       <TwoColumnSection data={data?.intro} locale={locale as 'en' | 'de'} edgeBars leftHeadlineStyle="lead" spacing="compact" />
       <TeamSection data={data} locale={locale as 'en' | 'de'} />

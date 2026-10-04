@@ -1,8 +1,9 @@
 import Image from 'next/image'
-import Heading, { LEAD_TEXT_CLASSES } from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Reveal from '../atoms/Reveal'
-import DrawLine from '../atoms/DrawLine'
+import Heading, { LEAD_TEXT_CLASSES } from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Reveal from '@/src/components/atoms/Reveal'
+import DrawLine from '@/src/components/atoms/DrawLine'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface Principle {
   _key: string
@@ -29,7 +30,7 @@ const TITLE_CLASS = `${LEAD_TEXT_CLASSES} text-white`
 export default function PrinciplesSection({ data, locale }: PrinciplesSectionProps) {
   if (!data || !data.pillars?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const rows = [data.pillars.slice(0, 2), data.pillars.slice(2, 4)].filter((row) => row.length)
 
   return (

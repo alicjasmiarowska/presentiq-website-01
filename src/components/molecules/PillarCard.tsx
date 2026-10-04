@@ -1,9 +1,10 @@
 import Image from 'next/image'
-import Text from '../atoms/Text'
-import { urlFor } from '../../../sanity/lib/image'
+import Text from '@/src/components/atoms/Text'
+import { urlFor } from '@/sanity/lib/image'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface PillarCardProps {
-  image?: any
+  image?: SanityImageValue
   title: string
   description: string
 }

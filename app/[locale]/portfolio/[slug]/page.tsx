@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import HeroSection from '../../../../src/components/organisms/HeroSection'
-import CaseStudyBody from '../../../../src/components/organisms/caseStudyBody'
-import FinalCtaSection from '../../../../src/components/organisms/finalCta'
-import BlurGlow from '../../../../src/components/atoms/BlurGlow'
-import { getCaseStudyBySlug, getFinalCta } from '../../../../sanity/lib/fetch'
-import { buildMetadata, resolveSeoText } from '../../../../src/lib/pageMetadata'
+import HeroSection from '@/src/components/organisms/HeroSection'
+import CaseStudyBody from '@/src/components/organisms/caseStudyBody'
+import FinalCtaSection from '@/src/components/organisms/finalCta'
+import { getCaseStudyBySlug, getFinalCta } from '@/sanity/lib/fetch'
+import { buildMetadata, resolveSeoText } from '@/src/lib/pageMetadata'
+import { resolveLocale } from '@/src/lib/locale'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { locale, slug } = await params
   const l = locale as 'en' | 'de'
   const data = await getCaseStudyBySlug(slug)
-  const t = (field: any) => field?.[l] || field?.en
+  const t = (field: any) => resolveLocale(field, l)
   const seo = resolveSeoText(data?.seo, l, t(data?.headline) || t(data?.title) || 'Case Study')
 
   return buildMetadata({
@@ -43,11 +43,7 @@ export default async function CaseStudyPage({
 
   return (
     <main>
-      <div className="relative overflow-hidden bg-primary-dark">
-        <BlurGlow variant="corner" position="bottom-right" />
-        <BlurGlow variant="edge" />
-        <HeroSection data={{ title: data.headline || data.title }} locale={locale as 'en' | 'de'} />
-      </div>
+      <HeroSection data={{ title: data.headline || data.title }} locale={locale as 'en' | 'de'} glow />
       <CaseStudyBody data={data} locale={locale as 'en' | 'de'} />
       <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />
     </main>

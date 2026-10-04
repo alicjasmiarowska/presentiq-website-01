@@ -1,8 +1,8 @@
-import { PortableText, type PortableTextComponents } from '@portabletext/react'
+import { PortableText, type PortableTextComponents, type PortableTextBlock } from '@portabletext/react'
 import { SECTION_VARIANT_CLASSES, SECTION_VARIANT_STYLE } from './Heading'
 
 interface RichTextProps {
-  value: any
+  value: PortableTextBlock[] | null | undefined
   className?: string
   // "secondary" (navy text, default) matches the original hardcoded
   // behavior for RichText on white backgrounds. "primary" (white text) is
@@ -43,7 +43,7 @@ function buildComponents(color: 'primary' | 'secondary'): PortableTextComponents
       ),
     },
     list: {
-      bullet: ({ children }) => <ul className="list-disc pl-6 mb-4 space-y-2">{children}</ul>,
+      bullet: ({ children }) => <ul className="[list-style-type:square] pl-6 mb-4 space-y-2">{children}</ul>,
       number: ({ children }) => <ol className="list-decimal pl-6 mb-4 space-y-2">{children}</ol>,
     },
     listItem: {

@@ -1,12 +1,12 @@
 'use client'
 
 import { startTransition, useActionState, useEffect, useRef, useState } from 'react'
-import Input from '../atoms/Input'
-import Textarea from '../atoms/Textarea'
-import Checkbox from '../atoms/Checkbox'
-import Button from '../atoms/Button'
-import { contactCopy, validateContact, type ContactErrors, type ContactValues } from '../../lib/contactForm'
-import { sendContactMessage, type ContactState } from '../../../app/[locale]/contact/actions'
+import Input from '@/src/components/atoms/Input'
+import Textarea from '@/src/components/atoms/Textarea'
+import Checkbox from '@/src/components/atoms/Checkbox'
+import Button from '@/src/components/atoms/Button'
+import { contactCopy, validateContact, type ContactErrors, type ContactValues } from '@/src/lib/contactForm'
+import { sendContactMessage, type ContactState } from '@/app/[locale]/contact/actions'
 
 interface ContactFormProps {
   locale: 'en' | 'de'

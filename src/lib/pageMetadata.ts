@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { siteUrl } from './siteUrl'
-import { urlFor } from '../../sanity/lib/image'
+import { urlFor } from '@/sanity/lib/image'
 import { stripSoftHyphens } from './hyphenate'
+import { resolveLocale } from './locale'
 
 interface BuildMetadataParams {
   locale: 'en' | 'de'
@@ -52,7 +53,7 @@ export function resolveSeoText(
   fallbackTitle?: string,
   fallbackDescription?: string
 ) {
-  const t = (field?: { en?: string; de?: string }) => field?.[locale] || field?.en
+  const t = (field?: { en?: string; de?: string }) => resolveLocale(field, locale)
 
   return {
     title: t(seo?.metaTitle) || fallbackTitle,

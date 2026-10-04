@@ -1,8 +1,9 @@
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Section from '../atoms/Section'
-import Reveal from '../atoms/Reveal'
-import { urlFor } from '../../../sanity/lib/image'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Section from '@/src/components/atoms/Section'
+import Reveal from '@/src/components/atoms/Reveal'
+import { urlFor } from '@/sanity/lib/image'
+import { resolveLocale } from '@/src/lib/locale'
 
 interface FeatureItem {
   _key: string
@@ -41,7 +42,7 @@ async function fetchInlineIcon(url: string): Promise<string | null> {
 export default async function FeaturesSection({ data, locale, textColor = 'dark' }: FeaturesSectionProps) {
   if (!data || !data.items?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const isLight = textColor === 'light'
 
   const icons = await Promise.all(
@@ -51,8 +52,8 @@ export default async function FeaturesSection({ data, locale, textColor = 'dark'
   )
 
   return (
-    <Section>
-      <div className="pt-10 pb-10 md:pt-10 md:pb-20">
+    <Section className="py-16 md:py-24">
+      <div>
         <Reveal>
           <Heading
             level="h3"
