@@ -168,6 +168,63 @@ export async function getContact() {
   return fetchContent(`*[_type == "contact"][0]`)
 }
 
+// Shared query shape for every "same layout as Storytelling" page — see
+// simpleServicePageSchema.ts for why these are separate singleton types
+// that all happen to look identical.
+function fetchSimpleServicePage(type: string) {
+  return fetchContent(`*[_type == "${type}"][0]{
+    ...,
+    collaboration{
+      ...,
+      items[]{ _key, ...@->{ title, "slug": slug.current } }
+    }
+  }`)
+}
+
+export async function getStorytelling() {
+  return fetchSimpleServicePage('storytelling')
+}
+
+export async function getTemplates() {
+  return fetchSimpleServicePage('templates')
+}
+
+export async function getCompanyPresentations() {
+  return fetchSimpleServicePage('companyPresentations')
+}
+
+export async function getPresentationDesign() {
+  return fetchSimpleServicePage('presentationDesign')
+}
+
+export async function getWordAndAdobePdf() {
+  return fetchSimpleServicePage('wordAndAdobePdf')
+}
+
+export async function getAiDesign() {
+  return fetchContent(`*[_type == "aiDesign"][0]{
+    ...,
+    hero->{
+      ...,
+      buttonPage1->{ "type": _type, "slug": slug.current },
+      buttonPage2->{ "type": _type, "slug": slug.current }
+    },
+    intro->{
+      ...,
+      buttonPage->{ "type": _type, "slug": slug.current }
+    },
+    videoSection->{
+      ...,
+      "videoUrl": video.asset->url,
+      buttonPage->{ "type": _type, "slug": slug.current }
+    },
+    collaboration{
+      ...,
+      items[]{ _key, ...@->{ title, "slug": slug.current } }
+    }
+  }`)
+}
+
 export async function getAbout() {
   return fetchContent(`*[_type == "about"][0]{
     ...,
@@ -191,11 +248,6 @@ export async function getHowWeWork() {
       ...,
       buttonPage1->{ "type": _type, "slug": slug.current },
       buttonPage2->{ "type": _type, "slug": slug.current }
-    },
-    textAndPictureBullets->{
-      ...,
-      "videoUrl": video.asset->url,
-      buttonPage->{ "type": _type, "slug": slug.current }
     }
   }`)
 }
@@ -216,8 +268,13 @@ export async function getCaseStudies() {
     _id,
     title,
     category,
-    mainImage
+    mainImage,
+    "slug": slug.current
   }`)
+}
+
+export async function getCaseStudyBySlug(slug: string) {
+  return fetchContent(`*[_type == "caseStudy" && slug.current == $slug][0]`, { slug })
 }
 
 export async function getLegalNotice() {
