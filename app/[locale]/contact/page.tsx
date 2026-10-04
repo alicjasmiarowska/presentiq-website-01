@@ -2,12 +2,10 @@ import type { Metadata } from 'next'
 import Heading from '../../../src/components/atoms/Heading'
 import Text from '../../../src/components/atoms/Text'
 import Reveal from '../../../src/components/atoms/Reveal'
-import CharReveal from '../../../src/components/atoms/CharReveal'
 import ContactForm from '../../../src/components/organisms/ContactForm'
 import EdgeBars from '../../../src/components/atoms/EdgeBars'
-import { HERO_TITLE_BOTTOM, HERO_TITLE_CLASSES, HERO_TITLE_STYLE } from '../../../src/components/organisms/HeroSection'
-import Image from 'next/image'
-import { gradients, layout } from '../../../src/styles/design-tokens'
+import HeroSection from '../../../src/components/organisms/HeroSection'
+import { layout } from '../../../src/styles/design-tokens'
 import { getContact, getFooter } from '../../../sanity/lib/fetch'
 import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
 
@@ -47,33 +45,8 @@ export default async function ContactPage({
 
   return (
     <main>
-      {/* Hero: same navy base and blue glow as the homepage hero, the bar
-          graphics top-left and bottom-right, headline bottom-left. */}
-      <section className="relative overflow-hidden" style={{ backgroundImage: gradients.heroBase }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: gradients.heroGlow }} aria-hidden="true" />
-        <Image
-          src="/images/line_1.svg"
-          alt=""
-          aria-hidden="true"
-          width={677}
-          height={692}
-          unoptimized
-          priority
-          className="absolute left-[5px] top-0 -translate-y-[16.7%] w-[max(10rem,min(31.4vw,452px))] h-auto pointer-events-none select-none"
-        />
-        <div
-          className="absolute bottom-0 left-[calc(75%-7px)] w-[min(25.5vw,367px)] aspect-[367/468] overflow-hidden pointer-events-none"
-          aria-hidden="true"
-        >
-          <Image src="/images/line-2.png" alt="" fill sizes="367px" className="object-cover select-none" />
-        </div>
-
-        <div className={`relative px-6 md:px-12 lg:px-20 pt-40 md:pt-56 lg:pt-[271px] ${HERO_TITLE_BOTTOM}`}>
-          <h1 className={HERO_TITLE_CLASSES} style={HERO_TITLE_STYLE}>
-            <CharReveal text={t(data?.headline)} />
-          </h1>
-        </div>
-      </section>
+      {/* Same Hero component as the homepage, so the two look identical. */}
+      <HeroSection data={{ title: data?.headline, subtitle: data?.heroTagline }} locale={locale as 'en' | 'de'} />
 
       {/* Two halves that bleed to the viewport edges: navy statement on the
           left, the form on white on the right. */}

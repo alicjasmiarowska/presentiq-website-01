@@ -16,8 +16,8 @@ export const HERO_TITLE_STYLE = { fontSize: 'min(72px, max(48px, 6vw), calc((100
 export const HERO_TITLE_BOTTOM = 'pb-24 md:pb-36'
 
 interface HeroData {
-  title: { en: string; de: string }
-  subtitle: { en: string; de: string }
+  title?: { en: string; de: string }
+  subtitle?: { en: string; de: string }
   buttonText1?: { en: string; de: string }
   buttonPage1?: { type?: string; slug?: string }
   buttonHref1?: string
@@ -35,10 +35,15 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
   if (!data) return null
 
   const t = (field: any) => field?.[locale] || field?.en || ''
+  // Full viewport height only makes sense when the blue subtitle bar fills
+  // out the bottom (homepage, service pages with a hero tagline). Without
+  // it (Contact, case studies, ...) that same height leaves a huge empty
+  // gap below the headline, so the section sizes to its content instead.
+  const hasSubtitle = !!t(data.subtitle)
 
   return (
     <section
-      className="relative flex flex-col min-h-screen 2xl:min-h-[80vh]"
+      className={`relative flex flex-col ${hasSubtitle ? 'min-h-screen 2xl:min-h-[80vh]' : ''}`}
       style={{ backgroundImage: gradients.heroBase }}
     >
       <Image
@@ -64,7 +69,11 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
       </div>
 
       <div
-        className={`flex-1 flex items-end px-6 md:px-12 lg:px-20 pt-24 md:pt-32 ${HERO_TITLE_BOTTOM}`}
+        className={
+          hasSubtitle
+            ? `flex-1 flex items-end px-6 md:px-12 lg:px-20 pt-24 md:pt-32 ${HERO_TITLE_BOTTOM}`
+            : `px-6 md:px-12 lg:px-20 pt-40 md:pt-56 lg:pt-[271px] ${HERO_TITLE_BOTTOM}`
+        }
         style={{ backgroundImage: gradients.heroGlow }}
       >
         <h1 className={HERO_TITLE_CLASSES} style={HERO_TITLE_STYLE}>
@@ -72,16 +81,18 @@ export default function HeroSection({ data, locale }: HeroSectionProps) {
         </h1>
       </div>
 
-      <div className="flex flex-col md:flex-row">
-        <div className={`w-full md:w-7/12 bg-primary-blue ${layout.edgeGutter.left} pr-6 md:pr-16 py-10 md:py-14`}>
-          <Reveal delay={500}>
-            <p className="font-display text-white uppercase font-normal leading-[1.3] tracking-wider text-[20px] md:text-[24px]">
-              {t(data.subtitle)}
-            </p>
-          </Reveal>
+      {t(data.subtitle) && (
+        <div className="flex flex-col md:flex-row">
+          <div className={`w-full md:w-7/12 bg-primary-blue ${layout.edgeGutter.left} pr-6 md:pr-16 py-10 md:py-14`}>
+            <Reveal delay={500}>
+              <p className="font-display text-white uppercase font-normal leading-[1.3] tracking-wider text-[20px] md:text-[24px]">
+                {t(data.subtitle)}
+              </p>
+            </Reveal>
+          </div>
+          <div className="hidden md:block md:w-5/12 bg-primary-dark" />
         </div>
-        <div className="hidden md:block md:w-5/12" />
-      </div>
+      )}
     </section>
   )
 }
