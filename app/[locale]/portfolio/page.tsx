@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import HeroSection from '../../../src/components/organisms/HeroSection'
-import CaseStudyGrid from '../../../src/components/organisms/caseStudyGrid'
+import CaseStudyList from '../../../src/components/organisms/caseStudyList'
 import FinalCtaSection from '../../../src/components/organisms/finalCta'
-import Section from '../../../src/components/atoms/Section'
 import BlurGlow from '../../../src/components/atoms/BlurGlow'
 import { getPortfolio, getCaseStudies, getFinalCta } from '../../../sanity/lib/fetch'
 import { buildMetadata, resolveSeoText } from '../../../src/lib/pageMetadata'
@@ -46,9 +45,7 @@ export default async function PortfolioPage({
         <BlurGlow variant="edge" />
         <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} />
       </div>
-      <Section>
-        <CaseStudyGrid caseStudies={caseStudies} locale={locale as 'en' | 'de'} />
-      </Section>
+      <CaseStudyList caseStudies={caseStudies} locale={locale as 'en' | 'de'} />
       <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />
     </main>
   )
