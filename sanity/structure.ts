@@ -1,6 +1,13 @@
 import type {StructureResolver} from 'sanity/structure'
 
 const singletonTypes = new Set(['navigation', 'footer', 'contact', 'about', 'homepage', 'howWeWork', 'portfolio', 'legalNotice', 'privacyPolicy'])
+// Document types pinned explicitly below with their own (non-singleton) list
+// item, so the generic auto-generated section at the bottom shouldn't
+// duplicate them. Storytelling/AI Design are singletons too, but they're
+// nested under the "Services" folder below rather than top-level, so they
+// don't go in `singletonTypes` (that set only excludes items that still
+// appear at the top level).
+const customListTypes = new Set(['service', 'storytelling', 'aiDesign', 'templates', 'companyPresentations', 'presentationDesign', 'wordAndAdobePdf'])
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
@@ -8,11 +15,11 @@ export const structure: StructureResolver = (S) =>
     .title('Content')
     .items([
       S.listItem()
-        .title('Navigation (globalna)')
+        .title('Navigation (global)')
         .id('navigation')
         .child(S.document().schemaType('navigation').documentId('navigation')),
       S.listItem()
-        .title('Footer (globalny)')
+        .title('Footer (global)')
         .id('footer')
         .child(S.document().schemaType('footer').documentId('footer')),
       S.listItem()
@@ -44,7 +51,55 @@ export const structure: StructureResolver = (S) =>
         .id('privacyPolicy')
         .child(S.document().schemaType('privacyPolicy').documentId('privacyPolicy')),
       S.divider(),
+      // Everything service-related lives in one folder: the generic Service
+      // list plus each service's bespoke redesign (own singleton document).
+      // "Storytelling", "Templates" and "AI Design" (slugs "storytelling" /
+      // "templates" / "ai-support") got bespoke redesigns, so their old
+      // service-template documents are filtered out of the generic list
+      // below — not deleted, just hidden, since the real editable content
+      // for those now lives in their own pinned documents in this folder.
+      S.listItem()
+        .title('Services')
+        .child(
+          S.list()
+            .title('Services')
+            .items([
+              S.listItem()
+                .title('All Services (generic template)')
+                .child(
+                  S.documentTypeList('service')
+                    .title('All Services')
+                    .filter('_type == "service" && !(slug.current in ["storytelling", "templates", "ai-support", "company-presentations", "presentation-design", "word-and-adobe-pdf"])')
+                ),
+              S.divider(),
+              S.listItem()
+                .title('Storytelling Page')
+                .id('storytelling')
+                .child(S.document().schemaType('storytelling').documentId('storytelling')),
+              S.listItem()
+                .title('Templates Page')
+                .id('templates')
+                .child(S.document().schemaType('templates').documentId('templates')),
+              S.listItem()
+                .title('Company Presentations Page')
+                .id('companyPresentations')
+                .child(S.document().schemaType('companyPresentations').documentId('companyPresentations')),
+              S.listItem()
+                .title('Presentation Design Support Page')
+                .id('presentationDesign')
+                .child(S.document().schemaType('presentationDesign').documentId('presentationDesign')),
+              S.listItem()
+                .title('Word & Adobe PDF Page')
+                .id('wordAndAdobePdf')
+                .child(S.document().schemaType('wordAndAdobePdf').documentId('wordAndAdobePdf')),
+              S.listItem()
+                .title('AI Design Page')
+                .id('aiDesign')
+                .child(S.document().schemaType('aiDesign').documentId('aiDesign')),
+            ])
+        ),
+      S.divider(),
       ...S.documentTypeListItems().filter(
-        (item) => !singletonTypes.has(item.getId() as string)
+        (item) => !singletonTypes.has(item.getId() as string) && !customListTypes.has(item.getId() as string)
       ),
     ])

@@ -28,6 +28,12 @@ import seo from './seo'
 import faq from './faq'
 import contact from './contact'
 import about from './about'
+import storytelling from './storytelling'
+import aiDesign from './aiDesign'
+import templates from './templates'
+import companyPresentations from './companyPresentations'
+import presentationDesign from './presentationDesign'
+import wordAndAdobePdf from './wordAndAdobePdf'
 import howWeWork from './howWeWork'
 import portfolio from './portfolio'
 import legalNotice from './legalNotice'
@@ -64,6 +70,12 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     faq,
     contact,
     about,
+    storytelling,
+    aiDesign,
+    templates,
+    companyPresentations,
+    presentationDesign,
+    wordAndAdobePdf,
     howWeWork,
     portfolio,
     legalNotice,

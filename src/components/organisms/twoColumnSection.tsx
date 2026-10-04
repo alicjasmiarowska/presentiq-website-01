@@ -79,9 +79,11 @@ export default function TwoColumnSection({
         <Reveal delay={150}>
           <RichText value={data.rightBody?.[locale] || data.rightBody?.en} />
         </Reveal>
-        <Reveal delay={250}>
-          <Heading level="h2" variant="section" text={t(data.rightHeadline)} className={`text-primary-blue ${compact ? bottomGap : 'mt-16 md:mt-30'}`} />
-        </Reveal>
+        {t(data.rightHeadline) && (
+          <Reveal delay={250}>
+            <Heading level="h2" variant="section" text={t(data.rightHeadline)} className={`text-primary-blue ${compact ? bottomGap : 'mt-16 md:mt-30'}`} />
+          </Reveal>
+        )}
       </div>
     </section>
   )

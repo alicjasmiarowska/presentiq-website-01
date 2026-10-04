@@ -9,13 +9,28 @@ import Reveal from '../../../../src/components/atoms/Reveal'
 import Section from '../../../../src/components/atoms/Section'
 import BlurGlow from '../../../../src/components/atoms/BlurGlow'
 import FinalCtaSection from '../../../../src/components/organisms/finalCta'
-import { getServiceBySlug, getFinalCta } from '../../../../sanity/lib/fetch'
+import CollaborationSection from '../../../../src/components/organisms/collaborationSection'
+import TwoColumnSection from '../../../../src/components/organisms/twoColumnSection'
+import ProcessSteps from '../../../../src/components/organisms/processSteps'
+import SimpleServicePage from '../../../../src/components/organisms/simpleServicePage'
+import { getServiceBySlug, getFinalCta, getStorytelling, getAiDesign, getTemplates, getCompanyPresentations, getPresentationDesign, getWordAndAdobePdf } from '../../../../sanity/lib/fetch'
 import { notFound } from 'next/navigation'
 import { buildMetadata, resolveSeoText } from '../../../../src/lib/pageMetadata'
 import { siteUrl } from '../../../../src/lib/siteUrl'
 import { colors } from '../../../../src/styles/design-tokens'
 import type { Metadata } from 'next'
 import { toJsonLd } from '../../../../src/lib/hyphenate'
+
+// Services whose bespoke redesign is the same layout as Storytelling (hero →
+// photo+text intro → partner bar → collaboration → final CTA), rendered via
+// SimpleServicePage below instead of each duplicating that JSX.
+const SIMPLE_SERVICE_FETCHERS: Record<string, () => Promise<any>> = {
+  storytelling: getStorytelling,
+  templates: getTemplates,
+  'company-presentations': getCompanyPresentations,
+  'presentation-design': getPresentationDesign,
+  'word-and-adobe-pdf': getWordAndAdobePdf,
+}
 
 export const dynamic = 'force-dynamic'
 
@@ -26,6 +41,36 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params
   const l = locale as 'en' | 'de'
+
+  // Storytelling, Templates and AI Design got bespoke redesigns (own Sanity
+  // documents) rather than the generic service template — see the early
+  // returns below.
+  if (slug in SIMPLE_SERVICE_FETCHERS) {
+    const data = await SIMPLE_SERVICE_FETCHERS[slug]()
+    const t = (field: any) => field?.[l] || field?.en
+    const seo = resolveSeoText(data?.seo, l, t(data?.headline) || data?.title)
+    return buildMetadata({
+      locale: l,
+      path: `/services/${slug}`,
+      title: seo.title,
+      description: seo.description,
+      image: seo.image,
+    })
+  }
+
+  if (slug === 'ai-support') {
+    const data = await getAiDesign()
+    const t = (field: any) => field?.[l] || field?.en
+    const seo = resolveSeoText(data?.seo, l, t(data?.hero?.title) || 'AI Design')
+    return buildMetadata({
+      locale: l,
+      path: `/services/${slug}`,
+      title: seo.title,
+      description: seo.description,
+      image: seo.image,
+    })
+  }
+
   const data = await getServiceBySlug(slug)
   const t = (field: any) => field?.[l] || field?.en
 
@@ -48,6 +93,45 @@ export default async function ServicePage({
   params: Promise<{ locale: string; slug: string }>
 }) {
   const { locale, slug } = await params
+
+  // Bespoke redesigns that all share the Storytelling layout — see
+  // SimpleServicePage for the shared hero → intro → partner bar →
+  // collaboration → CTA composition.
+  if (slug in SIMPLE_SERVICE_FETCHERS) {
+    const data = await SIMPLE_SERVICE_FETCHERS[slug]()
+    const finalCtaData = await getFinalCta(locale as 'en' | 'de')
+
+    return <SimpleServicePage data={data} finalCtaData={finalCtaData} locale={locale as 'en' | 'de'} />
+  }
+
+  // AI Design: bespoke redesign, own Sanity document — reuses HeroSection,
+  // TwoColumnSection (edge bars, like the About intro) and TextAndPicture
+  // (video in place of its image field) instead of one-off sections.
+  if (slug === 'ai-support') {
+    const data = await getAiDesign()
+    const finalCtaData = await getFinalCta(locale as 'en' | 'de')
+
+    return (
+      <main>
+        <div className="relative overflow-hidden bg-primary-dark">
+          <BlurGlow variant="corner" position="bottom-right" />
+          <BlurGlow variant="edge" />
+          <HeroSection data={data?.hero} locale={locale as 'en' | 'de'} />
+        </div>
+
+        <TwoColumnSection data={data?.intro} locale={locale as 'en' | 'de'} edgeBars spacing="compact" />
+        <ProcessSteps data={data?.processSteps} locale={locale as 'en' | 'de'} />
+        {data?.videoSection && (
+          <Section className="pb-20 md:pb-20">
+            <TextAndPictureSection data={data.videoSection} locale={locale as 'en' | 'de'} />
+          </Section>
+        )}
+        <CollaborationSection data={data?.collaboration} locale={locale as 'en' | 'de'} />
+        <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />
+      </main>
+    )
+  }
+
   const data = await getServiceBySlug(slug)
 
   if (!data) notFound()
