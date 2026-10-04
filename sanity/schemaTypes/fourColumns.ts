@@ -11,9 +11,9 @@ export default {
     {
       name: 'columns',
       title: 'Columns (exactly 4)',
-      description: 'Kolejność: 1) ciemne tło, 2) białe tło, 3) jasnoszare tło, 4) niebieskie tło.',
+      description: 'Order: 1) dark background, 2) white background, 3) light-gray background, 4) blue background.',
       type: 'array',
-      validation: (Rule: any) => Rule.min(4).max(4).error('Wymagane dokładnie 4 kolumny'),
+      validation: (Rule: any) => Rule.min(4).max(4).error('Exactly 4 columns required'),
       of: [
         {
           type: 'object',
@@ -35,15 +35,15 @@ export default {
             },
             {
               name: 'buttonPage',
-              title: 'Button — przekierowanie: strona',
-              description: 'Wybierz istniejącą stronę zamiast wpisywać URL ręcznie.',
+              title: 'Button — Link: Page',
+              description: 'Choose an existing page instead of typing a URL manually.',
               type: 'reference',
               to: [{ type: 'contact' }, { type: 'about' }, { type: 'howWeWork' }, { type: 'homepage' }, { type: 'portfolio' }],
             },
             {
               name: 'buttonHref',
-              title: 'Button — przekierowanie: ręczny URL',
-              description: 'Użyj tylko jeśli powyżej nie wybrano strony (np. link zewnętrzny).',
+              title: 'Button — Link: Manual URL',
+              description: 'Use only if no page was selected above (e.g. an external link).',
               type: 'string',
             },
           ],

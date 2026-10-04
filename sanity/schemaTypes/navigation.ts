@@ -12,15 +12,15 @@ export default {
     },
     {
       name: 'logoLight',
-      title: 'Logo (jasna wersja)',
-      description: 'Używane w nawigacji, która nakłada się na ciemne tło (np. hero). Jeśli puste, używane jest zwykłe Logo.',
+      title: 'Logo (light version)',
+      description: 'Used in navigation that overlaps a dark background (e.g. the hero). If empty, the regular Logo is used.',
       type: 'image',
       options: { hotspot: true },
       fields: [{ name: 'alt', title: 'Alt text', type: 'string' }],
     },
     {
       name: 'navLinks',
-      title: 'Linki w menu',
+      title: 'Menu Links',
       description: 'np. Portfolio, Services, Tools, About, Contact',
       type: 'array',
       of: [
@@ -32,15 +32,15 @@ export default {
             { name: 'label', title: 'Label', type: 'localeString' },
             {
               name: 'page',
-              title: 'Strona',
-              description: 'Wybierz istniejącą stronę zamiast wpisywać URL ręcznie.',
+              title: 'Page',
+              description: 'Choose an existing page instead of typing a URL manually.',
               type: 'reference',
               to: [{ type: 'contact' }, { type: 'about' }, { type: 'howWeWork' }, { type: 'portfolio' }],
             },
             {
               name: 'href',
-              title: 'Ręczny URL (np. /services)',
-              description: 'Użyj tylko jeśli powyżej nie wybrano strony (np. link zewnętrzny).',
+              title: 'Manual URL (e.g. /services)',
+              description: 'Use only if no page was selected above (e.g. an external link).',
               type: 'string',
             },
           ],
@@ -55,8 +55,8 @@ export default {
     },
     {
       name: 'servicesLabel',
-      title: 'Etykieta rozwijanego menu "Services"',
-      description: 'Lista usług w rozwijanym menu pobiera się automatycznie z dokumentów Service — tu ustawiasz tylko tekst przycisku.',
+      title: 'Label for the "Services" dropdown menu',
+      description: 'The service list in the dropdown menu is pulled automatically from Service documents — here you only set the button text.',
       type: 'localeString',
       initialValue: { en: 'Services', de: 'Leistungen' },
     },
@@ -68,7 +68,7 @@ export default {
     {
       name: 'loginHref',
       title: 'Login URL',
-      description: 'Ścieżka wewnętrzna (np. /login) albo pełny link zewnętrzny (np. https://app.presentiq.com) — otworzy się w nowej karcie.',
+      description: 'An internal path (e.g. /login) or a full external link (e.g. https://app.presentiq.com) — opens in a new tab.',
       type: 'string',
     },
   ],

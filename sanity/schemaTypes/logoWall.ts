@@ -21,24 +21,24 @@ export default {
     },
     {
       name: 'stats',
-      title: 'Statystyki (dokładnie 3)',
+      title: 'Stats (exactly 3)',
       type: 'array',
-      validation: (Rule: any) => Rule.max(3).error('Maksymalnie 3 statystyki'),
+      validation: (Rule: any) => Rule.max(3).error('Maximum 3 stats'),
       of: [
         {
           type: 'object',
           name: 'stat',
           fields: [
-            { name: 'label', title: 'Etykieta', type: 'localeString' },
-            { name: 'value', title: 'Wartość liczbowa', description: 'np. 1.34 albo 1100', type: 'number' },
+            { name: 'label', title: 'Label', type: 'localeString' },
+            { name: 'value', title: 'Numeric Value', description: 'e.g. 1.34 or 1100', type: 'number' },
             {
               name: 'decimals',
-              title: 'Liczba miejsc po przecinku',
+              title: 'Decimal Places',
               type: 'number',
               initialValue: 0,
               validation: (Rule: any) => Rule.min(0).max(2),
             },
-            { name: 'suffix', title: 'Sufiks (np. "+")', type: 'string' },
+            { name: 'suffix', title: 'Suffix (e.g. "+")', type: 'string' },
           ],
           preview: {
             select: { title: 'label.en', value: 'value' },

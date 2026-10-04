@@ -11,7 +11,7 @@ export default {
     },
     {
       name: 'textAndPicture',
-      title: 'Text and Picture Section (nieużywana obecnie)',
+      title: 'Text and Picture Section (currently unused)',
       type: 'reference',
       to: [{ type: 'textAndPicture' }],
     },

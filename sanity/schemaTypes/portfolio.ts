@@ -19,7 +19,7 @@ export default {
     {
       name: 'hero',
       title: 'Hero Section',
-      description: 'Wybierz, która wersja Hero (z dokumentów typu Hero) ma być użyta na tej stronie.',
+      description: 'Choose which Hero version (from Hero documents) to use on this page.',
       type: 'reference',
       to: [{ type: 'hero' }],
     },

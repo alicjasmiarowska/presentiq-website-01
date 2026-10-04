@@ -17,15 +17,15 @@ export default {
     },
     {
       name: 'introText',
-      title: 'Tekst pod nagłówkiem (2 linie)',
-      description: 'Krótki tekst wyświetlany pod nagłówkiem w pierwszej komórce siatki.',
+      title: 'Text below the heading (2 lines)',
+      description: "Short text shown below the heading in the grid's first cell.",
       type: 'localeText',
     },
     {
       name: 'pillars',
       title: 'Pillars (exactly 3)',
       type: 'array',
-      validation: (Rule: any) => Rule.min(3).max(3).error('Wymagane dokładnie 3 filary'),
+      validation: (Rule: any) => Rule.min(3).max(3).error('Exactly 3 pillars required'),
       of: [
         {
           type: 'object',

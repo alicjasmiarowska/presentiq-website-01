@@ -19,14 +19,14 @@ export default {
     {
       name: 'hero',
       title: 'Hero Section',
-      description: 'Wybierz, która wersja Hero (z dokumentów typu Hero) ma być użyta na tej stronie.',
+      description: 'Choose which Hero version (from Hero documents) to use on this page.',
       type: 'reference',
       to: [{ type: 'hero' }],
     },
     {
       name: 'intro',
-      title: 'Intro (dwie kolumny nad zdjęciami zespołu)',
-      description: 'Wybierz dokument Two Column Section: lewa kolumna = nagłówek + tekst, prawa = tekst + niebieski nagłówek („Lernen Sie unser Team kennen”).',
+      title: 'Intro (two columns above the team photos)',
+      description: 'Choose a Two Column Section document: left column = heading + text, right column = text + blue heading ("Lernen Sie unser Team kennen").',
       type: 'reference',
       to: [{ type: 'twoColumnSection' }],
     },
@@ -54,7 +54,7 @@ export default {
           fields: [
             {
               name: 'photo',
-              title: 'Photo (kadrowane do kwadratu 1:1 – ustaw hotspot na twarzy)',
+              title: 'Photo (cropped to a 1:1 square — set the hotspot on the face)',
               type: 'image',
               options: { hotspot: true },
               fields: [{ name: 'alt', title: 'Alt text', type: 'string' }],
@@ -73,8 +73,8 @@ export default {
     },
     {
       name: 'principles',
-      title: 'Unsere Prinzipien (siatka 2×2)',
-      description: 'Wybierz dokument Four Pillars z nagłówkiem i 4 zasadami (tytuł + opis; zdjęcia nie są tu używane).',
+      title: 'Unsere Prinzipien (2×2 grid)',
+      description: 'Choose a Four Pillars document with a heading and 4 principles (title + description; images aren\'t used here).',
       type: 'reference',
       to: [{ type: 'fourPillars' }],
     },

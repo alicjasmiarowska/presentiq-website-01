@@ -18,13 +18,13 @@ const DE_INFORMAL =
 
 function check(text: string, lang: 'en' | 'de'): string[] {
   const issues: string[] = []
-  if (/[ \u00A0]{2,}/.test(text)) issues.push('podwójna spacja')
-  if (/[\v\u2028\u2029]/.test(text)) issues.push('niewidoczny znak złamania linii (wklejony z Worda/Pages) – Safari może go nie pokazać')
-  if (text !== text.trim()) issues.push('spacja na początku lub końcu')
-  if (/(^|\s)(EN|DE)\s*:/.test(text) || /\b(TODO|lorem ipsum)\b/i.test(text)) issues.push('roboczy dopisek (np. „EN:”, „TODO”)')
+  if (/[ \u00A0]{2,}/.test(text)) issues.push('double space')
+  if (/[\v\u2028\u2029]/.test(text)) issues.push('invisible line-break character (pasted from Word/Pages) – Safari may not render it')
+  if (text !== text.trim()) issues.push('leading or trailing space')
+  if (/(^|\s)(EN|DE)\s*:/.test(text) || /\b(TODO|lorem ipsum)\b/i.test(text)) issues.push('leftover draft note (e.g. "EN:", "TODO")')
   if (lang === 'de') {
     const informal = text.match(DE_INFORMAL)
-    if (informal) issues.push(`forma „du/ihr” („${informal[0]}”) – na stronie piszemy per „Sie”`)
+    if (informal) issues.push(`informal "du/ihr" ("${informal[0]}") – the site addresses visitors as "Sie"`)
   }
   return issues
 }
@@ -35,9 +35,9 @@ export function localeWarnings(value: Localized | undefined): true | string {
   const de = toText(value.de).trim()
   const issues: string[] = []
 
-  if (en && !de) issues.push('DE: brak tłumaczenia (strona pokaże tekst angielski)')
-  if (de && !en) issues.push('EN: brak tłumaczenia')
-  if (en && de && en === de && en.length > 3) issues.push('DE i EN są identyczne – czy na pewno przetłumaczone?')
+  if (en && !de) issues.push('DE: missing translation (the page will show the English text)')
+  if (de && !en) issues.push('EN: missing translation')
+  if (en && de && en === de && en.length > 3) issues.push('DE and EN are identical – are they actually translated?')
 
   if (en) issues.push(...check(toText(value.en), 'en').map((i) => `EN: ${i}`))
   if (de) issues.push(...check(toText(value.de), 'de').map((i) => `DE: ${i}`))

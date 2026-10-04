@@ -21,23 +21,23 @@ export default {
     },
     {
       name: 'buttonPage',
-      title: 'Przekierowanie: strona',
-      description: 'Wybierz istniejącą stronę zamiast wpisywać URL ręcznie.',
+      title: 'Link: Page',
+      description: 'Choose an existing page instead of typing a URL manually.',
       type: 'reference',
       to: [{ type: 'contact' }, { type: 'about' }, { type: 'howWeWork' }, { type: 'homepage' }, { type: 'portfolio' }],
     },
     {
       name: 'buttonHref',
-      title: 'Przekierowanie: ręczny URL',
-      description: 'Użyj tylko jeśli powyżej nie wybrano strony (np. link zewnętrzny).',
+      title: 'Link: Manual URL',
+      description: 'Use only if no page was selected above (e.g. an external link).',
       type: 'string',
     },
     {
       name: 'projects',
-      title: 'Wyróżnione Case Studies (3)',
-      description: 'Wybierz dokładnie 3 istniejące Case Studies do pokazania w tej sekcji.',
+      title: 'Featured Case Studies (3)',
+      description: 'Choose exactly 3 existing case studies to show in this section.',
       type: 'array',
-      validation: (Rule: any) => Rule.min(3).max(3).error('Wymagane dokładnie 3 case studies'),
+      validation: (Rule: any) => Rule.min(3).max(3).error('Exactly 3 case studies required'),
       of: [
         {
           type: 'reference',
