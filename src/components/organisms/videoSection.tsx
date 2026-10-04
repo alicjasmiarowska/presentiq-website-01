@@ -1,19 +1,22 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import AiBadge from '../atoms/AiBadge'
 
 interface VideoSectionData {
   videoUrl?: string
+  aiGenerated?: boolean
 }
 
 interface VideoSectionProps {
   data: VideoSectionData
+  locale: 'en' | 'de'
 }
 
 const MIN_WIDTH_PERCENT = 80
 const MAX_WIDTH_PERCENT = 100
 
-export default function VideoSection({ data }: VideoSectionProps) {
+export default function VideoSection({ data, locale }: VideoSectionProps) {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [widthPercent, setWidthPercent] = useState(MAX_WIDTH_PERCENT)
   const [isDesktop, setIsDesktop] = useState(false)
@@ -64,7 +67,7 @@ export default function VideoSection({ data }: VideoSectionProps) {
         }`}
       >
         <div
-          className="max-w-[1680px] mx-auto"
+          className="relative max-w-[1680px] mx-auto"
           style={isDesktop ? { width: `${widthPercent}%` } : undefined}
         >
           <video
@@ -75,6 +78,7 @@ export default function VideoSection({ data }: VideoSectionProps) {
             playsInline
             className="w-full h-auto rounded-2xl"
           />
+          {data.aiGenerated && <AiBadge locale={locale} className="left-4!" />}
         </div>
       </div>
     </section>
