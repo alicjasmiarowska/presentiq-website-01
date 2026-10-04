@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
-import { siteUrl } from '../src/lib/siteUrl'
-import { getServiceSlugs } from '../sanity/lib/fetch'
+import { siteUrl } from '@/src/lib/siteUrl'
+import { getServiceSlugs, getCaseStudySlugs } from '@/sanity/lib/fetch'
 
 const locales = ['en', 'de'] as const
 
@@ -15,12 +15,15 @@ const staticPaths = [
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const services = await getServiceSlugs()
+  const [services, caseStudies] = await Promise.all([getServiceSlugs(), getCaseStudySlugs()])
   const servicePaths = services
     .filter((service: { slug: string }) => service.slug)
     .map((service: { slug: string }) => `/services/${service.slug}`)
+  const caseStudyPaths = caseStudies
+    .filter((cs: { slug: string }) => cs.slug)
+    .map((cs: { slug: string }) => `/portfolio/${cs.slug}`)
 
-  const paths = [...staticPaths, ...servicePaths]
+  const paths = [...staticPaths, ...servicePaths, ...caseStudyPaths]
 
   return paths.flatMap((path) =>
     locales.map((locale) => ({

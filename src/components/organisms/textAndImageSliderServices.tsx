@@ -1,12 +1,15 @@
 import Link from 'next/link'
-import Heading from '../atoms/Heading'
-import Text from '../atoms/Text'
-import Reveal from '../atoms/Reveal'
-import ImageSlider from '../molecules/ImageSlider'
+import Heading from '@/src/components/atoms/Heading'
+import Text from '@/src/components/atoms/Text'
+import Reveal from '@/src/components/atoms/Reveal'
+import ImageSlider from '@/src/components/molecules/ImageSlider'
+import ArrowIcon from '@/src/components/atoms/ArrowIcon'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface SlideImage {
   _key: string
-  asset?: any
+  asset?: SanityImageValue
   alt?: string
 }
 
@@ -36,7 +39,7 @@ export default function TextAndImageSliderServicesSection({
 }: TextAndImageSliderServicesSectionProps) {
   if (!data || !data.images?.length) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const isLight = textColor === 'light'
   const services = (data.services || []).filter((service) => service.slug)
 
@@ -44,7 +47,7 @@ export default function TextAndImageSliderServicesSection({
     <div className="flex flex-col lg:flex-row pb-10">
       <div className="w-full lg:w-1/2 lg:mr-40 mb-10 lg:mb-10">
         <Reveal>
-          <ImageSlider images={data.images} locale={locale} />
+          <ImageSlider images={data.images} locale={locale} fallbackAlt={t(data.headline)} />
         </Reveal>
       </div>
 
@@ -79,21 +82,7 @@ export default function TextAndImageSliderServicesSection({
                   <span className={`font-display text-base font-bold ${isLight ? 'text-white' : 'text-primary-dark'}`}>
                     {t(service.title)}
                   </span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="shrink-0 text-primary-blue transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    <path
-                      d="M5 12h14M13 6l6 6-6 6"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <ArrowIcon className="shrink-0 text-primary-blue transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               ))}
             </div>

@@ -1,5 +1,5 @@
 import { client } from './client'
-import { hyphenateLocalized } from '../../src/lib/hyphenate'
+import { hyphenateLocalized } from '@/src/lib/hyphenate'
 
 // Every query goes through here so all localized CMS text arrives with
 // dictionary-correct soft hyphens (see src/lib/hyphenate.ts) — long German
@@ -88,6 +88,10 @@ export async function getServicesSection(locale: 'en' | 'de') {
 
 export async function getServiceSlugs() {
   return fetchContent(`*[_type == "service" && defined(slug.current)]{ "slug": slug.current }`)
+}
+
+export async function getCaseStudySlugs() {
+  return fetchContent(`*[_type == "caseStudy" && defined(slug.current)]{ "slug": slug.current }`)
 }
 
 export async function getServiceBySlug(slug: string) {

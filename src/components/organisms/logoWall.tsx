@@ -2,16 +2,18 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Heading from '../atoms/Heading'
-import CountUpNumber from '../atoms/CountUpNumber'
-import Reveal from '../atoms/Reveal'
-import { urlFor } from '../../../sanity/lib/image'
-import { colors } from '../../styles/design-tokens'
+import Heading from '@/src/components/atoms/Heading'
+import CountUpNumber from '@/src/components/atoms/CountUpNumber'
+import Reveal from '@/src/components/atoms/Reveal'
+import { urlFor } from '@/sanity/lib/image'
+import { colors } from '@/src/styles/design-tokens'
+import { resolveLocale } from '@/src/lib/locale'
+import type { SanityImageValue } from '@/src/types/sanity'
 
 interface Logo {
   _key: string
   alt?: string
-  asset?: any
+  asset?: SanityImageValue
 }
 
 interface Stat {
@@ -38,7 +40,7 @@ function LogoImage({ logo, hidden }: { logo: Logo; hidden?: boolean }) {
     <div className="relative h-8 w-28 shrink-0" {...(hidden ? { 'aria-hidden': true } : {})}>
       <Image
         src={urlFor(logo).height(64).url()}
-        alt={hidden ? '' : logo.alt || ''}
+        alt={hidden ? '' : logo.alt || 'Partner logo'}
         fill
         sizes="112px"
         className="object-contain object-left [filter:brightness(0)_invert(1)]"
@@ -80,7 +82,7 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
 
   if (!data) return null
 
-  const t = (field: any) => field?.[locale] || field?.en || ''
+  const t = (field: any) => resolveLocale(field, locale)
   const logos = data.logos?.filter((logo) => logo.asset) || []
   const half = Math.ceil(logos.length / 2)
   const row1 = logos.slice(0, half)
