@@ -3,6 +3,7 @@ import Heading from '../atoms/Heading'
 import Text from '../atoms/Text'
 import Button from '../atoms/Button'
 import Reveal from '../atoms/Reveal'
+import AiBadge from '../atoms/AiBadge'
 import { urlFor } from '../../../sanity/lib/image'
 import { resolveButtonHref } from '../../lib/resolveHref'
 
@@ -18,6 +19,7 @@ interface TextAndPictureBulletsData {
   bullets?: Bullet[]
   image?: any
   videoUrl?: string
+  aiGenerated?: boolean
   imageWidth?: number
   imageHeight?: number
   imageFit?: 'cover' | 'contain'
@@ -78,6 +80,7 @@ export default function TextAndPictureBulletsSection({
                 playsInline
                 className={`absolute inset-0 w-full h-full ${fitClass}`}
               />
+              {data.aiGenerated && <AiBadge locale={locale} className="left-4!" />}
             </div>
           ) : (
             data.image?.asset && (
@@ -92,6 +95,7 @@ export default function TextAndPictureBulletsSection({
                   sizes={`(max-width: 1024px) 100vw, ${imageWidth}vw`}
                   className={fitClass}
                 />
+                {data.aiGenerated && <AiBadge locale={locale} className="left-4!" />}
               </div>
             )
           )}

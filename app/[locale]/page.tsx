@@ -91,7 +91,7 @@ export default async function Home({
       <LogoWall data={logoWallData} locale={locale as 'en' | 'de'} />
       <FourColumnsSection data={fourColumnsData} locale={locale as 'en' | 'de'} />
       <div className="relative bg-primary-dark">
-      {/* Tymczasowo ukryte: <VideoSection data={videoSectionData} /> */}
+      {/* Tymczasowo ukryte: <VideoSection data={videoSectionData} locale={locale as 'en' | 'de'} /> */}
       <FaqSection data={faqData} locale={locale as 'en' | 'de'} />
       </div>
       <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />

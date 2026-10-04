@@ -3,6 +3,7 @@ import Heading from '../atoms/Heading'
 import Text from '../atoms/Text'
 import Button from '../atoms/Button'
 import Reveal from '../atoms/Reveal'
+import AiBadge from '../atoms/AiBadge'
 import { urlFor } from '../../../sanity/lib/image'
 import { resolveButtonHref } from '../../lib/resolveHref'
 
@@ -11,6 +12,7 @@ interface TextAndPictureData {
   body: { en: string; de: string }
   image?: any
   videoUrl?: string
+  aiGenerated?: boolean
   imageWidth?: number
   imageHeight?: number
   imageFit?: 'cover' | 'contain'
@@ -39,16 +41,18 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
 
   return (
     <>
-      <div className="w-full md:w-[70%]">
-        <Reveal>
-          <Heading
-            level="h2"
-            variant="section"
-            text={t(data.headline)}
-            className={`mb-6 md:mb-30 ${isLight ? 'text-white' : ''}`}
-          />
-        </Reveal>
-      </div>
+      {t(data.headline) && (
+        <div className="w-full md:w-[70%]">
+          <Reveal>
+            <Heading
+              level="h2"
+              variant="section"
+              text={t(data.headline)}
+              className={`mb-6 md:mb-30 ${isLight ? 'text-white' : ''}`}
+            />
+          </Reveal>
+        </div>
+      )}
 
       <div className="flex flex-col lg:flex-row">
         <div
@@ -68,6 +72,7 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
                 playsInline
                 className={`absolute inset-0 w-full h-full ${fitClass}`}
               />
+              {data.aiGenerated && <AiBadge locale={locale} className="left-4!" />}
             </div>
           ) : (
             data.image?.asset && (
@@ -84,6 +89,7 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
                   priority={priority}
                   loading={priority ? undefined : 'lazy'}
                 />
+                {data.aiGenerated && <AiBadge locale={locale} className="left-4!" />}
               </div>
             )
           )}

@@ -44,7 +44,7 @@ export default function TextAndImageSliderServicesSection({
     <div className="flex flex-col lg:flex-row pb-10">
       <div className="w-full lg:w-1/2 lg:mr-40 mb-10 lg:mb-10">
         <Reveal>
-          <ImageSlider images={data.images} />
+          <ImageSlider images={data.images} locale={locale} />
         </Reveal>
       </div>
 

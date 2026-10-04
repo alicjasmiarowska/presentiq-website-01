@@ -2,21 +2,24 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import AiBadge from '../atoms/AiBadge'
 import { urlFor } from '../../../sanity/lib/image'
 
 interface SlideImage {
   _key: string
   asset?: any
   alt?: string
+  aiGenerated?: boolean
 }
 
 interface ImageSliderProps {
   images: SlideImage[]
+  locale: 'en' | 'de'
 }
 
 const AUTOPLAY_INTERVAL = 4000
 
-export default function ImageSlider({ images }: ImageSliderProps) {
+export default function ImageSlider({ images, locale }: ImageSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
@@ -65,6 +68,8 @@ export default function ImageSlider({ images }: ImageSliderProps) {
             )}
           </div>
         ))}
+
+        {images[activeIndex]?.aiGenerated && <AiBadge locale={locale} className="left-4!" />}
 
         {images.length > 1 && (
           <>
