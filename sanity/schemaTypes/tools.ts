@@ -15,7 +15,7 @@ export default {
     },
     {
       name: 'text',
-      title: 'Text (pod headline)',
+      title: 'Text (below the headline)',
       type: 'localeText',
     },
     {

@@ -17,7 +17,7 @@ export default {
       name: 'items',
       title: 'Features (exactly 4)',
       type: 'array',
-      validation: (Rule: any) => Rule.min(4).max(4).error('Wymagane dokładnie 4 elementy'),
+      validation: (Rule: any) => Rule.min(4).max(4).error('Exactly 4 items required'),
       of: [
         {
           type: 'object',

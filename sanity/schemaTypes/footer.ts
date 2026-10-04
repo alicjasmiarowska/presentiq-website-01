@@ -23,22 +23,22 @@ export default {
     },
     {
       name: 'phone',
-      title: 'Numer telefonu',
+      title: 'Phone Number',
       type: 'string',
     },
     {
       name: 'columns',
-      title: 'Kolumny linków (2) — np. "Pages" i "Legal"',
-      description: 'Kolumna "Services" pojawia się automatycznie między tymi dwiema kolumnami (lista usług z Services Section), więc tutaj ustaw tylko pozostałe 2 (np. Pages, Legal). Na stronie widoczne są tylko same linki, bez nazwy kolumny — tytuł służy jedynie do rozpoznania kolumny w Studio.',
+      title: 'Link Columns (2) — e.g. "Pages" and "Legal"',
+      description: 'The "Services" column appears automatically between these two columns (the service list from Services Section), so only set the remaining 2 here (e.g. Pages, Legal). Only the links themselves are visible on the page, not the column name — the title is just for identifying the column in Studio.',
       type: 'array',
-      validation: (Rule: any) => Rule.length(2).error('Wymagane dokładnie 2 kolumny'),
+      validation: (Rule: any) => Rule.length(2).error('Exactly 2 columns required'),
       of: [
         {
           type: 'object',
           name: 'footerColumn',
-          title: 'Kolumna',
+          title: 'Column',
           fields: [
-            { name: 'title', title: 'Tytuł kolumny', type: 'localeString' },
+            { name: 'title', title: 'Column Title', type: 'localeString' },
             {
               name: 'links',
               title: 'Linki',
@@ -52,8 +52,8 @@ export default {
                     { name: 'label', title: 'Label', type: 'localeString' },
                     {
                       name: 'page',
-                      title: 'Strona',
-                      description: 'Wybierz istniejącą stronę zamiast wpisywać URL ręcznie.',
+                      title: 'Page',
+                      description: 'Choose an existing page instead of typing a URL manually.',
                       type: 'reference',
                       to: [
                         { type: 'contact' },
@@ -66,8 +66,8 @@ export default {
                     },
                     {
                       name: 'href',
-                      title: 'Ręczny URL',
-                      description: 'Użyj tylko jeśli powyżej nie wybrano strony (np. link zewnętrzny).',
+                      title: 'Manual URL',
+                      description: 'Use only if no page was selected above (e.g. an external link).',
                       type: 'string',
                     },
                   ],
@@ -94,8 +94,8 @@ export default {
     },
     {
       name: 'privacySettingsLabel',
-      title: 'Etykieta przycisku "Privacy Settings"',
-      description: 'Przycisk w stopce otwierający panel ustawień zgód Usercentrics (Consent Management).',
+      title: 'Label for "Privacy Settings" Button',
+      description: 'Footer button that opens the Usercentrics consent management settings panel.',
       type: 'localeString',
       initialValue: { en: 'Privacy Settings', de: 'Datenschutzeinstellungen' },
     },

@@ -7,13 +7,13 @@ export default {
   fields: [
     {
       name: 'page',
-      title: 'Strona',
-      description: 'Na której stronie ma się pokazać ten zestaw pytań',
+      title: 'Page',
+      description: 'Which page this set of questions should appear on',
       type: 'string',
       options: {
         list: [
           { title: 'Home', value: 'home' },
-          { title: 'Usługi', value: 'services' },
+          { title: 'Services', value: 'services' },
           { title: 'How We Work', value: 'howWeWork' },
         ],
       },
@@ -21,7 +21,7 @@ export default {
     },
     {
       name: 'eyebrow',
-      title: 'Eyebrow Text (przed headlinem)',
+      title: 'Eyebrow Text (above the headline)',
       type: 'localeString',
     },
     {
@@ -36,14 +36,14 @@ export default {
     },
     {
       name: 'items',
-      title: 'Pytania i odpowiedzi (max 5)',
+      title: 'Questions and Answers (max 5)',
       type: 'array',
-      validation: (Rule: any) => Rule.max(5).warning('Maksymalnie 5 pytań na sekcję FAQ'),
+      validation: (Rule: any) => Rule.max(5).warning('Maximum 5 questions per FAQ section'),
       of: [
         {
           type: 'object',
           name: 'qna',
-          title: 'Pytanie i odpowiedź',
+          title: 'Question and Answer',
           fields: [
             {
               name: 'question',

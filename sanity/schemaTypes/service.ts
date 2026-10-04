@@ -13,7 +13,7 @@ export default {
     {
       name: 'slug',
       title: 'URL Slug',
-      description: 'Adres podstrony tej usługi: /services/[slug]',
+      description: "This service's page address: /services/[slug]",
       type: 'slug',
       options: { source: 'title.en' },
       validation: (Rule: any) => Rule.required(),
@@ -21,7 +21,7 @@ export default {
     {
       name: 'description',
       title: 'Description',
-      description: 'Krótki opis pokazywany na liście usług (np. na Home).',
+      description: 'Short description shown in the services list (e.g. on the homepage).',
       type: 'object',
       validation: localeValidation,
       fields: [
@@ -32,48 +32,48 @@ export default {
     {
       name: 'hero',
       title: 'Hero Section',
-      description: 'Wybierz, która wersja Hero ma być użyta na dedykowanej stronie tej usługi.',
+      description: "Choose which Hero version to use on this service's dedicated page.",
       type: 'reference',
       to: [{ type: 'hero' }],
     },
     {
       name: 'textAndPicture',
       title: 'Text and Picture Section',
-      description: 'Wybierz, który dokument Text and Picture ma być użyty na tej stronie (renderowany pod Hero).',
+      description: 'Choose which Text and Picture document to use on this page (rendered below the Hero).',
       type: 'reference',
       to: [{ type: 'textAndPicture' }],
     },
     {
       name: 'fourPillars',
       title: 'Four Pillars Section',
-      description: 'Wybierz, który dokument Four Pillars ma być użyty na tej stronie.',
+      description: 'Choose which Four Pillars document to use on this page.',
       type: 'reference',
       to: [{ type: 'fourPillars' }],
     },
     {
       name: 'features',
       title: 'Features Section',
-      description: 'Wybierz, który dokument Features ma być użyty na tej stronie.',
+      description: 'Choose which Features document to use on this page.',
       type: 'reference',
       to: [{ type: 'features' }],
     },
     {
       name: 'textAndImageSliderServices',
       title: 'Text and Image Slider (Service Links) Section',
-      description: 'Wybierz, który dokument Text and Image Slider (Service Links) ma być użyty na tej stronie.',
+      description: 'Choose which Text and Image Slider (Service Links) document to use on this page.',
       type: 'reference',
       to: [{ type: 'textAndImageSliderServices' }],
     },
     {
       name: 'faq',
       title: 'FAQ Section',
-      description: 'Wybierz, który dokument FAQ ma być użyty na tej stronie (osobny per usługa).',
+      description: 'Choose which FAQ document to use on this page (separate per service).',
       type: 'reference',
       to: [{ type: 'faq' }],
     },
     {
       name: 'body',
-      title: 'Body (treść na dedykowanej stronie usługi)',
+      title: "Body (content on the service's dedicated page)",
       type: 'object',
       validation: localeValidation,
       fields: [
@@ -83,8 +83,8 @@ export default {
     },
     {
       name: 'accentColor',
-      title: 'Kolor ćwiartki koła (dedykowana strona usługi)',
-      description: 'Kolor dekoracyjnej poświaty w rogu Hero na stronie tej usługi — kliknij, żeby wpisać dokładny kod HEX.',
+      title: "Corner glow color (service's dedicated page)",
+      description: "Color of the decorative corner glow in the Hero on this service's page — click to enter an exact HEX code.",
       type: 'color',
     },
     {

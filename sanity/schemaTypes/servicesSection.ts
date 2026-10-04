@@ -11,7 +11,7 @@ export default {
     },
     {
       name: 'eyebrow',
-      title: 'Eyebrow Text (przed headlinem)',
+      title: 'Eyebrow Text (above the headline)',
       type: 'localeString',
     },
     {

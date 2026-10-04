@@ -6,19 +6,19 @@ export default {
     {
       name: 'metaTitle',
       title: 'Meta Title',
-      description: 'Zastępuje domyślny tytuł strony w wynikach wyszukiwania i karcie przeglądarki. Zostaw puste, żeby użyć domyślnego.',
+      description: 'Overrides the default page title in search results and the browser tab. Leave empty to use the default.',
       type: 'localeString',
     },
     {
       name: 'metaDescription',
       title: 'Meta Description',
-      description: 'Zastępuje domyślny opis w wynikach wyszukiwania. Zalecane ok. 150–160 znaków. Zostaw puste, żeby użyć domyślnego.',
+      description: 'Overrides the default description in search results. Recommended around 150–160 characters. Leave empty to use the default.',
       type: 'localeText',
     },
     {
       name: 'ogImage',
       title: 'Social Share Image (Open Graph)',
-      description: 'Obrazek pokazywany przy udostępnianiu linku w social media (np. LinkedIn, Facebook). Zalecane 1200×630px.',
+      description: 'Image shown when the link is shared on social media (e.g. LinkedIn, Facebook). Recommended 1200×630px.',
       type: 'image',
       options: { hotspot: true },
     },
