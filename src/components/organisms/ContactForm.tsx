@@ -1,6 +1,7 @@
 'use client'
 
 import { startTransition, useActionState, useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import Input from '@/src/components/atoms/Input'
 import Textarea from '@/src/components/atoms/Textarea'
 import Checkbox from '@/src/components/atoms/Checkbox'
@@ -16,6 +17,38 @@ interface ContactFormProps {
 }
 
 const initialState: ContactState = { status: 'idle' }
+
+// GDPR consent copy must actually link to the privacy policy, not just
+// name it — this finds "Datenschutzerklärung"/"privacy policy" in the CMS
+// text (whichever locale wrote it) and turns only that phrase into a link,
+// so editors keep full control of the sentence around it. CMS text is
+// server-hyphenated (src/lib/hyphenate.ts inserts U+00AD soft hyphens into
+// long German compounds, e.g. "Daten­schutz­erklärung"), so the search
+// pattern allows an optional soft hyphen between every letter — a plain
+// literal match would silently never fire on "Datenschutzerklärung".
+const SOFT_HYPHEN = '­'
+function fuzzy(word: string) {
+  return word.split('').join(`${SOFT_HYPHEN}?`)
+}
+const PRIVACY_PHRASE_RE = new RegExp(`${fuzzy('Datenschutzerklärung')}|${fuzzy('privacy policy')}`, 'i')
+
+function linkifyPrivacyText(text: string, locale: 'en' | 'de') {
+  const match = text.match(PRIVACY_PHRASE_RE)
+  if (!match || match.index === undefined) return text
+
+  const before = text.slice(0, match.index)
+  const after = text.slice(match.index + match[0].length)
+
+  return (
+    <>
+      {before}
+      <Link href={`/${locale}/privacy-policy`} className="underline hover:no-underline" target="_blank" rel="noopener noreferrer">
+        {match[0]}
+      </Link>
+      {after}
+    </>
+  )
+}
 
 export default function ContactForm({ locale, privacyText, fallbackEmail }: ContactFormProps) {
   const t = contactCopy[locale] || contactCopy.en
@@ -140,7 +173,7 @@ export default function ContactForm({ locale, privacyText, fallbackEmail }: Cont
       <div className="mt-4 flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-10">
         <Checkbox
           name="privacyConsent"
-          label={privacyText}
+          label={linkifyPrivacyText(privacyText, locale)}
           checked={values.privacyConsent}
           onChange={handleCheckboxChange}
           onBlur={handleBlur('privacyConsent')}
