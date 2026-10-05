@@ -94,7 +94,10 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
       {/* Bottom-aligned against the section itself (not the capped content
           div) so it lines up with the logo bar below, which now lives
           outside that cap too. Width matches the bar's left gutter exactly
-          so the two stay flush at every viewport size. */}
+          so the two stay flush at every viewport size. Desktop-only: on
+          mobile the section is much taller (stacked stats), so this
+          bottom-anchored strip bleeds up into the dark logo bar as a stray
+          stripe instead of just sitting in the light gutter beside it. */}
       <Image
         src="/images/line-03.png"
         alt=""
@@ -102,7 +105,7 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
         width={170}
         height={345.7}
         unoptimized
-        className="absolute bottom-0 left-0 w-[20vw] max-w-84 h-auto pointer-events-none select-none"
+        className="hidden md:block absolute bottom-0 left-0 w-[20vw] max-w-84 h-auto pointer-events-none select-none"
       />
 
       <div className="relative max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20">
@@ -153,9 +156,11 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
       {/* Left gutter mirrors the capped layout's proportions (1/5 of
           1680px) up to that width, then holds steady so the navy bar
           keeps stretching to the true right edge on wider screens instead
-          of being capped like the rest of the content above. */}
+          of being capped like the rest of the content above. Mobile has no
+          room to spare for a reserved gutter, so the bar runs edge-to-edge
+          there instead. */}
       <div className="relative mt-16 md:mt-24 flex">
-        <div className="w-[20vw] max-w-84 shrink-0" aria-hidden="true" />
+        <div className="hidden md:block md:w-[20vw] md:max-w-84 shrink-0" aria-hidden="true" />
         <div
           className="flex-1 py-12 overflow-hidden"
           style={{

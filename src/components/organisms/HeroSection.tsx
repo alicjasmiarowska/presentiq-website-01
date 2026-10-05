@@ -60,7 +60,12 @@ export default function HeroSection({ data, locale, glow }: HeroSectionProps) {
         priority
       />
 
-      <div className="absolute inset-y-0 left-7/12 w-5/12 pointer-events-none">
+      {/* This wrapper spans the section's full height (inset-y-0), which on
+          mobile includes the stacked subtitle bar below the headline — the
+          bottom-anchored image then bleeds into the blue bar as a stray
+          stripe. Desktop-only, where the bar sits beside the headline
+          instead of under it. */}
+      <div className="hidden md:block absolute inset-y-0 left-7/12 w-5/12 pointer-events-none">
         <Image
           src="/images/line-2.png"
           alt=""
