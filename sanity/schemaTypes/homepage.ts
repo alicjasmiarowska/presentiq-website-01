@@ -10,41 +10,10 @@ export default {
       to: [{ type: 'hero' }],
     },
     {
-      name: 'textAndPicture',
-      title: 'Text and Picture Section (currently unused)',
-      type: 'reference',
-      to: [{ type: 'textAndPicture' }],
-    },
-    {
       name: 'twoColumnSection',
       title: 'Two Column Section',
       type: 'reference',
       to: [{ type: 'twoColumnSection' }],
-    },
-    {
-      name: 'logoWall',
-      title: 'Logo Wall Section',
-      type: 'reference',
-      to: [{ type: 'logoWall' }],
-    },
-    {
-      name: 'servicesSection',
-      title: 'Services Section',
-      type: 'reference',
-      to: [{ type: 'servicesSection' }],
-    },
-   
-    {
-      name: 'finalCta',
-      title: 'Final CTA Section',
-      type: 'reference',
-      to: [{ type: 'finalCta' }],
-    },
-    {
-      name: 'footer',
-      title: 'Footer',
-      type: 'reference',
-      to: [{ type: 'footer' }],
     },
     {
       name: 'seo',

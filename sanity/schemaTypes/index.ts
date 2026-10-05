@@ -4,8 +4,6 @@ import navigation from './navigation'
 import hero from './hero'
 import textAndPicture from './textAndPicture'
 import twoColumnSection from './twoColumnSection'
-import textAndPictureBullets from './textAndPictureBullets'
-import textAndImageSlider from './textAndImageSlider'
 import textAndImageSliderServices from './textAndImageSliderServices'
 import threePillars from './threePillars'
 import fourPillars from './fourPillars'
@@ -46,8 +44,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     hero,
     textAndPicture,
     twoColumnSection,
-    textAndPictureBullets,
-    textAndImageSlider,
     textAndImageSliderServices,
     threePillars,
     fourPillars,

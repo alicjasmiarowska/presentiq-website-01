@@ -4,12 +4,6 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'sectionName',
-      title: 'Section Name',
-      type: 'string',
-      description: 'e.g. "Main Footer"',
-    },
-    {
       name: 'logo',
       title: 'Logo',
       type: 'image',

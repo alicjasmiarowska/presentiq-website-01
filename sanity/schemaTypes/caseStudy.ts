@@ -39,11 +39,24 @@ export default {
   name: 'caseStudy',
   title: 'Case Study',
   type: 'document',
+  fieldsets: [
+    {
+      name: 'basics',
+      title: 'Basics (list card)',
+      options: { collapsible: true, collapsed: false },
+    },
+    {
+      name: 'body',
+      title: 'Challenge / Solution / Result',
+      options: { collapsible: true, collapsed: false },
+    },
+  ],
   fields: [
     {
       name: 'title',
       title: 'Title',
       type: 'localeString',
+      fieldset: 'basics',
     },
     {
       name: 'slug',
@@ -51,11 +64,13 @@ export default {
       type: 'slug',
       options: { source: 'title.en' },
       validation: (Rule: any) => Rule.required(),
+      fieldset: 'basics',
     },
     {
       name: 'category',
       title: 'Category',
       type: 'localeString',
+      fieldset: 'basics',
     },
     {
       name: 'mainImage',
@@ -63,6 +78,7 @@ export default {
       type: 'image',
       options: { hotspot: true },
       fields: [{ name: 'alt', title: 'Alt text', type: 'string' }],
+      fieldset: 'basics',
     },
     {
       name: 'headline',
@@ -75,14 +91,15 @@ export default {
       title: 'Subheadline (above the Challenge/Solution/Result rows)',
       type: 'localeString',
     },
-    caseStudySection('challenge', 'The Challenge', 'The Challenge'),
-    caseStudySection('solution', 'The Solution', 'The Solution'),
-    caseStudySection('result', 'The Result', 'The Result'),
+    { ...caseStudySection('challenge', 'The Challenge', 'The Challenge'), fieldset: 'body' },
+    { ...caseStudySection('solution', 'The Solution', 'The Solution'), fieldset: 'body' },
+    { ...caseStudySection('result', 'The Result', 'The Result'), fieldset: 'body' },
     {
       name: 'facts',
       title: 'Fact box (blue, next to the Result row)',
       description: 'Any number of "label: value" lines — different case studies need different facts, so labels are free text rather than a fixed set (e.g. "Service", "Client", "Timeline", whatever applies).',
       type: 'array',
+      fieldset: 'body',
       of: [
         {
           type: 'object',

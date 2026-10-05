@@ -89,4 +89,7 @@ export default {
       type: 'string',
     },
   ],
+  preview: {
+    select: { title: 'sectionName', subtitle: 'headline.en' },
+  },
 }

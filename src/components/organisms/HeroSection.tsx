@@ -20,12 +20,6 @@ export const HERO_TITLE_BOTTOM = 'pb-24 md:pb-36'
 interface HeroData {
   title?: { en: string; de: string }
   subtitle?: { en: string; de: string }
-  buttonText1?: { en: string; de: string }
-  buttonPage1?: { type?: string; slug?: string }
-  buttonHref1?: string
-  buttonText2?: { en: string; de: string }
-  buttonPage2?: { type?: string; slug?: string }
-  buttonHref2?: string
 }
 
 interface HeroSectionProps {
