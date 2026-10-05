@@ -48,4 +48,7 @@ export default {
       type: 'localeString',
     },
   ],
+  preview: {
+    select: { title: 'sectionName', subtitle: 'leftHeadline.en' },
+  },
 }

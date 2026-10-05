@@ -10,6 +10,13 @@ export function simpleServicePageSchema(name: string, title: string, defaultPage
     name,
     title,
     type: 'document',
+    fieldsets: [
+      {
+        name: 'hero',
+        title: 'Hero',
+        options: { collapsible: true, collapsed: false },
+      },
+    ],
     fields: [
       {
         name: 'title',
@@ -29,12 +36,14 @@ export function simpleServicePageSchema(name: string, title: string, defaultPage
         title: 'Hero Headline (H1)',
         description: 'Type <br> to force a line break.',
         type: 'localeString',
+        fieldset: 'hero',
       },
       {
         name: 'heroTagline',
         title: 'Hero: Text on the blue bar below the headline',
         description: 'Optional — the same blue bar as the standard Hero. Leave empty to hide it.',
         type: 'localeString',
+        fieldset: 'hero',
       },
       {
         name: 'intro',

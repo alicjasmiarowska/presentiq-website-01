@@ -18,33 +18,10 @@ export async function getNavigation() {
   }`)
 }
 
-export async function getHero(locale: 'en' | 'de') {
-  return fetchContent(`*[_type == "hero"][0]{
-    ...,
-    buttonPage1->{ "type": _type, "slug": slug.current },
-    buttonPage2->{ "type": _type, "slug": slug.current }
-  }`)
-}
-
 export async function getTextAndPicture(locale: 'en' | 'de') {
   return fetchContent(`*[_type == "textAndPicture"][0]{
     ...,
     "videoUrl": video.asset->url,
-    buttonPage->{ "type": _type, "slug": slug.current }
-  }`)
-}
-
-export async function getTextAndPictureBullets(locale: 'en' | 'de') {
-  return fetchContent(`*[_type == "textAndPictureBullets"][0]{
-    ...,
-    "videoUrl": video.asset->url,
-    buttonPage->{ "type": _type, "slug": slug.current }
-  }`)
-}
-
-export async function getTextAndImageSlider(locale: 'en' | 'de') {
-  return fetchContent(`*[_type == "textAndImageSlider"][0]{
-    ...,
     buttonPage->{ "type": _type, "slug": slug.current }
   }`)
 }
@@ -98,11 +75,7 @@ export async function getServiceBySlug(slug: string) {
   return fetchContent(
     `*[_type == "service" && slug.current == $slug][0]{
       ...,
-      hero->{
-        ...,
-        buttonPage1->{ "type": _type, "slug": slug.current },
-        buttonPage2->{ "type": _type, "slug": slug.current }
-      },
+      hero->,
       textAndPicture->{
         ...,
         "videoUrl": video.asset->url,
@@ -208,11 +181,7 @@ export async function getWordAndAdobePdf() {
 export async function getAiDesign() {
   return fetchContent(`*[_type == "aiDesign"][0]{
     ...,
-    hero->{
-      ...,
-      buttonPage1->{ "type": _type, "slug": slug.current },
-      buttonPage2->{ "type": _type, "slug": slug.current }
-    },
+    hero->,
     intro->{
       ...,
       buttonPage->{ "type": _type, "slug": slug.current }
@@ -237,33 +206,21 @@ export async function getAbout() {
       buttonPage->{ "type": _type, "slug": slug.current }
     },
     principles->,
-    hero->{
-      ...,
-      buttonPage1->{ "type": _type, "slug": slug.current },
-      buttonPage2->{ "type": _type, "slug": slug.current }
-    }
+    hero->
   }`)
 }
 
 export async function getHowWeWork() {
   return fetchContent(`*[_type == "howWeWork"][0]{
     ...,
-    hero->{
-      ...,
-      buttonPage1->{ "type": _type, "slug": slug.current },
-      buttonPage2->{ "type": _type, "slug": slug.current }
-    }
+    hero->
   }`)
 }
 
 export async function getPortfolio() {
   return fetchContent(`*[_type == "portfolio"][0]{
     ...,
-    hero->{
-      ...,
-      buttonPage1->{ "type": _type, "slug": slug.current },
-      buttonPage2->{ "type": _type, "slug": slug.current }
-    }
+    hero->
   }`)
 }
 
@@ -292,16 +249,7 @@ export async function getPrivacyPolicy() {
 export async function getHomepage() {
   return fetchContent(`*[_type == "homepage"][0]{
     ...,
-    hero->{
-      ...,
-      buttonPage1->{ "type": _type, "slug": slug.current },
-      buttonPage2->{ "type": _type, "slug": slug.current }
-    },
-    textAndPicture->{
-      ...,
-      "videoUrl": video.asset->url,
-      buttonPage->{ "type": _type, "slug": slug.current }
-    },
+    hero->,
     twoColumnSection->{
       ...,
       buttonPage->{ "type": _type, "slug": slug.current }

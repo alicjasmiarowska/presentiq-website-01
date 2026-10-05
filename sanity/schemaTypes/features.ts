@@ -46,4 +46,7 @@ export default {
       ],
     },
   ],
+  preview: {
+    select: { title: 'sectionName', subtitle: 'headline.en' },
+  },
 }

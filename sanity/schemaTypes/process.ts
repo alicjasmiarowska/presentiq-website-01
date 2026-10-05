@@ -4,11 +4,6 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'sectionName',
-      title: 'Section Name',
-      type: 'string',
-    },
-    {
       name: 'headline',
       title: 'Headline',
       type: 'localeString',
