@@ -78,20 +78,28 @@ export default function ReasonsGrid({ data, locale }: ReasonsGridProps) {
 
             return (
               <div key={rowIndex}>
+                {/* The vertical divider is a sibling of the grid, not a
+                    child — as a child, `divide-y` would count it when
+                    deciding which cells get a border even though it's
+                    `hidden` on mobile (a display:none class, not the
+                    `hidden` HTML attribute divide-y's selector excludes),
+                    risking a second, unwanted line next to the real one. */}
                 <div
                   ref={(el) => {
                     rowRefs.current[rowIndex] = el
                   }}
-                  className="relative grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0"
+                  className="relative"
                 >
-                  {row.map((item, i) => (
-                    <Reveal key={item._key} delay={(rowIndex * 2 + i) * 100}>
-                      <div className={`py-8 max-w-[427px] ${i === 0 ? 'md:pr-15' : 'md:pl-15'}`}>
-                        <p className={`${LEAD_TEXT_CLASSES} text-primary-blue mb-4`}>{t(item.title)}</p>
-                        <Text text={t(item.body)} size="base" color="secondary" />
-                      </div>
-                    </Reveal>
-                  ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
+                    {row.map((item, i) => (
+                      <Reveal key={item._key} delay={(rowIndex * 2 + i) * 100}>
+                        <div className={`py-8 max-w-[427px] ${i === 0 ? 'md:pr-15' : 'md:pl-15'}`}>
+                          <p className={`${LEAD_TEXT_CLASSES} text-primary-blue mb-4`}>{t(item.title)}</p>
+                          <Text text={t(item.body)} size="base" color="secondary" />
+                        </div>
+                      </Reveal>
+                    ))}
+                  </div>
 
                   <div
                     className={`hidden md:block absolute left-1/2 -translate-x-1/2 ${reverse ? 'bottom-8' : 'top-8'}`}

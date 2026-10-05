@@ -24,7 +24,7 @@ export default function ProductsList({ data, locale }: ProductsListProps) {
 
   return (
     <section className="bg-neutral-light">
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20">
+      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 pt-10 pb-16 md:py-20">
         <DividedTextList items={items} />
       </div>
     </section>

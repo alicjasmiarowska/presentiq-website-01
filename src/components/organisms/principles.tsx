@@ -61,18 +61,26 @@ export default function PrinciplesSection({ data, locale }: PrinciplesSectionPro
               return (
                 <div key={rowIndex}>
                   {!isTop && <DrawLine direction="horizontal" className="h-px w-full md:my-[30px]" delay={600} />}
-                  <div className="relative grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
-                    {row.map((principle, i) => (
-                      <div
-                        key={principle._key}
-                        className={`flex flex-col py-8 md:py-0 md:min-h-[229px] ${isTop ? 'md:justify-start md:pt-[11px]' : 'md:justify-end'} ${i === 0 ? 'md:pr-15' : 'md:pl-16'}`}
-                      >
-                        <Reveal delay={(rowIndex * 2 + i) * 150}>
-                          <p className={TITLE_CLASS}>{t(principle.title)}</p>
-                          <Text text={t(principle.description)} size="base" color="primary" className="mt-6 max-w-[560px]" />
-                        </Reveal>
-                      </div>
-                    ))}
+                  {/* The vertical divider is a sibling of the grid, not a
+                      child — as a child, `divide-y` would count it when
+                      deciding which cells get a border even though it's
+                      `hidden` on mobile (a display:none class, not the
+                      `hidden` HTML attribute divide-y's selector excludes),
+                      risking a second, unwanted line next to the real one. */}
+                  <div className="relative">
+                    <div className="grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
+                      {row.map((principle, i) => (
+                        <div
+                          key={principle._key}
+                          className={`flex flex-col py-8 md:py-0 md:min-h-[229px] ${isTop ? 'md:justify-start md:pt-[11px]' : 'md:justify-end'} ${i === 0 ? 'md:pr-15' : 'md:pl-16'}`}
+                        >
+                          <Reveal delay={(rowIndex * 2 + i) * 150}>
+                            <p className={TITLE_CLASS}>{t(principle.title)}</p>
+                            <Text text={t(principle.description)} size="base" color="primary" className="mt-6 max-w-[560px]" />
+                          </Reveal>
+                        </div>
+                      ))}
+                    </div>
                     {row.length === 2 && (
                       <DrawLine
                         direction="vertical"

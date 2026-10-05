@@ -22,7 +22,7 @@ export default function TeamSection({ data, locale }: TeamSectionProps) {
   if (!data || !data.team?.length) return null
 
   return (
-    <Section className="py-16 md:py-24">
+    <Section className="pt-10 pb-16 md:py-24">
       {/* Team photos only — the intro above them is the About page's
           two-column section. */}
       <div>

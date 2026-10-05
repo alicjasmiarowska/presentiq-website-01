@@ -66,28 +66,36 @@ export default function Pillars({ data, locale }: PillarsProps) {
 
   return (
     <section className="bg-white text-primary-dark">
-      <div className="py-16 md:py-25">
+      <div className="pt-10 pb-16 md:py-25">
         <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20">
-          <div ref={row1Ref} className="relative grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
-            <div className="md:min-h-60 py-8 flex flex-col justify-start md:pr-15">
-              <Reveal>
-                <Heading level="h2" variant="section" text={t(data.headline)} className="text-primary-dark" />
-              </Reveal>
-              {t(data.introText) && (
-                <Reveal delay={100}>
-                  <div className="mt-16">
-                    <Text text={t(data.introText)} size="base" color="secondary" />
-                  </div>
+          {/* The vertical divider lives as a sibling of the grid, not a
+              child of it — as a child, `divide-y` counts it when deciding
+              which cells get a border even though it's `hidden` on mobile
+              (Tailwind's `hidden` is a display:none class, not the `hidden`
+              HTML attribute divide-y's selector actually excludes), risking
+              a second, unwanted line stacking under the real divider. */}
+          <div ref={row1Ref} className="relative">
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
+              <div className="md:min-h-60 pt-0 pb-8 md:py-8 flex flex-col justify-start md:pr-15">
+                <Reveal>
+                  <Heading level="h2" variant="section" text={t(data.headline)} className="text-primary-dark" />
                 </Reveal>
-              )}
-            </div>
+                {t(data.introText) && (
+                  <Reveal delay={100}>
+                    <div className="mt-16">
+                      <Text text={t(data.introText)} size="base" color="secondary" />
+                    </div>
+                  </Reveal>
+                )}
+              </div>
 
-            <div className="md:min-h-60 py-8 flex flex-col justify-end md:pl-15">
-              {pillar2 && (
-                <Reveal delay={200}>
-                  <p className={pillarTextClass}>{t(pillar2.title)}</p>
-                </Reveal>
-              )}
+              <div className="md:min-h-60 py-8 flex flex-col justify-end md:pl-15">
+                {pillar2 && (
+                  <Reveal delay={200}>
+                    <p className={pillarTextClass}>{t(pillar2.title)}</p>
+                  </Reveal>
+                )}
+              </div>
             </div>
 
             <div className="hidden md:block absolute left-1/2 top-8 -translate-x-1/2">
@@ -106,24 +114,23 @@ export default function Pillars({ data, locale }: PillarsProps) {
             delay={800}
           />
 
-          <div
-            className="relative grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0"
-            style={rowHeight !== null ? { minHeight: `${rowHeight}px` } : undefined}
-          >
-            <div className="md:min-h-60 py-8 flex flex-col justify-end md:pr-15">
-              {pillar1 && (
-                <Reveal delay={400}>
-                  <p className={pillarTextClass}>{t(pillar1.title)}</p>
-                </Reveal>
-              )}
-            </div>
+          <div className="relative" style={rowHeight !== null ? { minHeight: `${rowHeight}px` } : undefined}>
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
+              <div className="md:min-h-60 py-8 flex flex-col justify-end md:pr-15">
+                {pillar1 && (
+                  <Reveal delay={400}>
+                    <p className={pillarTextClass}>{t(pillar1.title)}</p>
+                  </Reveal>
+                )}
+              </div>
 
-            <div className="md:min-h-60 py-8 flex flex-col justify-end md:pl-15">
-              {pillar3 && (
-                <Reveal delay={600}>
-                  <p className={pillarTextClass}>{t(pillar3.title)}</p>
-                </Reveal>
-              )}
+              <div className="md:min-h-60 py-8 flex flex-col justify-end md:pl-15">
+                {pillar3 && (
+                  <Reveal delay={600}>
+                    <p className={pillarTextClass}>{t(pillar3.title)}</p>
+                  </Reveal>
+                )}
+              </div>
             </div>
 
             <div className="hidden md:block absolute left-1/2 bottom-8 -translate-x-1/2">
