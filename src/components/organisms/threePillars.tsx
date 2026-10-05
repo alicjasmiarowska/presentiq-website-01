@@ -66,8 +66,8 @@ export default function Pillars({ data, locale }: PillarsProps) {
 
   return (
     <section className="bg-white text-primary-dark">
-      <div className="px-6 md:px-12 lg:px-20 py-16 md:py-25">
-        <div className="max-w-[1680px] mx-auto">
+      <div className="py-16 md:py-25">
+        <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20">
           <div ref={row1Ref} className="relative grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
             <div className="md:min-h-60 py-8 flex flex-col justify-start md:pr-15">
               <Reveal>
