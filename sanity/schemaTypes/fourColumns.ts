@@ -4,11 +4,6 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'sectionName',
-      title: 'Section Name',
-      type: 'string',
-    },
-    {
       name: 'columns',
       title: 'Columns (exactly 4)',
       description: 'Order: 1) dark background, 2) white background, 3) light-gray background, 4) blue background.',
@@ -36,9 +31,16 @@ export default {
             {
               name: 'buttonPage',
               title: 'Button — Link: Page',
-              description: 'Choose an existing page instead of typing a URL manually.',
+              description: 'Choose an existing page or case study instead of typing a URL manually.',
               type: 'reference',
-              to: [{ type: 'contact' }, { type: 'about' }, { type: 'howWeWork' }, { type: 'homepage' }, { type: 'portfolio' }],
+              to: [
+                { type: 'contact' },
+                { type: 'about' },
+                { type: 'howWeWork' },
+                { type: 'homepage' },
+                { type: 'portfolio' },
+                { type: 'caseStudy' },
+              ],
             },
             {
               name: 'buttonHref',

@@ -22,13 +22,17 @@ export async function generateMetadata({
 
   return buildMetadata({
     locale: l,
-    path: `/portfolio/${slug}`,
+    path: `/${slug}`,
     title: seo.title,
     description: seo.description,
     image: seo.image,
   })
 }
 
+// Case studies live at the site root (/en/powerpoint-to-google-slides), not
+// nested under /portfolio/ — Next.js resolves the explicit static routes
+// (about, contact, services, ...) before falling back to this catch-all, so
+// a case study slug can't accidentally shadow one of those.
 export default async function CaseStudyPage({
   params,
 }: {
