@@ -43,18 +43,18 @@ export default async function LegalNoticePage({
   const heading = t(data?.heading) || data?.title || 'Legal Notice'
 
   return (
-    <main className="bg-white">
+    <main className="bg-primary-dark">
       <Section>
         <div className="max-w-225 py-12">
           <Heading
             level="h1"
             text={heading}
-            className="text-h2! md:text-h2-md! lg:text-h2-lg! font-extrabold! mb-16"
+            className="text-h2! md:text-h2-md! lg:text-h2-lg! font-extrabold! text-white! mb-16"
           >
             <CharReveal text={hyphenate(heading, locale as 'en' | 'de')} />
           </Heading>
           <Reveal delay={200}>
-            <RichText value={data?.body?.[locale as 'en' | 'de'] || data?.body?.en} />
+            <RichText value={data?.body?.[locale as 'en' | 'de'] || data?.body?.en} color="primary" />
           </Reveal>
         </div>
       </Section>
