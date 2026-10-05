@@ -105,15 +105,15 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
         className="absolute bottom-0 left-0 w-[20vw] max-w-84 h-auto pointer-events-none select-none"
       />
 
-      <div className="relative max-w-[1680px] mx-auto">
-      <div className="relative px-6 md:px-12 lg:px-20 pt-20 md:pt-30">
+      <div className="relative max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="relative pt-20 md:pt-30">
         <Reveal>
           <Heading level="h2" variant="section" text={t(data.headline)} className="text-primary-dark" />
         </Reveal>
       </div>
 
       {stats.length > 0 && (
-        <div className="relative mt-16 md:mt-24 pr-6 md:pr-12 lg:pr-20">
+        <div className="relative mt-16 md:mt-24">
           {/* Phones: one stat per row (label above its number, a rule between
               stats), ordered via --o. From md up: labels share the first grid
               row and numbers the second, so the columns line up. */}

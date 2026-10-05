@@ -64,8 +64,8 @@ export default function ReasonsGrid({ data, locale }: ReasonsGridProps) {
 
   return (
     <section className="bg-white text-primary-dark">
-      <div className="px-6 md:px-12 lg:px-20 py-16 md:py-25">
-        <div className="max-w-[1680px] mx-auto">
+      <div className="py-16 md:py-25">
+        <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20">
           {t(data?.headline) && (
             <Reveal>
               <Heading level="h2" variant="section" text={t(data?.headline)} className="mb-12 md:mb-16" />

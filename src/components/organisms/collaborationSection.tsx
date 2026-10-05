@@ -46,8 +46,8 @@ export default function CollaborationSection({ data, locale }: CollaborationSect
         className="absolute bottom-0 right-0 w-40 md:w-56 lg:w-80 h-auto pointer-events-none select-none"
       />
 
-      <div className="relative px-6 md:px-12 lg:px-20 py-16 md:py-24">
-        <div className="max-w-[1680px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+      <div className="relative py-16 md:py-24">
+        <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
           <div>
             <Reveal>
               <Heading level="h2" variant="section" text={t(data.headline)} className="text-white" />

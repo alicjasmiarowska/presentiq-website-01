@@ -25,8 +25,8 @@ export default function FinalCtaSection({ data, locale }: FinalCtaSectionProps) 
   const buttonHref = resolveButtonHref(locale, data.buttonPage, data.buttonHref)
 
   return (
-    <section className="relative bg-primary-blue px-6 md:px-12 lg:px-20 py-16 md:py-24 lg:py-32">
-      <div className="max-w-[1680px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+    <section className="relative bg-primary-blue py-16 md:py-24 lg:py-32">
+      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
         <div className="flex justify-start mb-4 md:mb-0 md:items-start">
           <PlusDraw size={160} strokeWidth={38} className="w-16 h-16 md:w-40 md:h-40" />
         </div>
