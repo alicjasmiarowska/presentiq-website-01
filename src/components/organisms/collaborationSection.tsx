@@ -65,10 +65,10 @@ export default function CollaborationSection({ data, locale }: CollaborationSect
                 <Reveal key={item._key} delay={i * 100 + 150}>
                   <Link
                     href={`/${locale}/services/${item.slug}`}
-                    className="group flex items-center justify-between gap-4 py-5 border-b border-primary-blue hover:opacity-80 transition-opacity duration-300"
+                    className="group flex items-center justify-between gap-4 py-5 border-b border-primary-blue hover:opacity-80 active:opacity-80 transition-opacity duration-300"
                   >
                     <Text text={t(item.title)} size="lg" color="primary" />
-                    <ArrowIcon className="shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowIcon className="shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-1" />
                   </Link>
                 </Reveal>
               ))}

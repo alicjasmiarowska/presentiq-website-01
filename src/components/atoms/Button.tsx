@@ -32,7 +32,7 @@ export default function Button({
     primary: 'font-semibold rounded-full bg-primary-blue text-white hover:scale-110 active:scale-105',
     secondary: 'font-semibold rounded-full border-2 border-white text-white hover:scale-110 active:bg-white active:text-primary-blue active:scale-105',
     'secondary-light': 'font-semibold rounded-full border-2 border-primary-blue text-primary-blue hover:scale-110 active:bg-primary-blue active:text-white active:scale-105',
-    text: 'font-normal text-white hover:opacity-80',
+    text: 'font-normal text-white hover:opacity-80 active:opacity-80',
   }
 
   const sizes = {
@@ -51,7 +51,7 @@ export default function Button({
       {showArrow && (
         <ArrowIcon
           size={34}
-          className={`shrink-0 transition-transform duration-200 group-hover:translate-x-1 ${arrowClassName || 'text-primary-blue'}`}
+          className={`shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1 ${arrowClassName || 'text-primary-blue'}`}
         />
       )}
     </>

@@ -76,13 +76,13 @@ export default function TextAndImageSliderServicesSection({
                   key={service._id}
                   href={`/${locale}/services/${service.slug}`}
                   className={`group flex items-center justify-between gap-4 py-5 border-b border-primary-dark/20 transition-colors duration-300 ${
-                    isLight ? 'hover:bg-white/5' : 'hover:bg-gray-50'
+                    isLight ? 'hover:bg-white/5 active:bg-white/5' : 'hover:bg-gray-50 active:bg-gray-50'
                   }`}
                 >
                   <span className={`font-display text-base font-bold ${isLight ? 'text-white' : 'text-primary-dark'}`}>
                     {t(service.title)}
                   </span>
-                  <ArrowIcon className="shrink-0 text-primary-blue transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowIcon className="shrink-0 text-primary-blue transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-1" />
                 </Link>
               ))}
             </div>
