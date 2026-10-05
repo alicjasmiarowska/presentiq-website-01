@@ -36,14 +36,14 @@ export default function CaseStudyList({ caseStudies, locale }: CaseStudyListProp
             const content = (
               <div
                 className={`group flex items-center justify-between gap-4 py-5 border-b border-primary-dark/20 ${
-                  item.slug ? 'transition-colors duration-300 hover:bg-white/40' : ''
+                  item.slug ? 'transition-colors duration-300 hover:bg-white/40 active:bg-white/40' : ''
                 }`}
               >
                 <span className="font-display text-[22px] md:text-[28px] leading-[1.3] font-normal text-primary-dark text-pretty hyphens-manual">
                   {t(item.title)}
                 </span>
                 {item.slug && (
-                  <ArrowIcon className="shrink-0 text-primary-blue transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowIcon className="shrink-0 text-primary-blue transition-transform duration-300 group-hover:translate-x-1 group-active:translate-x-1" />
                 )}
               </div>
             )

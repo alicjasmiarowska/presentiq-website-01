@@ -35,7 +35,7 @@ export default function ServiceCard({ index, title, description, href }: Service
     <>
       <div className="flex items-center justify-between gap-4 md:contents">
         <div className="flex items-baseline gap-4 md:contents">
-          <Text text={number} size="lg" className="shrink-0 text-primary-blue! group-hover:text-white! transition-colors duration-300 md:w-16" />
+          <Text text={number} size="lg" className="shrink-0 text-primary-blue! group-hover:text-white! group-active:text-white! transition-colors duration-300 md:w-16" />
 
           <div className="md:w-1/3 md:shrink-0 md:pr-8">
             <Text text={title} size="lg" className="text-white!" />
@@ -65,7 +65,7 @@ export default function ServiceCard({ index, title, description, href }: Service
   return (
     <div
       ref={ref}
-      className={`group flex flex-col md:flex-row md:items-end gap-3 md:gap-8 py-10 md:py-14 px-4 border-b border-white/20 bg-transparent transition-all duration-700 ease-out hover:bg-primary-blue hover:opacity-100 ${
+      className={`group flex flex-col md:flex-row md:items-end gap-3 md:gap-8 py-10 md:py-14 px-4 border-b border-white/20 bg-transparent transition-all duration-700 ease-out hover:bg-primary-blue hover:opacity-100 active:bg-primary-blue active:opacity-100 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-60 translate-y-10'
       }`}
     >
