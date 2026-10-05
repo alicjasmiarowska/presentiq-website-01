@@ -51,7 +51,7 @@ export default function CaseStudyList({ caseStudies, locale }: CaseStudyListProp
             return (
               <Reveal key={item._id} delay={i * 50}>
                 {item.slug ? (
-                  <Link href={`/${locale}/portfolio/${item.slug}`}>{content}</Link>
+                  <Link href={`/${locale}/${item.slug}`}>{content}</Link>
                 ) : (
                   content
                 )}

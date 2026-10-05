@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .map((service: { slug: string }) => `/services/${service.slug}`)
   const caseStudyPaths = caseStudies
     .filter((cs: { slug: string }) => cs.slug)
-    .map((cs: { slug: string }) => `/portfolio/${cs.slug}`)
+    .map((cs: { slug: string }) => `/${cs.slug}`)
 
   const paths = [...staticPaths, ...servicePaths, ...caseStudyPaths]
 
