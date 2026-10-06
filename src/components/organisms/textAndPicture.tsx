@@ -83,7 +83,7 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
               style={{ '--img-h': `${imageHeight}px` } as React.CSSProperties}
             >
                 <Image
-                  src={urlFor(data.image).width(1200).url()}
+                  src={urlFor(data.image).url()}
                   alt={data.image.alt || t(data.headline)}
                   fill
                   sizes={`(max-width: 1024px) 100vw, ${imageWidth}vw`}

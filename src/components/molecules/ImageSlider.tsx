@@ -63,7 +63,7 @@ export default function ImageSlider({ images, locale, fallbackAlt = '' }: ImageS
           >
             {image.asset && (
               <Image
-                src={urlFor(image).width(800).url()}
+                src={urlFor(image).url()}
                 alt={image.alt || fallbackAlt}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

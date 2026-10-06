@@ -19,7 +19,7 @@ export default function PillarCard({ image, title, description }: PillarCardProp
         {image?.asset && (
           <div className="h-16 w-16 shrink-0 relative">
             <Image
-              src={urlFor(image).width(120).url()}
+              src={urlFor(image).url()}
               alt={image.alt || title}
               fill
               sizes="60px"
