@@ -65,7 +65,7 @@ export default function Footer({ data, services, locale }: FooterProps) {
           <div className="min-w-0 lg:mr-10">
             {data.logo?.asset ? (
               <Image
-                src={urlFor(data.logo).width(320).url()}
+                src={urlFor(data.logo).url()}
                 alt={data.logo.alt || 'Presentiq'}
                 width={160}
                 height={30}

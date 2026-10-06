@@ -14,7 +14,7 @@ export default function FeaturedWorkCard({ image, title, category }: FeaturedWor
       <div className="relative h-56 md:h-[60vh] max-lg:landscape:h-40 bg-gray-100 rounded-3xl overflow-hidden">
         {image?.asset ? (
           <Image
-            src={urlFor(image).width(1200).url()}
+            src={urlFor(image).url()}
             alt={image.alt || title}
             fill
             sizes="(max-width: 768px) 85vw, 55vw"

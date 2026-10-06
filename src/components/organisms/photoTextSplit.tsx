@@ -50,7 +50,7 @@ export default function PhotoTextSplit({ data, locale, reverse = false, theme = 
       {data.image?.asset && (
         <>
           <Image
-            src={urlFor(data.image).width(2000).url()}
+            src={urlFor(data.image).url()}
             alt={data.image.alt || headline}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

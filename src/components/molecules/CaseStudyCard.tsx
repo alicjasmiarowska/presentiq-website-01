@@ -13,7 +13,7 @@ export default function CaseStudyCard({ image, title, category }: CaseStudyCardP
       <div className="relative h-64 md:h-100 bg-gray-100 rounded-3xl overflow-hidden">
         {image?.asset ? (
           <Image
-            src={urlFor(image).width(800).url()}
+            src={urlFor(image).url()}
             alt={image.alt || title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"

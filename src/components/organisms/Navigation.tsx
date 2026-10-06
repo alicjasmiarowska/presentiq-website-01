@@ -90,7 +90,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
           {data.logoLight?.asset || data.logo?.asset ? (
             <span className="relative block h-12 w-48 md:h-16 md:w-64">
               <Image
-                src={urlFor(data.logoLight?.asset ? data.logoLight : data.logo).width(300).url()}
+                src={urlFor(data.logoLight?.asset ? data.logoLight : data.logo).url()}
                 alt={(data.logoLight?.asset ? data.logoLight.alt : data.logo?.alt) || 'Presentiq'}
                 fill
                 priority

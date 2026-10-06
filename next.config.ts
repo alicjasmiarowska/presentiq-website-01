@@ -26,6 +26,10 @@ const cspHeader = `
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
+    // Sanity images are resized/compressed once by the Sanity CDN instead of
+    // being re-encoded by Next's optimizer — see src/lib/imageLoader.ts.
+    loader: "custom",
+    loaderFile: "./src/lib/imageLoader.ts",
     remotePatterns: [
       {
         protocol: "https",
