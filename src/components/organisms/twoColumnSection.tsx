@@ -27,10 +27,10 @@ interface TwoColumnSectionProps {
   // "lead": the smaller 28px uppercase style for a longer left statement
   // (About intro); default is the regular section heading.
   leftHeadlineStyle?: 'section' | 'lead'
-  // "compact": the About intro's proportions from the design — tighter
-  // padding, and the two columns no longer share row heights: top content
-  // sits at the top, the bottom items (left text, right headline) share
-  // the bottom edge. Default keeps the homepage's larger layout.
+  // "compact": the About intro proportions — tighter padding and columns
+  // sized independently: top content at the top, the bottom items (left text,
+  // right headline) share the bottom edge. The default is the homepage's
+  // larger layout.
   spacing?: 'default' | 'compact'
 }
 
@@ -58,7 +58,7 @@ export default function TwoColumnSection({
         {edgeBars && <EdgeBars />}
         <Reveal className="relative">
           {leftHeadlineStyle === 'lead' ? (
-            <h2 className={`${LEAD_TEXT_CLASSES} text-white max-w-[20em]`}>{t(data.leftHeadline)}</h2>
+            <h2 className={`${LEAD_TEXT_CLASSES} text-white max-w-[70ch] md:max-w-[20em]`}>{t(data.leftHeadline)}</h2>
           ) : (
             <Heading level="h2" variant="section" text={t(data.leftHeadline)} className="text-white" />
           )}

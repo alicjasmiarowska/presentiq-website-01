@@ -37,16 +37,17 @@ export default function HeroSection({ data, locale, glow }: HeroSectionProps) {
   if (!data) return null
 
   const t = (field: any) => resolveLocale(field, locale)
-  // Full viewport height only makes sense when the blue subtitle bar fills
-  // out the bottom (homepage, service pages with a hero tagline). Without
-  // it (Contact, case studies, ...) that same height leaves a huge empty
-  // gap below the headline, so the section sizes to its content instead.
+  // Full viewport height only when the blue subtitle bar fills the bottom
+  // (homepage, service pages with a tagline); without it the section sizes to
+  // its content. Portrait tablets (iPad mini and up) are tall enough that a
+  // full-screen hero is mostly empty space, so there it takes half the
+  // screen.
   const hasSubtitle = !!t(data.subtitle)
   const glowConfig = glow === true ? {} : glow || null
 
   const hero = (
     <section
-      className={`relative flex flex-col ${hasSubtitle ? 'min-h-screen 2xl:min-h-[80vh]' : ''}`}
+      className={`relative flex flex-col ${hasSubtitle ? 'min-h-screen mini:min-h-[50vh] lg:min-h-screen 2xl:min-h-[80vh]' : ''}`}
       style={{ backgroundImage: gradients.heroBase }}
     >
       <Image
@@ -65,7 +66,7 @@ export default function HeroSection({ data, locale, glow }: HeroSectionProps) {
           bottom-anchored image then bleeds into the blue bar as a stray
           stripe. Desktop-only, where the bar sits beside the headline
           instead of under it. */}
-      <div className="hidden md:block absolute inset-y-0 left-7/12 w-5/12 pointer-events-none">
+      <div className="hidden md:block absolute inset-y-0 left-9/12 w-3/12 lg:left-7/12 lg:w-5/12 pointer-events-none">
         <Image
           src="/images/line-2.png"
           alt=""
@@ -91,14 +92,14 @@ export default function HeroSection({ data, locale, glow }: HeroSectionProps) {
 
       {t(data.subtitle) && (
         <div className="flex flex-col md:flex-row">
-          <div className={`w-full md:w-7/12 bg-primary-blue ${layout.edgeGutter.left} pr-6 md:pr-16 py-10 md:py-14`}>
+          <div className={`w-full md:w-9/12 lg:w-7/12 bg-primary-blue ${layout.edgeGutter.left} pr-6 md:pr-12 lg:pr-16 py-10 md:py-12 lg:py-14`}>
             <Reveal delay={500}>
-              <p className="font-display text-white uppercase font-normal leading-[1.3] tracking-wider text-[20px] md:text-[24px]">
+              <p className="font-display text-white uppercase font-normal leading-[1.3] tracking-wider text-[20px] lg:text-[24px]">
                 {t(data.subtitle)}
               </p>
             </Reveal>
           </div>
-          <div className="hidden md:block md:w-5/12 bg-primary-dark" />
+          <div className="hidden md:block md:w-3/12 lg:w-5/12 bg-primary-dark" />
         </div>
       )}
     </section>

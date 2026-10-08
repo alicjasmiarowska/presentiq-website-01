@@ -63,7 +63,7 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
         >
           {data.videoUrl ? (
             <div
-              className="relative h-64 lg:h-(--img-h) rounded-2xl overflow-hidden"
+              className="relative h-64 mini:h-96 lg:h-(--img-h) rounded-2xl overflow-hidden"
               style={{ '--img-h': `${imageHeight}px` } as React.CSSProperties}
             >
               <video
@@ -79,14 +79,14 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
           ) : (
             data.image?.asset && (
               <div
-              className="relative h-64 lg:h-(--img-h) rounded-2xl overflow-hidden"
+              className="relative h-64 mini:h-96 lg:h-(--img-h) rounded-2xl overflow-hidden"
               style={{ '--img-h': `${imageHeight}px` } as React.CSSProperties}
             >
                 <Image
                   src={urlFor(data.image).url()}
                   alt={data.image.alt || t(data.headline)}
                   fill
-                  sizes={`(max-width: 1023px) 100vw, ${imageWidth}vw`}
+                  sizes={`(max-width: 1103px) 100vw, ${imageWidth}vw`}
                   className={fitClass}
                   priority={priority}
                   loading={priority ? undefined : 'lazy'}

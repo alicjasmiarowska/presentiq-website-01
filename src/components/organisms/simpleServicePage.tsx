@@ -21,12 +21,11 @@ interface SimpleServicePageProps {
   locale: 'en' | 'de'
 }
 
-// Shared layout for bespoke service pages that are all the same shape: hero
-// (same HeroSection component as the homepage) → photo+text intro block(s)
-// → products → partner bar → "work better together" collaboration → final
-// CTA. Used by any service page whose redesign follows this shape rather
-// than its own one-off composition (compare AI Design, which mixes in
-// different sections and so builds its own JSX in the route file).
+// Shared layout for service pages with the same structure: hero (same
+// HeroSection as the homepage) → photo+text intro block(s) → products →
+// partner bar → "work better together" collaboration → final CTA. Pages with
+// a different composition (e.g. AI Design) build their own JSX in the route
+// file.
 export default function SimpleServicePage({ data, finalCtaData, locale }: SimpleServicePageProps) {
   return (
     <main>

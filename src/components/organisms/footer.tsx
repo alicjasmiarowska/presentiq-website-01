@@ -62,7 +62,9 @@ export default function Footer({ data, services, locale }: FooterProps) {
     <footer className="bg-primary-dark text-white py-16">
       <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-10 md:gap-16 lg:gap-10 mb-16">
-          <div className="min-w-0 lg:mr-10">
+          {/* Below desktop the logo and contact take a full row of their
+              own; the link columns sit two per row underneath. */}
+          <div className="min-w-0 sm:col-span-2 lg:col-span-1 lg:mr-10">
             {data.logo?.asset ? (
               <Image
                 src={urlFor(data.logo).url()}

@@ -36,13 +36,11 @@ export default function FeaturedWorkSection({ data, locale }: FeaturedWorkSectio
   const [isDesktop, setIsDesktop] = useState(false)
 
   useEffect(() => {
-    // The pinned-scroll horizontal-scrub effect needs a tall wrapper section
-    // to reserve scroll distance for. How much distance it needs depends on
-    // content width/height, which varies a lot on mobile, so tuning a single
-    // wrapper height that never leaves a gap or cuts the scrub short is a
-    // moving target — simplest fix is to keep it desktop-only and let mobile
-    // swipe the cards natively with no artificial scroll reservation at all.
-    const mq = window.matchMedia('(min-width: 1024px)')
+    // The pinned horizontal scrub needs a tall wrapper to reserve scroll
+    // distance, and that distance depends on content size, which varies
+    // widely on small screens. The effect is therefore desktop-only; smaller
+    // screens swipe the cards natively.
+    const mq = window.matchMedia('(min-width: 1104px)')
     setIsDesktop(mq.matches)
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
     mq.addEventListener('change', handler)

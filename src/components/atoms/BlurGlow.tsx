@@ -1,7 +1,7 @@
 import { colors } from '@/src/styles/design-tokens'
 
-// Hidden site-wide for now — every call site stays in place, so flipping
-// this one flag is all it takes to bring the glow back everywhere.
+// Disabled site-wide. Every call site stays in place, so setting this flag to
+// true shows the glow everywhere.
 const HIDDEN = true
 
 type CornerPosition = 'bottom-right' | 'bottom-left'

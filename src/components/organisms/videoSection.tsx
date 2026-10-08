@@ -22,11 +22,10 @@ export default function VideoSection({ data, locale }: VideoSectionProps) {
   const [isDesktop, setIsDesktop] = useState(false)
 
   useEffect(() => {
-    // Same reasoning as FeaturedWork: the pinned-scroll shrink effect needs a
-    // tall wrapper reserved for it, but the video (shorter than the viewport
-    // on mobile) then gets vertically centered inside an oversized h-screen
-    // box — huge gaps above/below. Keep the effect desktop-only.
-    const mq = window.matchMedia('(min-width: 1024px)')
+    // As in FeaturedWork, the pinned shrink effect needs a tall wrapper; on
+    // small screens the video is shorter than the viewport and would sit
+    // centered in an oversized box. The effect is desktop-only.
+    const mq = window.matchMedia('(min-width: 1104px)')
     setIsDesktop(mq.matches)
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
     mq.addEventListener('change', handler)

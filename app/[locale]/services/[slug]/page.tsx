@@ -21,9 +21,8 @@ import type { Metadata } from 'next'
 import { toJsonLd } from '@/src/lib/hyphenate'
 import { resolveLocale } from '@/src/lib/locale'
 
-// Services whose bespoke redesign is the same layout as Storytelling (hero →
-// photo+text intro → partner bar → collaboration → final CTA), rendered via
-// SimpleServicePage below instead of each duplicating that JSX.
+// Services rendered with the shared Storytelling layout (hero → photo+text
+// intro → partner bar → collaboration → final CTA) via SimpleServicePage.
 const SIMPLE_SERVICE_FETCHERS: Record<string, () => Promise<any>> = {
   storytelling: getStorytelling,
   templates: getTemplates,
@@ -42,9 +41,8 @@ export async function generateMetadata({
   const { locale, slug } = await params
   const l = locale as 'en' | 'de'
 
-  // Storytelling, Templates and AI Design got bespoke redesigns (own Sanity
-  // documents) rather than the generic service template — see the early
-  // returns below.
+  // Storytelling, Templates and AI Design have their own Sanity documents and
+  // layouts; see the early returns below.
   if (slug in SIMPLE_SERVICE_FETCHERS) {
     const data = await SIMPLE_SERVICE_FETCHERS[slug]()
     const t = (field: any) => resolveLocale(field, l)
@@ -94,9 +92,8 @@ export default async function ServicePage({
 }) {
   const { locale, slug } = await params
 
-  // Bespoke redesigns that all share the Storytelling layout — see
-  // SimpleServicePage for the shared hero → intro → partner bar →
-  // collaboration → CTA composition.
+  // Pages sharing the Storytelling layout; SimpleServicePage composes hero →
+  // intro → partner bar → collaboration → CTA.
   if (slug in SIMPLE_SERVICE_FETCHERS) {
     const data = await SIMPLE_SERVICE_FETCHERS[slug]()
     const finalCtaData = await getFinalCta(locale as 'en' | 'de')
@@ -104,9 +101,9 @@ export default async function ServicePage({
     return <SimpleServicePage data={data} finalCtaData={finalCtaData} locale={locale as 'en' | 'de'} />
   }
 
-  // AI Design: bespoke redesign, own Sanity document — reuses HeroSection,
-  // TwoColumnSection (edge bars, like the About intro) and TextAndPicture
-  // (video in place of its image field) instead of one-off sections.
+  // AI Design has its own Sanity document and composes HeroSection,
+  // TwoColumnSection (with edge bars) and TextAndPicture (video in place of
+  // the image).
   if (slug === 'ai-support') {
     const data = await getAiDesign()
     const finalCtaData = await getFinalCta(locale as 'en' | 'de')

@@ -54,8 +54,8 @@ export default async function AboutPage({
       <TeamSection data={data} locale={locale as 'en' | 'de'} />
       <div className="relative overflow-hidden bg-primary-dark">
         <BlurGlow variant="corner" position="bottom-left" />
-        {/* Until a principles document is picked in Studio, fall back to the
-            Four Pillars document this page used before. */}
+        {/* Falls back to the Four Pillars document until a principles document
+           is selected in Studio. */}
         <PrinciplesSection data={data?.principles ?? fourPillarsData} locale={locale as 'en' | 'de'} />
       </div>
       <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />

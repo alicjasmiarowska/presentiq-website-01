@@ -57,10 +57,12 @@ export const typography = {
   fontSize: {
     xs: ['12px', { lineHeight: '16px' }],
     sm: ['18px', { lineHeight: '20px' }],
-    // Body copy and large text scale down on phones (18px / 22px at 375px)
-    // and reach their full desktop size from tablet width up.
-    base: ['clamp(18px, calc(14px + 1.1vw), 22px)', { lineHeight: '28px' }],
-    lg: ['clamp(22px, calc(16px + 1.6vw), 28px)', { lineHeight: '32px' }],
+    // Body copy and large text: phone size (18px / 22px) up to tablet width,
+    // then growing with the screen to the full desktop size at 1104px (the
+    // lg: breakpoint), so text in tablet columns doesn't wrap every few
+    // words.
+    base: ['clamp(18px, calc(10px + 1.087vw), 22px)', { lineHeight: '28px' }],
+    lg: ['clamp(22px, calc(12px + 1.45vw), 28px)', { lineHeight: '32px' }],
     xl: ['36px', { lineHeight: '28px' }],
     '2xl': ['24px', { lineHeight: '32px' }],
     '3xl': ['30px', { lineHeight: '36px' }],

@@ -81,7 +81,7 @@ export default async function Home({
           <HeroSection data={heroData} locale={locale as 'en' | 'de'} />
           <TwoColumnSection data={twoColumnSectionData} locale={locale as 'en' | 'de'} />
         </div>
-        {/* Tymczasowo ukryte: <FeaturedWorkSection data={featuredWorkData} locale={locale as 'en' | 'de'} /> */}
+        {/* Disabled: <FeaturedWorkSection data={featuredWorkData} locale={locale as 'en' | 'de'} /> */}
       </div>
       <ThreePillarsSection data={threePillarsData} locale={locale as 'en' | 'de'} />
       <ServicesSection
@@ -92,7 +92,7 @@ export default async function Home({
       <LogoWall data={logoWallData} locale={locale as 'en' | 'de'} />
       <FourColumnsSection data={fourColumnsData} locale={locale as 'en' | 'de'} />
       <div className="relative bg-primary-dark">
-      {/* Tymczasowo ukryte: <VideoSection data={videoSectionData} locale={locale as 'en' | 'de'} /> */}
+      {/* Disabled: <VideoSection data={videoSectionData} locale={locale as 'en' | 'de'} /> */}
       <FaqSection data={faqData} locale={locale as 'en' | 'de'} />
       </div>
       <FinalCtaSection data={finalCtaData} locale={locale as 'en' | 'de'} />

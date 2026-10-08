@@ -16,7 +16,7 @@ export default function TeamMemberCard({ photo, name }: TeamMemberCardProps) {
             src={urlFor(photo).width(800).height(800).url()}
             alt={photo.alt || name}
             fill
-            sizes="(max-width: 1023px) 100vw, 33vw"
+            sizes="(max-width: 1103px) 100vw, 33vw"
             className="object-cover"
           />
         ) : (

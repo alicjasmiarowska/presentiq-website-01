@@ -35,12 +35,11 @@ const sizes = {
 export const SECTION_VARIANT_CLASSES = 'font-display font-normal uppercase tracking-wider leading-[1.1] [&:lang(de)]:leading-[1.15] text-balance hyphens-manual break-words'
 export const SECTION_VARIANT_STYLE = { fontSize: typography.sectionHeading.fontSize }
 
-// The smaller uppercase "lead" look: pillar titles on the homepage, the
+// The smaller uppercase "lead" style: pillar titles on the homepage,
 // principle titles and longer intro statements on About. Sized off the h4
-// step (20/24/28px) so it stays visibly smaller than a nearby `variant=
-// "section"` heading (28–40px) at every breakpoint — a flat 28px here used
-// to tie with that heading's own 28px mobile floor, erasing the hierarchy
-// between a section's main title and its sub-items on phones.
+// step (20/24/28px) so it stays visibly smaller than a nearby
+// `variant="section"` heading (28–40px) at every breakpoint and keeps the
+// hierarchy between a section title and its items.
 export const LEAD_TEXT_CLASSES = 'font-display font-normal uppercase text-h4 md:text-h4-md lg:text-h4-lg leading-tight text-balance hyphens-manual'
 
 export default function Heading({ text, level = 'h1', variant = 'default', className = '', children }: HeadingProps) {

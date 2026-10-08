@@ -52,7 +52,7 @@ export default function ImageSlider({ images, locale, fallbackAlt = '' }: ImageS
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
     >
-      <div className="relative h-64 md:h-100 rounded-2xl overflow-hidden">
+      <div className="relative h-64 mini:h-96 md:h-100 rounded-2xl overflow-hidden">
         {images.map((image, index) => (
           <div
             key={image._key}
@@ -66,7 +66,7 @@ export default function ImageSlider({ images, locale, fallbackAlt = '' }: ImageS
                 src={urlFor(image).url()}
                 alt={image.alt || fallbackAlt}
                 fill
-                sizes="(max-width: 1023px) 100vw, 50vw"
+                sizes="(max-width: 1103px) 100vw, 50vw"
                 className="object-cover"
               />
             )}

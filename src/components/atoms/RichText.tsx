@@ -4,10 +4,9 @@ import { SECTION_VARIANT_CLASSES, SECTION_VARIANT_STYLE } from './Heading'
 interface RichTextProps {
   value: PortableTextBlock[] | null | undefined
   className?: string
-  // "secondary" (navy text, default) matches the original hardcoded
-  // behavior for RichText on white backgrounds. "primary" (white text) is
-  // for navy-background sections like PhotoTextSplit/CollaborationSection,
-  // which otherwise render navy-on-navy and disappear.
+  // "secondary" (navy text, the default) for light backgrounds; "primary"
+  // (white text) for navy sections such as PhotoTextSplit and
+  // CollaborationSection.
   color?: 'primary' | 'secondary'
 }
 

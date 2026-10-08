@@ -1,10 +1,8 @@
-// Shared field set for service pages whose bespoke redesign is "the same
-// layout as Storytelling": hero → photo+text intro → partner bar →
-// collaboration → final CTA (rendered by SimpleServicePage on the React
-// side). Each of these pages is its own singleton document type — that's
-// what lets each live as its own pinned entry in Studio's Services folder —
-// but they all share this exact field shape, so it's defined once here
-// instead of being copy-pasted per page.
+// Shared field set for service pages that use the Storytelling layout: hero →
+// photo+text intro → partner bar → collaboration → final CTA (rendered by
+// SimpleServicePage). Each page is its own singleton document type, so it
+// appears as its own pinned entry in Studio's Services folder, and all of
+// them share this field shape, defined once here.
 export function simpleServicePageSchema(name: string, title: string, defaultPageTitle: string) {
   return {
     name,

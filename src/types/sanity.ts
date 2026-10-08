@@ -1,6 +1,5 @@
-// Shared shapes for two patterns that were typed ad hoc as `any` all over
-// the component tree: a Sanity image field (asset ref + our custom alt/
-// aiGenerated fields) and a localized Portable Text body.
+// Shared types for a Sanity image field (asset reference plus the custom alt
+// and aiGenerated fields) and a localized Portable Text body.
 
 export interface SanityImageValue {
   asset?: {

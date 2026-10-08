@@ -26,12 +26,12 @@ export default function ProcessSteps({ data, locale }: ProcessStepsProps) {
 
   return (
     <section className="bg-neutral-light">
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20 py-16 mini:py-20">
+        <div className="grid grid-cols-1 mini:grid-cols-2 lg:grid-cols-3 gap-10 mini:gap-12">
           {data.steps.map((step, i) => (
             <Reveal key={step._key} delay={i * 100}>
               <div className="flex items-baseline gap-3 mb-4">
-                <span className="font-display text-h3 md:text-h3-md lg:text-h3-lg font-normal text-primary-blue">
+                <span className="font-display text-h3 mini:text-h3-md lg:text-h3-lg font-normal text-primary-blue">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <Heading level="h4" text={t(step.title)} />

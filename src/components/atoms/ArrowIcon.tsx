@@ -3,9 +3,8 @@ interface ArrowIconProps {
   size?: number
 }
 
-// The "→" arrow used on every link-row/button across the site (Button,
-// ServiceCard, CollaborationSection, TextAndImageSliderServices,
-// CaseStudyList) — one shared glyph instead of six copies of the same path.
+// The "→" arrow shared by every link row and button (Button, ServiceCard,
+// CollaborationSection, TextAndImageSliderServices, CaseStudyList).
 export default function ArrowIcon({ className = '', size = 24 }: ArrowIconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>

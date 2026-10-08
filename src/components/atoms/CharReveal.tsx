@@ -84,7 +84,7 @@ export default function CharReveal({ text, className = '' }: CharRevealProps) {
     // On narrow screens each word usually wraps to its own line, so a global
     // per-character stagger reveals only an isolated letter-fragment at a time
     // instead of a whole line — stagger per word there so each line rises as one piece.
-    const mq = window.matchMedia('(max-width: 1023px)')
+    const mq = window.matchMedia('(max-width: 1103px)')
     setIsMobile(mq.matches)
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
     mq.addEventListener('change', handler)

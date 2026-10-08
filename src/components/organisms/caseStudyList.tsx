@@ -17,11 +17,10 @@ interface CaseStudyListProps {
   locale: 'en' | 'de'
 }
 
-// Portfolio's case studies as a plain two-column text list (client/project
-// names, no images, no category filter), each linking to its own case
-// study page — replaces the filtered image-card grid on the live page.
-// CaseStudyGrid + CaseStudyCard (the filtered, card-based version) are kept
-// in the codebase, just unused for now, in case filtering comes back.
+// Portfolio's case studies as a two-column text list (client/project names,
+// no images or filters), each linking to its case study page. CaseStudyGrid
+// and CaseStudyCard provide a filterable card layout, currently not used on
+// any page.
 export default function CaseStudyList({ caseStudies, locale }: CaseStudyListProps) {
   const t = (field: any) => resolveLocale(field, locale)
   const items = (caseStudies || []).filter((cs) => t(cs.title))

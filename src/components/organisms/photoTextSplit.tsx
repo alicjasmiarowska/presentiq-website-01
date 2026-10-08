@@ -43,7 +43,7 @@ export default function PhotoTextSplit({ data, locale, reverse = false, theme = 
   const dark = theme === 'dark'
 
   const image = (
-    <div className="relative min-h-[320px] md:min-h-[620px]">
+    <div className="relative min-h-[320px] mini:min-h-[480px] md:min-h-[620px]">
       {/* This panel bleeds full-bleed (no max-w cap) up to 50vw, same as
           the color panels elsewhere on the site, so the source needs to
           cover wide/high-DPI screens rather than a typical capped slot. */}
@@ -53,7 +53,7 @@ export default function PhotoTextSplit({ data, locale, reverse = false, theme = 
             src={urlFor(data.image).url()}
             alt={data.image.alt || headline}
             fill
-            sizes="(max-width: 1023px) 100vw, 50vw"
+            sizes="(max-width: 1103px) 100vw, 50vw"
             className="object-cover"
           />
           {data.image.aiGenerated && <AiBadge locale={locale} />}

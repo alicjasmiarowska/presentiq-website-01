@@ -30,9 +30,10 @@ export default {
       type: 'reference',
       to: [{ type: 'twoColumnSection' }],
     },
-    // Replaced by `intro`; kept hidden so existing content isn't lost. Plain
-    // objects (not localeString/localeText) so the editorial checks in
-    // textRules.ts don't raise warnings on text nobody sees.
+    // Legacy fields superseded by `intro`; hidden in Studio and retained to
+    // preserve existing content. Plain objects (not localeString/localeText)
+    // so the editorial checks in textRules.ts skip text that is never
+    // rendered.
     ...['teamHeadline', 'teamText'].map((name) => ({
       name,
       type: 'object',

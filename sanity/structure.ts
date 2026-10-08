@@ -97,13 +97,11 @@ export const structure: StructureResolver = (S) =>
         .id('privacyPolicy')
         .child(S.document().schemaType('privacyPolicy').documentId('privacyPolicy')),
       S.divider(),
-      // Everything service-related lives in one folder: the generic Service
-      // list plus each service's bespoke redesign (own singleton document).
-      // "Storytelling", "Templates" and "AI Design" (slugs "storytelling" /
-      // "templates" / "ai-support") got bespoke redesigns, so their old
-      // service-template documents are filtered out of the generic list
-      // below — not deleted, just hidden, since the real editable content
-      // for those now lives in their own pinned documents in this folder.
+      // All service content in one folder: the generic Service list plus the
+      // services with their own singleton documents. Storytelling, Templates
+      // and AI Design (slugs "storytelling", "templates", "ai-support") are
+      // edited in those documents, so their generic Service entries are
+      // filtered out of the list below; the entries are kept, not deleted.
       S.listItem()
         .title('Services')
         .child(

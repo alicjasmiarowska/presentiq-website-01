@@ -33,7 +33,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
     if (!el) return
 
     const measure = () => {
-      const isDesktop = window.matchMedia('(min-width: 1024px)').matches
+      const isDesktop = window.matchMedia('(min-width: 744px)').matches
       if (!isDesktop) {
         setLineHeight(null)
         setRowHeight(null)
@@ -66,7 +66,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
 
   return (
     <section className="bg-white text-primary-dark">
-      <div className="pt-10 pb-16 md:py-25">
+      <div className="pt-10 pb-16 mini:py-20 md:py-25">
         <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-20">
           {/* The vertical divider lives as a sibling of the grid, not a
               child of it — as a child, `divide-y` counts it when deciding
@@ -75,21 +75,21 @@ export default function Pillars({ data, locale }: PillarsProps) {
               HTML attribute divide-y's selector actually excludes), risking
               a second, unwanted line stacking under the real divider. */}
           <div ref={row1Ref} className="relative">
-            <div className="grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
-              <div className="md:min-h-60 pt-0 pb-8 md:py-8 flex flex-col justify-start md:pr-15">
+            <div className="grid grid-cols-1 mini:grid-cols-2 divide-y divide-primary-blue mini:divide-y-0">
+              <div className="mini:min-h-44 md:min-h-60 pt-0 pb-8 mini:py-8 flex flex-col justify-start mini:pr-10 md:pr-15">
                 <Reveal>
                   <Heading level="h2" variant="section" text={t(data.headline)} className="text-primary-dark" />
                 </Reveal>
                 {t(data.introText) && (
                   <Reveal delay={100}>
-                    <div className="mt-16">
+                    <div className="mt-10 md:mt-16">
                       <Text text={t(data.introText)} size="base" color="secondary" />
                     </div>
                   </Reveal>
                 )}
               </div>
 
-              <div className="md:min-h-60 py-8 flex flex-col justify-end md:pl-15">
+              <div className="mini:min-h-44 md:min-h-60 py-8 flex flex-col justify-end mini:pl-10 md:pl-15">
                 {pillar2 && (
                   <Reveal delay={200}>
                     <p className={pillarTextClass}>{t(pillar2.title)}</p>
@@ -98,7 +98,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
               </div>
             </div>
 
-            <div className="hidden md:block absolute left-1/2 top-8 -translate-x-1/2">
+            <div className="hidden mini:block absolute left-1/2 top-8 -translate-x-1/2">
               <DrawLine
                 direction="vertical"
                 className="w-px"
@@ -115,8 +115,8 @@ export default function Pillars({ data, locale }: PillarsProps) {
           />
 
           <div className="relative" style={rowHeight !== null ? { minHeight: `${rowHeight}px` } : undefined}>
-            <div className="grid grid-cols-1 md:grid-cols-2 divide-y divide-primary-blue md:divide-y-0">
-              <div className="md:min-h-60 py-8 flex flex-col justify-end md:pr-15">
+            <div className="grid grid-cols-1 mini:grid-cols-2 divide-y divide-primary-blue mini:divide-y-0">
+              <div className="mini:min-h-44 md:min-h-60 py-8 flex flex-col justify-end mini:pr-10 md:pr-15">
                 {pillar1 && (
                   <Reveal delay={400}>
                     <p className={pillarTextClass}>{t(pillar1.title)}</p>
@@ -124,7 +124,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
                 )}
               </div>
 
-              <div className="md:min-h-60 py-8 flex flex-col justify-end md:pl-15">
+              <div className="mini:min-h-44 md:min-h-60 py-8 flex flex-col justify-end mini:pl-10 md:pl-15">
                 {pillar3 && (
                   <Reveal delay={600}>
                     <p className={pillarTextClass}>{t(pillar3.title)}</p>
@@ -133,7 +133,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
               </div>
             </div>
 
-            <div className="hidden md:block absolute left-1/2 bottom-8 -translate-x-1/2">
+            <div className="hidden mini:block absolute left-1/2 bottom-8 -translate-x-1/2">
               <DrawLine
                 direction="vertical"
                 reverse

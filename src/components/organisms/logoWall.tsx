@@ -92,12 +92,11 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
   return (
     <section className="relative overflow-hidden bg-white text-primary-dark">
       {/* Bottom-aligned against the section itself (not the capped content
-          div) so it lines up with the logo bar below, which now lives
-          outside that cap too. Width matches the bar's left gutter exactly
-          so the two stay flush at every viewport size. Desktop-only: on
-          mobile the section is much taller (stacked stats), so this
-          bottom-anchored strip bleeds up into the dark logo bar as a stray
-          stripe instead of just sitting in the light gutter beside it. */}
+         div) so it lines up with the logo bar below, which also sits outside
+         the cap. Its width matches the bar's left gutter so both stay flush
+         at every viewport size. Desktop-only: with stacked stats the section
+         is much taller, and the bottom-anchored strip would run into the dark
+         logo bar. */}
       <Image
         src="/images/line-03.png"
         alt=""
@@ -116,17 +115,17 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
       </div>
 
       {stats.length > 0 && (
-        <div className="relative mt-16 md:mt-24">
+        <div className="relative mt-16 mini:mt-24">
           {/* Phones: one stat per row (label above its number, a rule between
-              stats), ordered via --o. From md up: labels share the first grid
+              stats), ordered via --o. From mini (744px) up: labels share the first grid
               row and numbers the second, so the columns line up. The left
               indent only from xl — below that the three columns need the
               full width. */}
-          <div className="xl:ml-[29%] grid grid-cols-1 md:grid-cols-3">
+          <div className="xl:ml-[29%] grid grid-cols-1 mini:grid-cols-3">
             {stats.map((stat, i) => (
               <div
                 key={`label-${stat._key}`}
-                className={`order-[var(--o)] md:order-none px-6 md:px-10 pb-3 md:pb-8 ${i > 0 ? 'border-t md:border-t-0 md:border-l border-primary-blue pt-8 md:pt-0' : ''}`}
+                className={`order-[var(--o)] mini:order-none px-6 lg:px-10 pb-3 mini:pb-8 ${i > 0 ? 'border-t mini:border-t-0 mini:border-l border-primary-blue pt-8 mini:pt-0' : ''}`}
                 style={{ '--o': i * 2 } as React.CSSProperties}
               >
                 <Reveal delay={i * 100}>
@@ -137,7 +136,7 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
             {stats.map((stat, i) => (
               <div
                 key={`value-${stat._key}`}
-                className={`order-[var(--o)] md:order-none px-6 md:px-10 pb-8 md:pb-0 ${i > 0 ? 'md:border-l border-primary-blue' : ''}`}
+                className={`order-[var(--o)] mini:order-none px-6 lg:px-10 pb-8 mini:pb-0 ${i > 0 ? 'mini:border-l border-primary-blue' : ''}`}
                 style={{ '--o': i * 2 + 1 } as React.CSSProperties}
               >
                 <CountUpNumber
