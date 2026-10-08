@@ -66,7 +66,7 @@ export default function ImageSlider({ images, locale, fallbackAlt = '' }: ImageS
                 src={urlFor(image).url()}
                 alt={image.alt || fallbackAlt}
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 1023px) 100vw, 50vw"
                 className="object-cover"
               />
             )}

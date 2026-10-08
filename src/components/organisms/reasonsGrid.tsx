@@ -40,7 +40,7 @@ export default function ReasonsGrid({ data, locale }: ReasonsGridProps) {
 
   useEffect(() => {
     const measure = () => {
-      const isDesktop = window.matchMedia('(min-width: 768px)').matches
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches
       if (!isDesktop) {
         setLineHeights([])
         return

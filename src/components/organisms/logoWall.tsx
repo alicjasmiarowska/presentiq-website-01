@@ -119,8 +119,10 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
         <div className="relative mt-16 md:mt-24">
           {/* Phones: one stat per row (label above its number, a rule between
               stats), ordered via --o. From md up: labels share the first grid
-              row and numbers the second, so the columns line up. */}
-          <div className="md:ml-[29%] grid grid-cols-1 md:grid-cols-3">
+              row and numbers the second, so the columns line up. The left
+              indent only from xl — below that the three columns need the
+              full width. */}
+          <div className="xl:ml-[29%] grid grid-cols-1 md:grid-cols-3">
             {stats.map((stat, i) => (
               <div
                 key={`label-${stat._key}`}
@@ -128,7 +130,7 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
                 style={{ '--o': i * 2 } as React.CSSProperties}
               >
                 <Reveal delay={i * 100}>
-                  <p className="text-base font-normal leading-snug md:line-clamp-3">{t(stat.label)}</p>
+                  <p className="text-base font-normal leading-snug">{t(stat.label)}</p>
                 </Reveal>
               </div>
             ))}
@@ -143,7 +145,7 @@ export default function LogoWall({ data, locale }: LogoWallProps) {
                   decimals={stat.decimals}
                   suffix={stat.suffix}
                   locale={locale}
-                  className="font-display font-normal"
+                  className="font-display font-normal whitespace-nowrap"
                   style={{ fontSize: 'clamp(48px, 5vw, 72px)' }}
                 />
               </div>

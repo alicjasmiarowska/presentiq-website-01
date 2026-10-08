@@ -49,7 +49,7 @@ export default function FaqSection({ data, locale }: FaqSectionProps) {
         dangerouslySetInnerHTML={{ __html: toJsonLd(faqJsonLd) }}
       />
       <div className="flex flex-col md:flex-row gap-8 md:gap-16 pb-12 md:pb-20 px-0 md:px-10">
-        <div className="w-full md:w-1/3">
+        <div className="w-full md:w-2/5 xl:w-1/3">
           <Reveal>
             <p className="text-white font-semibold uppercase text-sm mb-4">
               {t(data.eyebrow)}
@@ -61,7 +61,7 @@ export default function FaqSection({ data, locale }: FaqSectionProps) {
             />
           </Reveal>
         </div>
-        <div className="w-full md:w-2/3 md:ml-20">
+        <div className="w-full md:w-3/5 xl:w-2/3 xl:ml-20">
           {data.items.map((item, index) => (
             <Reveal key={item._key} delay={index * 150}>
               <FaqAccordionItem

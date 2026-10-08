@@ -1,3 +1,4 @@
+import { releaseLastPair } from '@/src/lib/typography'
 import { typography } from '@/src/styles/design-tokens'
 
 interface HeadingProps {
@@ -50,15 +51,16 @@ export default function Heading({ text, level = 'h1', variant = 'default', class
   // marker ourselves and start a fresh line at each one instead of relying
   // on dangerouslySetInnerHTML. Skipped when `children` already provides
   // custom markup (e.g. CharReveal splitting the heading for animation).
+  const lines = releaseLastPair(text)
   const content =
     children ??
     (variant === 'section'
-      ? text.split(/<br\s*\/?>/i).map((line, i) => (
+      ? lines.split(/<br\s*\/?>/i).map((line, i) => (
           <span key={i} className="block">
             {line}
           </span>
         ))
-      : text)
+      : lines)
 
   if (variant === 'section') {
     return (

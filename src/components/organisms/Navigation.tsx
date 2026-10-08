@@ -104,7 +104,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
           )}
         </Link>
 
-        <div className="hidden lg:flex items-stretch divide-x divide-white/20 ml-auto">
+        <div className="hidden nav:flex items-stretch divide-x divide-white/20 ml-auto">
           {activeServices.length > 0 && (
             <div
               className="relative flex items-center px-3"
@@ -156,7 +156,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
             </div>
           )}
           {data.navLinks?.map((link) => (
-            <div key={link._key} className="flex items-center px-8">
+            <div key={link._key} className="flex items-center px-4 min-[1700px]:px-8">
               <Link
                 href={resolveHref(linkHref(link))}
                 {...(isExternal(linkHref(link)) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -167,7 +167,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
             </div>
           ))}
 
-          <div className="flex items-center gap-1 px-8 whitespace-nowrap text-sm font-semibold">
+          <div className="flex items-center gap-1 px-4 min-[1700px]:px-8 whitespace-nowrap text-sm font-semibold">
             {locales.map((loc, i) => (
               <span key={loc} className="flex items-center gap-1">
                 {i > 0 && <span className="text-white/40" aria-hidden="true">/</span>}
@@ -185,7 +185,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
             ))}
           </div>
 
-          <div className="flex items-center pl-8 pr-6 md:pr-12 lg:pr-20">
+          <div className="flex items-center pl-4 min-[1700px]:pl-8 pr-6 md:pr-12 lg:pr-20">
             <Link
               href={loginHref}
               {...(loginIsExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -196,7 +196,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
           </div>
         </div>
 
-        <div className="lg:hidden ml-auto flex items-center pl-6 pr-3.5">
+        <div className="nav:hidden ml-auto flex items-center pl-6 pr-3.5 lg:pr-[70px]">
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
@@ -226,11 +226,11 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
 
       <div
         id="mobile-nav-panel"
-        className={`lg:hidden overflow-y-auto bg-white border-t transition-all duration-300 ease-in-out ${
+        className={`nav:hidden overflow-y-auto bg-white border-t transition-all duration-300 ease-in-out ${
           mobileOpen ? 'max-h-[80vh] border-neutral-light opacity-100' : 'max-h-0 border-transparent opacity-0'
         }`}
       >
-        <ul className="flex flex-col px-6">
+        <ul className="flex flex-col px-6 lg:px-20">
           {activeServices.length > 0 && (
             <li className="border-b border-neutral-light">
               <button
@@ -289,7 +289,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
           ))}
         </ul>
 
-        <div className="flex items-center justify-between pl-3 pr-6 pb-6 pt-4">
+        <div className="flex items-center justify-between pl-3 lg:pl-17 pr-6 lg:pr-20 pb-6 pt-4">
           <div className="flex items-center gap-1 text-sm font-semibold">
             {locales.map((loc, i) => (
               <span key={loc} className="flex items-center gap-1">

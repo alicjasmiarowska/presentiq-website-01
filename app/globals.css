@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
+/* Tablets in portrait (768–1023px) get the phone layout, just wider: the
+   two-column md: layouts were too cramped there. md: therefore starts at
+   1024px together with lg:, and JS media queries / image sizes use the same
+   1024px boundary. md sits a hair below lg (63.99rem = 1023.84px) so that
+   at equal widths lg: still sorts after md: and wins, as it did before.
+   `nav:` is where the full desktop menu fits beside the logo (DE is the
+   widest); below it the burger menu is used. */
+@theme {
+  --breakpoint-md: 63.99rem;
+  --breakpoint-nav: 92rem;
+}
+
 @layer base {
   * {
     margin: 0;
