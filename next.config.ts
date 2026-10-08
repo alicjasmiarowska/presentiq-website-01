@@ -1,28 +1,5 @@
 import type { NextConfig } from "next";
 
-// Sanity Studio (mounted at /studio) manages its own auth and injects
-// inline scripts/styles, workers, and cross-origin requests to *.sanity.io
-// that a strict CSP would break — it's excluded from the policy below.
-const isDev = process.env.NODE_ENV === "development";
-// React's dev-mode debugging (reconstructing server error stacks) relies on
-// eval(); it never uses eval() in production, so this only loosens dev.
-const cspHeader = `
-  default-src 'self';
-  script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
-  style-src 'self' 'unsafe-inline';
-  img-src 'self' data: blob: https://cdn.sanity.io;
-  font-src 'self' data:;
-  connect-src 'self';
-  media-src 'self' https://cdn.sanity.io;
-  object-src 'none';
-  base-uri 'self';
-  form-action 'self';
-  frame-ancestors 'none';
-  upgrade-insecure-requests;
-`
-  .replace(/\s{2,}/g, " ")
-  .trim();
-
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
@@ -43,6 +20,8 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Cross-Origin-Resource-Policy", value: "same-site" },
+          { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
           { key: "X-Frame-Options", value: "DENY" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           {
@@ -56,8 +35,11 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // The page Content-Security-Policy is set per request (with a nonce)
+        // in proxy.ts. COOP isolates the window from pages it opens or is
+        // opened by; left off /studio, whose login may use a popup.
         source: "/((?!studio).*)",
-        headers: [{ key: "Content-Security-Policy", value: cspHeader }],
+        headers: [{ key: "Cross-Origin-Opener-Policy", value: "same-origin" }],
       },
       {
         source: "/studio/:path*",

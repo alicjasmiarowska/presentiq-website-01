@@ -4,6 +4,7 @@ import Section from '@/src/components/atoms/Section'
 import Reveal from '@/src/components/atoms/Reveal'
 import { urlFor } from '@/sanity/lib/image'
 import { resolveLocale } from '@/src/lib/locale'
+import { safeSvg } from '@/src/lib/safeSvg'
 
 interface FeatureItem {
   _key: string
@@ -32,8 +33,10 @@ async function fetchInlineIcon(url: string): Promise<string | null> {
     const res = await fetch(url, { next: { revalidate: 3600 } })
     if (!res.ok) return null
     const text = await res.text()
-    if (!text.includes('<svg')) return null
-    return text.replace(/fill="(?!none")[^"]*"/g, 'fill="currentColor"')
+    // Inlined as HTML, so only plain drawing markup is let through.
+    const svg = safeSvg(text)
+    if (!svg?.startsWith('<svg')) return null
+    return svg.replace(/fill="(?!none")[^"]*"/g, 'fill="currentColor"')
   } catch {
     return null
   }

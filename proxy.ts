@@ -2,6 +2,38 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const locales = ['en', 'de']
+
+// Content Security Policy with a fresh nonce per request. Only scripts that
+// carry the nonce (Next.js's own, and next/script tags given it in the root
+// layout) may run, plus whatever those load ('strict-dynamic') — an injected
+// <script> or inline event handler is blocked even if markup slips through.
+// Every page renders per request (force-dynamic), so the nonce costs nothing.
+// Styles stay 'unsafe-inline': the site sets style attributes, which a
+// nonce can't cover, and injected CSS can't run code.
+// Studio (/studio) is excluded: it injects its own inline scripts.
+const isDev = process.env.NODE_ENV === 'development'
+// The cookie banner (Usercentrics) loads its UI and talks to its API from
+// these hosts once a settings id is configured.
+const consentHosts = process.env.NEXT_PUBLIC_USERCENTRICS_SETTINGS_ID ? ' https://*.usercentrics.eu' : ''
+
+function contentSecurityPolicy(nonce: string): string {
+  return `
+    default-src 'self';
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ''};
+    style-src 'self' 'unsafe-inline'${consentHosts};
+    img-src 'self' data: blob: https://cdn.sanity.io${consentHosts};
+    font-src 'self' data:${consentHosts};
+    connect-src 'self'${consentHosts};
+    media-src 'self' https://cdn.sanity.io;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;
+  `
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
 const defaultLocale = 'en'
 
 // Signatures of vulnerability scanners / scraping tools, not legitimate
@@ -59,9 +91,17 @@ export function proxy(request: NextRequest) {
   )
 
   if (matchedLocale) {
+    const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
+    const csp = contentSecurityPolicy(nonce)
     const requestHeaders = new Headers(request.headers)
     requestHeaders.set('x-locale', matchedLocale)
-    return NextResponse.next({ request: { headers: requestHeaders } })
+    // Next.js reads the nonce from the request's CSP header and stamps it on
+    // its own scripts; the layout reads x-nonce for next/script.
+    requestHeaders.set('x-nonce', nonce)
+    requestHeaders.set('Content-Security-Policy', csp)
+    const response = NextResponse.next({ request: { headers: requestHeaders } })
+    response.headers.set('Content-Security-Policy', csp)
+    return response
   }
 
   return NextResponse.redirect(

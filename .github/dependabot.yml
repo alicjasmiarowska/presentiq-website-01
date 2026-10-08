@@ -1,0 +1,18 @@
+# Weekly dependency updates and immediate security-fix pull requests.
+# Minor and patch updates are grouped into one PR to keep the noise down;
+# major versions (breaking changes) come as separate PRs to review.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

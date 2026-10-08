@@ -31,6 +31,8 @@ export default async function RootLayout({
   const headersList = await headers();
   const locale = headersList.get("x-locale") ?? "en";
   const usercentricsSettingsId = process.env.NEXT_PUBLIC_USERCENTRICS_SETTINGS_ID;
+  // Per-request CSP nonce from proxy.ts; scripts without it are blocked.
+  const nonce = headersList.get("x-nonce") ?? undefined;
 
   return (
     <html lang={locale}>
@@ -41,6 +43,7 @@ export default async function RootLayout({
             src="https://app.usercentrics.eu/browser-ui/latest/loader.js"
             data-settings-id={usercentricsSettingsId}
             strategy="beforeInteractive"
+            nonce={nonce}
           />
         )}
         {children}
