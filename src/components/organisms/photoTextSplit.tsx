@@ -53,7 +53,7 @@ export default function PhotoTextSplit({ data, locale, reverse = false, theme = 
             src={urlFor(data.image).url()}
             alt={data.image.alt || headline}
             fill
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 1023px) 100vw, 50vw"
             className="object-cover"
           />
           {data.image.aiGenerated && <AiBadge locale={locale} />}

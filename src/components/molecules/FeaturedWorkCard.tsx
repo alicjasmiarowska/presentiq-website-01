@@ -17,7 +17,7 @@ export default function FeaturedWorkCard({ image, title, category }: FeaturedWor
             src={urlFor(image).url()}
             alt={image.alt || title}
             fill
-            sizes="(max-width: 768px) 85vw, 55vw"
+            sizes="(max-width: 1023px) 85vw, 55vw"
             className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           />
         ) : (

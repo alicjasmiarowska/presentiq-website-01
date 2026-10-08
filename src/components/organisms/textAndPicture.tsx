@@ -86,7 +86,7 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
                   src={urlFor(data.image).url()}
                   alt={data.image.alt || t(data.headline)}
                   fill
-                  sizes={`(max-width: 1024px) 100vw, ${imageWidth}vw`}
+                  sizes={`(max-width: 1023px) 100vw, ${imageWidth}vw`}
                   className={fitClass}
                   priority={priority}
                   loading={priority ? undefined : 'lazy'}

@@ -42,7 +42,7 @@ export default function FeaturedWorkSection({ data, locale }: FeaturedWorkSectio
     // wrapper height that never leaves a gap or cuts the scrub short is a
     // moving target — simplest fix is to keep it desktop-only and let mobile
     // swipe the cards natively with no artificial scroll reservation at all.
-    const mq = window.matchMedia('(min-width: 768px)')
+    const mq = window.matchMedia('(min-width: 1024px)')
     setIsDesktop(mq.matches)
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
     mq.addEventListener('change', handler)

@@ -26,7 +26,7 @@ export default function VideoSection({ data, locale }: VideoSectionProps) {
     // tall wrapper reserved for it, but the video (shorter than the viewport
     // on mobile) then gets vertically centered inside an oversized h-screen
     // box — huge gaps above/below. Keep the effect desktop-only.
-    const mq = window.matchMedia('(min-width: 768px)')
+    const mq = window.matchMedia('(min-width: 1024px)')
     setIsDesktop(mq.matches)
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
     mq.addEventListener('change', handler)

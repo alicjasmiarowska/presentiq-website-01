@@ -48,3 +48,16 @@ export function typeset(text: string, locale: 'en' | 'de', { isSpan = false } = 
 
   return t
 }
+
+// Undoes the last-pair glue that hyphenate.ts's finishLine adds, for
+// headings. They use text-balance, which already evens out the lines so
+// none ends on a lone word — and in a narrow column a glued pair of large
+// uppercase words ("FOLLOWS CONTENT.") can be wider than the column, so the
+// browser broke it mid-word. A number stays with its word
+// ("25 Präsentationen").
+export function releaseLastPair(text: string): string {
+  return text
+    .split(/(<br\s*\/?>)/i)
+    .map((line) => line.replace(/(?<!\d)\u00A0(?=\S+\s*$)/, ' '))
+    .join('')
+}

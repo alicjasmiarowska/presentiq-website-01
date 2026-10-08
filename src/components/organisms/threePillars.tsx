@@ -33,7 +33,7 @@ export default function Pillars({ data, locale }: PillarsProps) {
     if (!el) return
 
     const measure = () => {
-      const isDesktop = window.matchMedia('(min-width: 768px)').matches
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches
       if (!isDesktop) {
         setLineHeight(null)
         setRowHeight(null)

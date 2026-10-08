@@ -20,7 +20,7 @@ export default function PhotoTextBlocks({ data, locale }: PhotoTextBlocksProps) 
 
   useEffect(() => {
     const measure = () => {
-      const isDesktop = window.matchMedia('(min-width: 768px)').matches
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches
       if (!isDesktop) {
         setMinHeight(undefined)
         return
