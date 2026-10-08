@@ -20,7 +20,15 @@ export async function generateMetadata({
   const l = locale as 'en' | 'de'
   const data = await getPrivacyPolicy()
   const t = (field: any) => resolveLocale(field, l)
-  const seo = resolveSeoText(data?.seo, l, t(data?.heading) || data?.title || 'Privacy Policy')
+  const seo = resolveSeoText(
+    data?.seo,
+    l,
+    t(data?.heading) || data?.title || 'Privacy Policy',
+    // Fallback summary for search results when Sanity has none.
+    l === 'de'
+      ? 'Datenschutzerklärung der Presentiq GmbH: welche Daten wir verarbeiten, wofür und welche Rechte Sie haben.'
+      : 'Privacy policy of Presentiq GmbH: which data we process, why, and what rights you have.'
+  )
 
   return buildMetadata({
     locale: l,

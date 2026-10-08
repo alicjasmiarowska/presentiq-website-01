@@ -4,6 +4,10 @@ import { urlFor } from '@/sanity/lib/image'
 import { stripSoftHyphens } from './hyphenate'
 import { resolveLocale } from './locale'
 
+// Link-preview image (LinkedIn, WhatsApp, Slack, …) for any page without its
+// own SEO image in Sanity: the logo on the hero background.
+export const DEFAULT_OG_IMAGE = { url: '/og-image.png', width: 1200, height: 630, alt: 'Presentiq' }
+
 interface BuildMetadataParams {
   locale: 'en' | 'de'
   path: string
@@ -18,7 +22,9 @@ export function buildMetadata({ locale, path, title: rawTitle, description: rawD
   const title = stripSoftHyphens(rawTitle)
   const description = stripSoftHyphens(rawDescription)
   const url = `${siteUrl}/${locale}${path}`
-  const ogImageUrl = image?.asset ? urlFor(image).width(1200).height(630).url() : undefined
+  const ogImage = image?.asset
+    ? { url: urlFor(image).width(1200).height(630).url(), width: 1200, height: 630, alt: title }
+    : DEFAULT_OG_IMAGE
 
   return {
     title,
@@ -30,14 +36,24 @@ export function buildMetadata({ locale, path, title: rawTitle, description: rawD
         de: `${siteUrl}/de${path}`,
       },
     },
+    // A page's openGraph/twitter replace the root layout's wholesale, so the
+    // shared fields are repeated here.
     openGraph: {
       title,
       description,
       url,
+      siteName: 'Presentiq',
+      type: 'website',
       locale: locale === 'de' ? 'de_DE' : 'en_US',
-      images: ogImageUrl ? [{ url: ogImageUrl, width: 1200, height: 630 }] : undefined,
+      alternateLocale: locale === 'de' ? 'en_US' : 'de_DE',
+      images: [ogImage],
     },
-    twitter: ogImageUrl ? { images: [ogImageUrl] } : undefined,
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage.url],
+    },
   }
 }
 

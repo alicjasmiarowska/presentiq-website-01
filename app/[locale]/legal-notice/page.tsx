@@ -20,7 +20,15 @@ export async function generateMetadata({
   const l = locale as 'en' | 'de'
   const data = await getLegalNotice()
   const t = (field: any) => resolveLocale(field, l)
-  const seo = resolveSeoText(data?.seo, l, t(data?.heading) || data?.title || 'Legal Notice')
+  const seo = resolveSeoText(
+    data?.seo,
+    l,
+    t(data?.heading) || data?.title || 'Legal Notice',
+    // Fallback summary for search results when Sanity has none.
+    l === 'de'
+      ? 'Impressum der Presentiq GmbH: Anbieterkennzeichnung, Kontakt und verantwortliche Personen.'
+      : 'Legal notice of Presentiq GmbH: company details, contact and responsible persons.'
+  )
 
   return buildMetadata({
     locale: l,

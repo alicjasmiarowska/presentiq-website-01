@@ -68,7 +68,7 @@ export default {
     {
       name: 'loginHref',
       title: 'Login URL',
-      description: 'An internal path (e.g. /login) or a full external link (e.g. https://app.presentiq.com) — opens in a new tab.',
+      description: 'An internal path (e.g. /login) or a full external link (e.g. https://extranet.k16.de) — opens in a new tab.',
       type: 'string',
     },
   ],

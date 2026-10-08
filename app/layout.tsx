@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { headers } from "next/headers";
 import { siteUrl } from "@/src/lib/siteUrl";
+import { DEFAULT_OG_IMAGE } from "@/src/lib/pageMetadata";
 import "./globals.css";
 
 const defaultDescription =
@@ -17,10 +18,18 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: "Presentiq",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
+    images: [DEFAULT_OG_IMAGE.url],
   },
+};
+
+// Colours the browser UI (Android address bar, Safari tab bar) in the
+// site's navy.
+export const viewport: Viewport = {
+  themeColor: "#000023",
 };
 
 export default async function RootLayout({
