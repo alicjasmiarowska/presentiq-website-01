@@ -52,7 +52,6 @@ src/components/       atoms → molecules → organisms
 src/lib/              Typography and hyphenation, metadata, image loader, mail
 src/styles/           Design tokens (colours, type scale)
 sanity/               Studio schemas, structure and data fetching
-scripts/              One-off content migration scripts (npx sanity exec …)
 docs/                 Operational documentation
 public/               Static assets, icons, llms.txt
 ```
