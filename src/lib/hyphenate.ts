@@ -165,5 +165,8 @@ export function hyphenateLocalized<T>(value: T, lang: 'en' | 'de' | null = null,
 
 // JSON-LD for search engines must not carry soft hyphens.
 export function toJsonLd(data: unknown): string {
-  return JSON.stringify(data).replace(/\u00AD/g, '')
+  // Escaped "<" keeps CMS text such as "</script>" from closing the
+  // surrounding <script type="application/ld+json"> tag; JSON parsers read
+  // \u003c back as "<".
+  return JSON.stringify(data).replace(/\u00AD/g, '').replace(/</g, '\\u003c')
 }
