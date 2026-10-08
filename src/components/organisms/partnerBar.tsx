@@ -27,7 +27,15 @@ export default function PartnerBar({ data, locale }: PartnerBarProps) {
           <RichText value={text} color="secondary" />
         </Reveal>
         <Reveal delay={100} className="md:col-span-1 md:justify-self-end">
-          <Image src="/images/logo-k16.svg" alt="K16" width={96} height={83} className="w-20 md:w-24 h-auto" />
+          <a
+            href="https://www.k16.de/de"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={locale === 'de' ? 'K16 (öffnet in neuem Fenster)' : 'K16 (opens in a new window)'}
+            className="block transition-opacity hover:opacity-70"
+          >
+            <Image src="/images/logo-k16.svg" alt="K16" width={96} height={83} className="w-20 md:w-24 h-auto" />
+          </a>
         </Reveal>
       </div>
     </section>
