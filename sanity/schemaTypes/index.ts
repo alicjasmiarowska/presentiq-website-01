@@ -8,9 +8,7 @@ import textAndImageSliderServices from './textAndImageSliderServices'
 import threePillars from './threePillars'
 import fourPillars from './fourPillars'
 import fourColumns from './fourColumns'
-import processSection from './process'
 import features from './features'
-import tools from './tools'
 import service from './service'
 import servicesSection from './servicesSection'
 import logoWall from './logoWall'
@@ -48,9 +46,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     threePillars,
     fourPillars,
     fourColumns,
-    processSection,
     features,
-    tools,
     service,
     servicesSection,
     logoWall,

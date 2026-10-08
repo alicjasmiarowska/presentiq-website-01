@@ -18,14 +18,6 @@ export async function getNavigation() {
   }`)
 }
 
-export async function getTextAndPicture(locale: 'en' | 'de') {
-  return fetchContent(`*[_type == "textAndPicture"][0]{
-    ...,
-    "videoUrl": video.asset->url,
-    buttonPage->{ "type": _type, "slug": slug.current }
-  }`)
-}
-
 export async function getThreePillars(locale: 'en' | 'de') {
   return fetchContent(`*[_type == "pillars"][0]`)
 }
@@ -42,18 +34,6 @@ export async function getFourColumns() {
       buttonPage->{ "type": _type, "slug": slug.current }
     }
   }`)
-}
-
-export async function getProcess(locale: 'en' | 'de') {
-  return fetchContent(`*[_type == "process"][0]`)
-}
-
-export async function getFeatures(locale: 'en' | 'de') {
-  return fetchContent(`*[_type == "features"][0]`)
-}
-
-export async function getTools(locale: 'en' | 'de') {
-  return fetchContent(`*[_type == "tools"][0]`)
 }
 
 export async function getServicesSection(locale: 'en' | 'de') {
