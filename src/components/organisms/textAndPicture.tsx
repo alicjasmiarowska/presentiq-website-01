@@ -88,8 +88,8 @@ export default function TextAndPictureSection({ data, locale, textColor = 'dark'
                   fill
                   sizes={`(max-width: 1103px) 100vw, ${imageWidth}vw`}
                   className={fitClass}
-                  priority={priority}
-                  loading={priority ? undefined : 'lazy'}
+                  fetchPriority={priority ? 'high' : 'auto'}
+                  loading={priority ? 'eager' : 'lazy'}
                 />
                 {data.aiGenerated && <AiBadge locale={locale} className="left-4!" />}
               </div>

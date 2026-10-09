@@ -34,9 +34,11 @@ export default async function PortfolioPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const data = await getPortfolio()
-  const caseStudies = await getCaseStudies()
-  const finalCtaData = await getFinalCta(locale as 'en' | 'de')
+  const [data, caseStudies, finalCtaData] = await Promise.all([
+    getPortfolio(),
+    getCaseStudies(),
+    getFinalCta(locale as 'en' | 'de'),
+  ])
 
   return (
     <main>

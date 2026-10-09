@@ -58,7 +58,7 @@ export default function HeroSection({ data, locale, glow }: HeroSectionProps) {
         height={692}
         className="absolute top-0 left-0 w-40 md:w-156 lg:w-124 h-auto pointer-events-none select-none"
         unoptimized
-        priority
+        fetchPriority="high"
       />
 
       {/* This wrapper spans the section's full height (inset-y-0), which on

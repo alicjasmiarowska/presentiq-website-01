@@ -55,17 +55,29 @@ export default async function Home({
 }) {
   const { locale } = await params
 
-  const homepageData = await getHomepage()
+  const [
+    homepageData,
+    featuredWorkData,
+    threePillarsData,
+    servicesSectionData,
+    logoWallData,
+    fourColumnsData,
+    videoSectionData,
+    faqData,
+    finalCtaData,
+  ] = await Promise.all([
+    getHomepage(),
+    getFeaturedWork(locale as 'en' | 'de'),
+    getThreePillars(locale as 'en' | 'de'),
+    getServicesSection(locale as 'en' | 'de'),
+    getLogoWall(locale as 'en' | 'de'),
+    getFourColumns(),
+    getVideoSection(),
+    getFaq('home'),
+    getFinalCta(locale as 'en' | 'de'),
+  ])
   const heroData = homepageData?.hero
   const twoColumnSectionData = homepageData?.twoColumnSection
-  const featuredWorkData = await getFeaturedWork(locale as 'en' | 'de')
-  const threePillarsData = await getThreePillars(locale as 'en' | 'de')
-  const servicesSectionData = await getServicesSection(locale as 'en' | 'de')
-  const logoWallData = await getLogoWall(locale as 'en' | 'de')
-  const fourColumnsData = await getFourColumns()
-  const videoSectionData = await getVideoSection()
-  const faqData = await getFaq('home')
-  const finalCtaData = await getFinalCta(locale as 'en' | 'de')
 
   return (
     <main>

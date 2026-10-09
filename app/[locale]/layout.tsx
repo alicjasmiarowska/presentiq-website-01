@@ -29,9 +29,11 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  const navigationData = await getNavigation();
-  const footerData = await getFooter();
-  const servicesSectionData = await getServicesSection(locale as 'en' | 'de');
+  const [navigationData, footerData, servicesSectionData] = await Promise.all([
+    getNavigation(),
+    getFooter(),
+    getServicesSection(locale as 'en' | 'de'),
+  ]);
 
   const organizationJsonLd = {
     '@context': 'https://schema.org',

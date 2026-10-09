@@ -37,9 +37,11 @@ export default async function HowWeWorkPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const data = await getHowWeWork()
-  const faqData = await getFaq('howWeWork')
-  const finalCtaData = await getFinalCta(locale as 'en' | 'de')
+  const [data, faqData, finalCtaData] = await Promise.all([
+    getHowWeWork(),
+    getFaq('howWeWork'),
+    getFinalCta(locale as 'en' | 'de'),
+  ])
 
   return (
     <main>

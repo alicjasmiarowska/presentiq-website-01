@@ -42,9 +42,11 @@ export default async function AboutPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const data = await getAbout()
-  const finalCtaData = await getFinalCta(locale as 'en' | 'de')
-  const fourPillarsData = await getFourPillars(locale as 'en' | 'de')
+  const [data, finalCtaData, fourPillarsData] = await Promise.all([
+    getAbout(),
+    getFinalCta(locale as 'en' | 'de'),
+    getFourPillars(locale as 'en' | 'de'),
+  ])
 
   return (
     <main>

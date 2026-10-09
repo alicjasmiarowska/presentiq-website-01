@@ -105,8 +105,10 @@ export default async function ServicePage({
   // TwoColumnSection (with edge bars) and TextAndPicture (video in place of
   // the image).
   if (slug === 'ai-support') {
-    const data = await getAiDesign()
-    const finalCtaData = await getFinalCta(locale as 'en' | 'de')
+    const [data, finalCtaData] = await Promise.all([
+      getAiDesign(),
+      getFinalCta(locale as 'en' | 'de'),
+    ])
 
     return (
       <main>

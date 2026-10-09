@@ -93,7 +93,7 @@ export default function Navigation({ data, services, locale }: NavigationProps) 
                 src={urlFor(data.logoLight?.asset ? data.logoLight : data.logo).url()}
                 alt={(data.logoLight?.asset ? data.logoLight.alt : data.logo?.alt) || 'Presentiq'}
                 fill
-                priority
+                loading="eager"
                 className="object-contain object-left"
               />
             </span>
