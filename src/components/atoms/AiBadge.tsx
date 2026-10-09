@@ -16,7 +16,7 @@ export default function AiBadge({ locale, className = '' }: AiBadgeProps) {
 
   return (
     <span
-      className={`absolute bottom-4 left-6 md:left-12 lg:left-20 inline-flex items-center rounded-full border border-neutral-light bg-white px-3 py-1 font-sans text-xs text-gray-400 ${className}`}
+      className={`absolute bottom-4 left-6 md:left-12 lg:left-20 inline-flex items-center rounded-full border border-neutral-light bg-white px-3 py-1 font-sans text-xs text-gray-500 ${className}`}
     >
       {label}
     </span>

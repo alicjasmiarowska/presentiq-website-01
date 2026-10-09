@@ -5,6 +5,9 @@ interface HeadingProps {
   text: string
   level?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   variant?: 'default' | 'section'
+  // Renders a different tag than `level` while keeping that level's style,
+  // so the document outline stays sequential (e.g. h3 styled as h4).
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   className?: string
   children?: React.ReactNode
 }
@@ -42,8 +45,8 @@ export const SECTION_VARIANT_STYLE = { fontSize: typography.sectionHeading.fontS
 // hierarchy between a section title and its items.
 export const LEAD_TEXT_CLASSES = 'font-display font-normal uppercase text-h4 md:text-h4-md lg:text-h4-lg leading-tight text-balance hyphens-manual'
 
-export default function Heading({ text, level = 'h1', variant = 'default', className = '', children }: HeadingProps) {
-  const Tag = level
+export default function Heading({ text, level = 'h1', variant = 'default', as, className = '', children }: HeadingProps) {
+  const Tag = as ?? level
 
   // Content editors can force a manual line break by typing <br> in the CMS
   // text field — this text is never parsed as HTML, so we look for that

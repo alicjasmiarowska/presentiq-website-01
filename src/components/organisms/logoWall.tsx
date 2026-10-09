@@ -37,7 +37,7 @@ interface LogoWallProps {
 
 function LogoImage({ logo, hidden }: { logo: Logo; hidden?: boolean }) {
   return (
-    <div className="relative h-8 w-28 shrink-0" {...(hidden ? { 'aria-hidden': true } : {})}>
+    <div className="relative h-8 w-28 shrink-0" {...(hidden ? { 'aria-hidden': true } : { role: 'listitem' })}>
       <Image
         src={urlFor(logo).height(64).url()}
         alt={hidden ? '' : logo.alt || 'Partner logo'}
@@ -57,6 +57,7 @@ function MarqueeRow({ logos, reverse }: { logos: Logo[]; reverse?: boolean }) {
       aria-label="Client logos"
     >
       <div
+        role="none"
         className={`flex w-max items-center gap-20 group-hover:[animation-play-state:paused] ${
           reverse ? 'animate-[marquee-reverse_40s_linear_infinite]' : 'animate-[marquee_40s_linear_infinite]'
         }`}
