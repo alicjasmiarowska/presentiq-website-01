@@ -29,9 +29,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     locales.map((locale) => ({
       url: `${siteUrl}/${locale}${path}`,
       alternates: {
-        languages: Object.fromEntries(
-          locales.map((l) => [l, `${siteUrl}/${l}${path}`])
-        ),
+        languages: {
+          ...Object.fromEntries(locales.map((l) => [l, `${siteUrl}/${l}${path}`])),
+          'x-default': `${siteUrl}/de${path}`,
+        },
       },
     }))
   )

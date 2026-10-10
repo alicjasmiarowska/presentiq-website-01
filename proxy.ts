@@ -34,7 +34,10 @@ function contentSecurityPolicy(nonce: string): string {
     .replace(/\s{2,}/g, ' ')
     .trim()
 }
-const defaultLocale = 'en'
+
+// German is the primary language: the bare domain and unprefixed paths
+// resolve to /de.
+const defaultLocale = 'de'
 
 // Signatures of vulnerability scanners / scraping tools, not legitimate
 // browsers or search engines. Safe to reject outright.
@@ -104,9 +107,9 @@ export function proxy(request: NextRequest) {
     return response
   }
 
-  return NextResponse.redirect(
-    new URL(`/${defaultLocale}${pathname}`, request.url)
-  )
+  // Single hop to the localized URL: "/" → "/de", not "/de/" → "/de".
+  const target = pathname === '/' ? `/${defaultLocale}` : `/${defaultLocale}${pathname}`
+  return NextResponse.redirect(new URL(target, request.url))
 }
 
 export const config = {

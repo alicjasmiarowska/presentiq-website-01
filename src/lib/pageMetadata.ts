@@ -34,6 +34,7 @@ export function buildMetadata({ locale, path, title: rawTitle, description: rawD
       languages: {
         en: `${siteUrl}/en${path}`,
         de: `${siteUrl}/de${path}`,
+        'x-default': `${siteUrl}/de${path}`,
       },
     },
     // A page's openGraph/twitter replace the root layout's wholesale, so the

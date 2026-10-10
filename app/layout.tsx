@@ -38,7 +38,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const headersList = await headers();
-  const locale = headersList.get("x-locale") ?? "en";
+  const locale = headersList.get("x-locale") ?? "de";
   const usercentricsSettingsId = process.env.NEXT_PUBLIC_USERCENTRICS_SETTINGS_ID;
   // Per-request CSP nonce from proxy.ts; scripts without it are blocked.
   const nonce = headersList.get("x-nonce") ?? undefined;
