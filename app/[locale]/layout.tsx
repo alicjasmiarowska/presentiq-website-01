@@ -4,7 +4,6 @@ import Footer from "@/src/components/organisms/footer";
 import BackToTopButton from "@/src/components/atoms/BackToTopButton";
 import IntroLoader from "@/src/components/organisms/IntroLoader";
 import { getNavigation, getFooter, getServicesSection } from "@/sanity/lib/fetch";
-import { urlFor } from "@/sanity/lib/image";
 import { siteUrl } from "@/src/lib/siteUrl";
 import { toJsonLd } from '@/src/lib/hyphenate'
 
@@ -35,14 +34,26 @@ export default async function LocaleLayout({
     getServicesSection(locale as 'en' | 'de'),
   ]);
 
+  // Organization and WebSite give search engines the brand name and logo
+  // shown next to results. The logo is a square raster file on the site's own
+  // domain, as Google's logo guidelines require.
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Presentiq',
+    legalName: 'Presentiq GmbH',
     url: siteUrl,
-    ...(navigationData?.logo?.asset ? { logo: urlFor(navigationData.logo).width(400).url() } : {}),
+    logo: `${siteUrl}/icon-512.png`,
     ...(footerData?.email ? { email: footerData.email } : {}),
     ...(footerData?.phone ? { telephone: footerData.phone } : {}),
+  };
+
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Presentiq',
+    alternateName: 'presentiq.de',
+    url: siteUrl,
   };
 
   return (
@@ -50,6 +61,10 @@ export default async function LocaleLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: toJsonLd(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: toJsonLd(websiteJsonLd) }}
       />
       <IntroLoader />
       <Navigation data={navigationData} services={servicesSectionData?.services} locale={locale as 'en' | 'de'} />
